@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="280" viewBox="0 0 1400 280" fill="none" role="img" aria-label="Verdantia bridge and growth pathway motif">
+  <path d="M0 184C146 88 280 75 405 145c132 74 255 66 387-25 161-111 310-101 608 45" stroke="#173B2F" stroke-width="2" stroke-linecap="round" opacity=".26"/>
+  <path d="M124 198c182-135 426-135 608 0" stroke="#C9A35A" stroke-width="4" stroke-linecap="round" opacity=".82"/>
+  <path d="M704 196c168-120 383-120 552 0" stroke="#6B8F7A" stroke-width="5" stroke-linecap="round" opacity=".45"/>
+  <path d="M507 198c42-45 94-68 155-68 61 0 113 23 155 68" stroke="#173B2F" stroke-width="2" opacity=".28"/>
+  <path d="M603 193V144M648 185V132M693 185V132M738 193V144" stroke="#173B2F" stroke-width="1.5" opacity=".22"/>
+  <circle cx="124" cy="198" r="7" fill="#173B2F"/>
+  <circle cx="429" cy="125" r="6" fill="#6B8F7A"/>
+  <circle cx="704" cy="196" r="10" fill="#C9A35A"/>
+  <circle cx="1020" cy="125" r="6" fill="#6B8F7A"/>
+  <circle cx="1256" cy="196" r="7" fill="#173B2F"/>
+  <path d="M1098 116c33-44 71-65 115-63-49 47-77 89-84 126-11-21-21-42-31-63Z" fill="#6B8F7A" opacity=".28"/>
+  <path d="M1166 132c43-25 82-25 119 0-52 17-93 43-122 78 1-26 2-52 3-78Z" fill="#173B2F" opacity=".18"/>
+  <path d="M241 112c-35-42-74-61-117-57 51 44 82 85 91 122 9-22 18-44 26-65Z" fill="#6B8F7A" opacity=".24"/>
+  <path d="M176 134c-42-23-81-21-117 7 53 13 95 37 127 70-4-26-7-52-10-77Z" fill="#173B2F" opacity=".16"/>
+</svg>
