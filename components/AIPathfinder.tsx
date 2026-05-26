@@ -186,6 +186,7 @@ function buildRecommendation(selections: Record<StepId, string>) {
 
 export function AIPathfinder() {
   const [selections, setSelections] = useState<Record<StepId, string>>(defaultSelections);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   const recommendation = useMemo(() => buildRecommendation(selections), [selections]);
 
   const brief = useMemo(
@@ -207,6 +208,23 @@ export function AIPathfinder() {
   const contactHref = `/contact?enquiryType=${encodeURIComponent(
     recommendation.offer,
   )}&message=${encodeURIComponent(brief)}`;
+
+  async function copyBrief() {
+    try {
+      await navigator.clipboard.writeText(brief);
+      setCopyState("copied");
+    } catch {
+      setCopyState("failed");
+    }
+  }
+
+  function updateSelection(stepId: StepId, value: string) {
+    setSelections((current) => ({
+      ...current,
+      [stepId]: value,
+    }));
+    setCopyState("idle");
+  }
 
   return (
     <section className="section pathfinder-section" aria-labelledby="pathfinder-heading">
@@ -243,12 +261,7 @@ export function AIPathfinder() {
                         type="button"
                         aria-pressed={isActive}
                         className={isActive ? "is-active" : ""}
-                        onClick={() =>
-                          setSelections((current) => ({
-                            ...current,
-                            [step.id]: option.value,
-                          }))
-                        }
+                        onClick={() => updateSelection(step.id, option.value)}
                       >
                         <strong>{option.label}</strong>
                         <span>{option.copy}</span>
@@ -281,19 +294,36 @@ export function AIPathfinder() {
               <span>{findLabel("stage", selections.stage)}</span>
               <span>{findLabel("tools", selections.tools)}</span>
               <span>{findLabel("risk", selections.risk)}</span>
+              <span>{recommendation.offer}</span>
             </div>
 
             <div className="pathfinder-actions">
               <Link className="button button-light" href={contactHref}>
-                <span>Use this enquiry brief</span>
+                <span>Use this as my enquiry brief</span>
                 <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
                   <path d="M6.2 3.2 12 9l-5.8 5.8" />
                 </svg>
               </Link>
-              <button type="button" onClick={() => setSelections(defaultSelections)}>
+              <button type="button" onClick={copyBrief}>
+                {copyState === "copied" ? "Brief copied" : copyState === "failed" ? "Copy unavailable" : "Copy brief"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelections(defaultSelections);
+                  setCopyState("idle");
+                }}
+              >
                 Reset choices
               </button>
             </div>
+            <p className="pathfinder-copy-status" role="status" aria-live="polite">
+              {copyState === "copied"
+                ? "Copied. Paste this into an email or keep it for your planning notes."
+                : copyState === "failed"
+                  ? "Copy failed in this browser. Use the enquiry link instead."
+                  : ""}
+            </p>
           </aside>
         </div>
       </div>

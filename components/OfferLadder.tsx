@@ -6,14 +6,6 @@ type OfferLadderProps = {
   context?: "home" | "offers";
 };
 
-const maturityLabels = ["Baseline", "Practice", "Map", "System"] as const;
-const chooseWhen = [
-  "You need shared language before picking tools or changing process.",
-  "People need hands-on practice, examples, and safer prompting habits.",
-  "The team is ready to connect training to real workflows and decisions.",
-  "AI is already in motion and needs a practical operating rhythm.",
-] as const;
-
 export function OfferLadder({ context = "home" }: OfferLadderProps) {
   return (
     <div className={`premium-offer-ladder premium-offer-ladder-${context}`}>
@@ -28,7 +20,7 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
           <article className="ladder-offer" key={offer.title} role="listitem">
             <div className="ladder-offer-topline">
               <span>{String(index + 1).padStart(2, "0")}</span>
-              <span>{maturityLabels[index]}</span>
+              <span>{offer.level}</span>
             </div>
             <h3>{offer.title}</h3>
             <p>{offer.summary}</p>
@@ -46,7 +38,12 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
 
             <div className="ladder-fit-note">
               <span>Choose this when</span>
-              <p>{chooseWhen[index]}</p>
+              <p>{offer.bestWhen}</p>
+            </div>
+
+            <div className="ladder-leave-note">
+              <span>Team leaves with</span>
+              <p>{offer.leaveWith}</p>
             </div>
 
             <ul aria-label={`${offer.title} deliverables`}>
@@ -60,7 +57,7 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
               href={`/contact?enquiryType=${encodeURIComponent(offer.title)}`}
               aria-label={`Start an enquiry about ${offer.title}`}
             >
-              Start here
+              {offer.ctaLabel}
               <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
                 <path d="M6.2 3.2 12 9l-5.8 5.8" />
               </svg>

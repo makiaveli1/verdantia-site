@@ -42,6 +42,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [notice, setNotice] = useState<string | null>(null);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
+  const [draftReady, setDraftReady] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -90,6 +91,7 @@ export function ContactForm() {
     setErrors((current) => ({ ...current, [field]: undefined }));
     setNotice(null);
     setCopyState("idle");
+    setDraftReady(false);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -98,14 +100,16 @@ export function ContactForm() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      setDraftReady(false);
       setNotice("Please fix the highlighted fields before sending your enquiry.");
       return;
     }
 
     // Email delivery is intentionally not faked in this MVP. Wire this submit path
     // to a verified backend/email provider before treating the form as sent.
+    setDraftReady(true);
     setNotice(
-      "Your enquiry is prepared. Email delivery is not connected yet, so use the mail link or copy the prepared brief below.",
+      "Your enquiry draft is ready. Send it through your email client or copy the prepared brief below.",
     );
   }
 
@@ -152,8 +156,11 @@ export function ContactForm() {
             value={values.organisation}
             onChange={(event) => updateField("organisation", event.target.value)}
             aria-invalid={Boolean(errors.organisation)}
-            aria-describedby={errors.organisation ? "organisation-error" : undefined}
+            aria-describedby={errors.organisation ? "organisation-error" : "organisation-help"}
           />
+          <span id="organisation-help" className="field-help">
+            Company, team, training provider, or community organisation.
+          </span>
           {errors.organisation ? <p id="organisation-error">{errors.organisation}</p> : null}
         </div>
       </div>
@@ -216,6 +223,26 @@ export function ContactForm() {
       {notice ? (
         <div className="form-notice" role="status" aria-live="polite">
           {notice}
+        </div>
+      ) : null}
+
+      {draftReady ? (
+        <div className="form-ready-panel" aria-label="Prepared enquiry draft is ready">
+          <div>
+            <span>Draft ready</span>
+            <h3>Your enquiry draft is prepared.</h3>
+            <p>
+              Verdantia is not pretending this has been sent. Review it, then send the email directly or copy the brief into your own client.
+            </p>
+          </div>
+          <div className="form-ready-actions">
+            <a className="button button-primary" href={mailtoHref}>
+              Open email draft
+            </a>
+            <button className="copy-brief-button" type="button" onClick={copyBrief}>
+              {copyState === "copied" ? "Copied" : copyState === "failed" ? "Copy manually" : "Copy brief"}
+            </button>
+          </div>
         </div>
       ) : null}
 

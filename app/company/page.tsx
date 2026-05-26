@@ -36,6 +36,21 @@ const workingPosture = [
   },
 ] as const;
 
+const teachingPrinciples = [
+  {
+    title: "Start with the work, not the tool",
+    copy: "A prompt only matters if it improves a real task, decision, document, meeting, or workflow. The training starts there.",
+  },
+  {
+    title: "Make judgement visible",
+    copy: "Teams need to know what to trust, what to review, what to avoid, and when a human should stay firmly in the loop.",
+  },
+  {
+    title: "Leave people with something reusable",
+    copy: "Good sessions should produce prompts, maps, checklists, examples, or next steps the team can return to after the room goes quiet.",
+  },
+] as const;
+
 export default function CompanyPage() {
   return (
     <main id="main" className="inner-page company-page-premium">
@@ -97,6 +112,27 @@ export default function CompanyPage() {
               <li key={item}>{item}</li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="section founder-note-section" aria-labelledby="founder-note-heading">
+        <div className="shell founder-note-panel">
+          <div className="founder-note-copy">
+            <p className="section-kicker">Why I teach AI this way</p>
+            <h2 id="founder-note-heading">The awkward middle is where teams need the most help.</h2>
+            <p>
+              AI usually arrives before the policy, before the workflow, and before everyone agrees what “good use” looks like. Verdantia is built for that middle ground: practical enough for daily work, careful enough for real organisational risk.
+            </p>
+          </div>
+          <div className="founder-note-cards" aria-label="Gbemi's teaching principles">
+            {teachingPrinciples.map((principle, index) => (
+              <article key={principle.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{principle.title}</h3>
+                <p>{principle.copy}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

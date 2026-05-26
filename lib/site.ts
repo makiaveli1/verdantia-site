@@ -12,6 +12,12 @@ export const contactEmail = "oluwagbemi@verdantia.it";
 export const offers = [
   {
     title: "AI Team Briefing",
+    level: "Baseline",
+    buyerQuestion: "Where should we start?",
+    bestWhen: "You need shared language before picking tools or changing process.",
+    leaveWith: "A practical AI baseline and recommended next step.",
+    intensity: "Light",
+    ctaLabel: "Start with a briefing",
     price: "€500–€750",
     duration: "60–90 minutes",
     summary:
@@ -22,6 +28,12 @@ export const offers = [
   },
   {
     title: "Practical AI Workshop",
+    level: "Practice",
+    buyerQuestion: "How should the team use AI safely?",
+    bestWhen: "People need hands-on practice, examples, and safer prompting habits.",
+    leaveWith: "Role-based practice, safer prompt habits, and a responsible-use checklist.",
+    intensity: "Hands-on",
+    ctaLabel: "Plan a workshop",
     price: "€1,250–€1,750",
     duration: "Half day",
     summary:
@@ -32,6 +44,12 @@ export const offers = [
   },
   {
     title: "AI Adoption Day",
+    level: "Map",
+    buyerQuestion: "Which workflows should improve first?",
+    bestWhen: "The team is ready to connect training to real workflows and decisions.",
+    leaveWith: "A use-case map, starter prompt library, and adoption roadmap.",
+    intensity: "Deep dive",
+    ctaLabel: "Map an adoption day",
     price: "€2,250–€3,000",
     duration: "Full day",
     summary:
@@ -42,6 +60,12 @@ export const offers = [
   },
   {
     title: "AI Adoption Sprint",
+    level: "System",
+    buyerQuestion: "How do we make adoption stick?",
+    bestWhen: "AI is already in motion and needs a practical operating rhythm.",
+    leaveWith: "A workflow/prompt pack, safe-use guidance, roadmap, and follow-up support.",
+    intensity: "Structured support",
+    ctaLabel: "Discuss a sprint",
     price: "€3,500–€6,000",
     duration: "2–4 weeks",
     summary:

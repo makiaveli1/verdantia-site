@@ -92,21 +92,15 @@ export default function OffersPage() {
             <div className="comparison-row comparison-head" role="row">
               <span role="columnheader">Offer</span>
               <span role="columnheader">Best question</span>
+              <span role="columnheader">Intensity</span>
               <span role="columnheader">Primary leave-behind</span>
             </div>
-            {offers.map((offer, index) => (
+            {offers.map((offer) => (
               <div className="comparison-row" role="row" key={offer.title}>
                 <span role="cell">{offer.title}</span>
-                <span role="cell">
-                  {index === 0
-                    ? "Where should we start?"
-                    : index === 1
-                      ? "How should the team use AI safely?"
-                      : index === 2
-                        ? "Which workflows should improve first?"
-                        : "How do we make adoption stick?"}
-                </span>
-                <span role="cell">{offer.outputs[offer.outputs.length - 1]}</span>
+                <span role="cell">{offer.buyerQuestion}</span>
+                <span role="cell">{offer.intensity}</span>
+                <span role="cell">{offer.leaveWith}</span>
               </div>
             ))}
           </div>

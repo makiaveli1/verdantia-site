@@ -2742,6 +2742,19 @@ p {
   font-weight: 850;
 }
 
+.pathfinder-actions > button:hover,
+.pathfinder-actions > button:focus-visible {
+  border-color: rgba(201, 163, 90, 0.76);
+  background: rgba(201, 163, 90, 0.13);
+}
+
+.pathfinder-copy-status {
+  min-height: 1.35rem;
+  margin: 0.75rem 0 0;
+  color: rgba(255, 253, 248, 0.76);
+  font-size: 0.88rem;
+}
+
 .product-studio-grid,
 .company-story-grid,
 .contact-experience,
@@ -2913,6 +2926,84 @@ p {
 .founder-editorial-copy p:not(.section-kicker) {
   margin-top: 1rem;
   font-size: 1.1rem;
+}
+
+.founder-note-section {
+  padding-top: 0;
+}
+
+.founder-note-panel {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.52fr) minmax(0, 0.88fr);
+  gap: clamp(1.4rem, 4vw, 3.4rem);
+  align-items: stretch;
+  border: 1px solid var(--line-soft);
+  border-radius: calc(var(--brand-radius) + 6px);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--surface-panel-solid) 86%, transparent), color-mix(in srgb, var(--brand-evergreen) 6%, var(--surface-page))),
+    var(--surface-panel-solid);
+  box-shadow: var(--brand-shadow-soft);
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.founder-note-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--brand-evergreen) 92%, black 8%);
+  padding: clamp(1.2rem, 3vw, 1.7rem);
+}
+
+.founder-note-copy h2 {
+  max-width: 10ch;
+  color: var(--brand-ivory-2);
+  font-size: clamp(2.3rem, 4vw, 4rem);
+}
+
+.founder-note-copy p:not(.section-kicker) {
+  margin-top: 1.2rem;
+  color: rgba(255, 253, 248, 0.78);
+  font-size: 1rem;
+}
+
+.founder-note-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.founder-note-cards article {
+  display: flex;
+  min-height: 18rem;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface-page-raised) 82%, transparent);
+  padding: 1rem;
+}
+
+.founder-note-cards span {
+  color: var(--brand-gold-text);
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.founder-note-cards h3 {
+  max-width: 10ch;
+  margin-top: auto;
+  color: var(--text-heading);
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 2.4vw, 2.3rem);
+  line-height: 0.98;
+}
+
+.founder-note-cards p {
+  margin: 1rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.96rem;
+  line-height: 1.55;
 }
 
 .posture-cards {
@@ -3925,12 +4016,21 @@ p {
   .pathfinder-board,
   .product-studio-grid,
   .company-story-grid,
+  .founder-note-panel,
   .contact-experience,
   .contact-next,
   .company-posture,
   .product-principles,
   .roadmap-panel {
     grid-template-columns: 1fr;
+  }
+
+  .founder-note-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-note-cards article {
+    min-height: 0;
   }
 
   .page-hero-visual {
@@ -4593,7 +4693,8 @@ p {
 }
 
 .ladder-offer > p,
-.ladder-fit-note p {
+.ladder-fit-note p,
+.ladder-leave-note p {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.98rem;
@@ -4628,14 +4729,21 @@ p {
   text-align: right;
 }
 
-.ladder-fit-note {
+.ladder-fit-note,
+.ladder-leave-note {
   border: 1px solid color-mix(in srgb, var(--brand-gold-text) 22%, var(--line-soft));
   border-radius: 16px;
   background: color-mix(in srgb, var(--brand-gold) 13%, var(--surface-page-raised));
   padding: 0.85rem;
 }
 
-.ladder-fit-note span {
+.ladder-leave-note {
+  border-color: color-mix(in srgb, var(--brand-evergreen) 22%, var(--line-soft));
+  background: color-mix(in srgb, var(--brand-evergreen) 7%, var(--surface-page-raised));
+}
+
+.ladder-fit-note span,
+.ladder-leave-note span {
   display: block;
   margin-bottom: 0.34rem;
   color: var(--brand-gold-text);
@@ -4712,7 +4820,7 @@ p {
 
 .comparison-row {
   display: grid;
-  grid-template-columns: 0.8fr 1fr 0.8fr;
+  grid-template-columns: 0.72fr 1fr 0.52fr 1.16fr;
   gap: 1rem;
   border-top: 1px solid var(--line-soft);
   padding: 1rem;
@@ -4849,6 +4957,7 @@ p {
 }
 
 .contact-form-header span,
+.form-ready-panel span,
 .email-preview > span {
   display: block;
   color: var(--brand-gold-text);
@@ -4877,6 +4986,45 @@ p {
   margin-top: 0.45rem;
   color: var(--text-subtle);
   font-size: 0.85rem;
+}
+
+.form-ready-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--brand-gold-text) 34%, var(--line-soft));
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--brand-gold) 20%, transparent), transparent 34%),
+    color-mix(in srgb, var(--surface-page-raised) 88%, transparent);
+  box-shadow: var(--brand-shadow-soft);
+  padding: 1rem;
+}
+
+.form-ready-panel h3,
+.form-ready-panel p {
+  margin: 0.35rem 0 0;
+}
+
+.form-ready-panel h3 {
+  color: var(--text-heading);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.form-ready-panel p {
+  max-width: 50rem;
+  color: var(--text-muted);
+}
+
+.form-ready-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .email-preview {
@@ -5035,8 +5183,18 @@ p {
 
 @media (max-width: 760px) {
   .hero-commercial-strip,
-  .comparison-row {
+  .comparison-row,
+  .form-ready-panel {
     grid-template-columns: 1fr;
+  }
+
+  .form-ready-actions {
+    justify-content: stretch;
+  }
+
+  .form-ready-actions .button,
+  .form-ready-actions .copy-brief-button {
+    width: 100%;
   }
 
   .studio-canvas-shell {
