@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: "Verdantia",
   title: {
-    default: "Verdantia | Practical AI & Digital Enablement in Ireland",
+    default: "Verdantia | Practical AI Training & Adoption Support",
     template: "%s",
   },
   description:
-    "Verdantia helps organisations adopt practical AI through consulting, training, workflow design, prompt libraries, custom assistants, automation, and adoption support.",
+    "Verdantia helps Ireland and UK teams move from scattered AI experiments to safe, practical, repeatable AI workflows through briefings, workshops, adoption days, and adoption sprints.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

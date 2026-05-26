@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site";
 
-const routes = ["", "/capabilities", "/products", "/company", "/contact"] as const;
+const routes = ["", "/offers", "/company", "/contact"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
@@ -11,4 +11,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1 : 0.8,
   }));
 }
-

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="120" y1="260" x2="1280" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c9a35a" stop-opacity="0"/>
+      <stop offset="0.22" stop-color="#c9a35a" stop-opacity="0.48"/>
+      <stop offset="0.54" stop-color="#6b8f7a" stop-opacity="0.26"/>
+      <stop offset="0.82" stop-color="#c9a35a" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#c9a35a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="green" x1="88" y1="340" x2="1312" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0e3d2f" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#0e3d2f" stop-opacity="0.18"/>
+      <stop offset="0.52" stop-color="#0e3d2f" stop-opacity="0.1"/>
+      <stop offset="0.84" stop-color="#0e3d2f" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0e3d2f" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-60%" width="120%" height="220%">
+      <feGaussianBlur stdDeviation="0.2"/>
+    </filter>
+  </defs>
+  <path d="M20 302C206 112 382 132 514 245C642 355 800 364 938 224C1052 108 1194 118 1380 280" stroke="url(#green)" stroke-width="2.4" stroke-linecap="round" filter="url(#soft)"/>
+  <path d="M92 278C248 226 364 226 492 284C638 350 790 328 934 250C1070 176 1198 166 1312 210" stroke="url(#gold)" stroke-width="2.8" stroke-linecap="round"/>
+  <path d="M238 310C354 236 456 226 560 280C698 352 830 340 954 276" stroke="#0e3d2f" stroke-opacity="0.12" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="8 14"/>
+  <g fill="#fffdf8" stroke="#0e3d2f" stroke-opacity="0.16">
+    <rect x="140" y="172" width="116" height="82" rx="18" transform="rotate(-9 140 172)"/>
+    <rect x="1092" y="184" width="126" height="88" rx="18" transform="rotate(10 1092 184)"/>
+    <rect x="1126" y="230" width="118" height="80" rx="18" transform="rotate(-7 1126 230)"/>
+  </g>
+  <g fill="#0e3d2f" opacity="0.22">
+    <circle cx="178" cy="258" r="7"/>
+    <circle cx="454" cy="276" r="6"/>
+    <circle cx="708" cy="296" r="8"/>
+    <circle cx="948" cy="248" r="6"/>
+    <circle cx="1224" cy="276" r="7"/>
+  </g>
+  <g fill="#c9a35a" opacity="0.66">
+    <circle cx="708" cy="296" r="13"/>
+    <circle cx="708" cy="296" r="4" fill="#fffdf8"/>
+  </g>
+</svg>

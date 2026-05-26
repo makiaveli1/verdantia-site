@@ -215,7 +215,12 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className={isOpen ? "mobile-panel is-open" : "mobile-panel"} id="mobile-navigation">
+        <div
+          className={isOpen ? "mobile-panel is-open" : "mobile-panel"}
+          id="mobile-navigation"
+          aria-hidden={!isOpen}
+          inert={!isOpen}
+        >
           <div className="shell mobile-panel-inner">
             <nav aria-label="Mobile navigation">
               {navItems.map((item, index) => {

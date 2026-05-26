@@ -4,31 +4,31 @@ import { contactEmail } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "Contact Verdantia | AI Consulting & Training Enquiries",
+  title: "Contact Verdantia | AI Training & Adoption Enquiries",
   description:
-    "Contact Verdantia for AI consulting, team training, adoption support, prompt libraries, automation, and custom assistant planning.",
+    "Contact Verdantia about AI team briefings, practical AI workshops, adoption days, adoption sprints, and training provider partnerships.",
   path: "/contact",
 });
 
 const enquiryGuidance = [
   "Where your team is with AI today",
   "The tools you are already using or considering",
-  "The workflows, teams, or risks that need attention",
-  "Whether you need consulting, training, adoption support, or a mix",
+  "The workflows, roles, or risks that need attention",
+  "Whether you want a briefing, workshop, adoption day, sprint, or partnership conversation",
 ] as const;
 
 const nextSteps = [
   {
     title: "Read the context",
-    copy: "Verdantia reviews the enquiry and looks for the clearest starting point.",
+    copy: "Verdantia reviews the enquiry and looks for the lightest useful starting point.",
   },
   {
     title: "Shape the conversation",
-    copy: "The first reply focuses on your team, likely support needs, and sensible next steps.",
+    copy: "The first reply focuses on your team, likely support needs, fit, and sensible next steps.",
   },
   {
     title: "Keep it practical",
-    copy: "If there is a fit, the work is scoped around real tasks, safe habits, and useful materials.",
+    copy: "If there is a fit, the work is scoped around real tasks, safe habits, useful materials, and a clear delivery path.",
   },
 ] as const;
 
@@ -37,14 +37,12 @@ export default function ContactPage() {
     <main id="main" className="inner-page">
       <PageHero
         kicker="Contact"
-        title="Start a conversation."
+        title="Start with the right first step."
         visual="contact"
-        meta={["AI consulting", "Team training", "Adoption support"]}
+        meta={["Briefings", "Workshops", "Adoption sprints"]}
       >
         <p>
-          Tell us what you are working on, where your team is with AI, and what
-          kind of support you need. If you used AI Pathfinder, your brief can be
-          carried into the form automatically.
+          Tell us what your team is trying to improve, where AI is already showing up, and what kind of support you are considering. If you used AI Pathfinder, your brief can be carried into the form automatically.
         </p>
       </PageHero>
 
@@ -54,9 +52,7 @@ export default function ContactPage() {
             <p className="section-kicker">Enquiry details</p>
             <h2 id="contact-form-heading">Useful context makes the first conversation sharper.</h2>
             <p>
-              Email integration is pending for this first version. The form
-              validates your details and prepares the enquiry, while direct
-              email remains clearly available.
+              This form helps you prepare a clear enquiry and send it directly by email. Share enough context for a useful first reply; a few specific details are better than a long generic message.
             </p>
             <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
             <ul aria-label="What to include">

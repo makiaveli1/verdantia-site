@@ -6,13 +6,13 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Digital Products | Verdantia",
   description:
-    "Explore Verdantia's product direction and how future digital products will sit alongside consulting and training work.",
+    "Explore how Verdantia thinks about focused digital tools that support practical AI training, workflow clarity, and adoption.",
   path: "/products",
 });
 
 const productPrinciples = [
   "Solve a specific working problem.",
-  "Keep the product story separate from consulting.",
+  "Support teams without adding noise.",
   "Design for clarity before adding complexity.",
   "Build useful systems that can improve over time.",
 ] as const;
@@ -20,7 +20,7 @@ const productPrinciples = [
 const productStages = [
   {
     label: "Research",
-    copy: "Understand the user, the work, the files, the constraints, and what a better tool should make easier.",
+    copy: "Understand the team, the work, the constraints, and what a better tool should make easier.",
   },
   {
     label: "Prototype",
@@ -28,7 +28,7 @@ const productStages = [
   },
   {
     label: "Prepare",
-    copy: "Keep public product announcements for the moment when the product has a clear promise and context.",
+    copy: "Share tools when they have a clear audience, a practical promise, and enough context to be useful.",
   },
 ] as const;
 
@@ -37,28 +37,26 @@ export default function ProductsPage() {
     <main id="main" className="inner-page">
       <PageHero
         kicker="Products"
-        title="Practical digital products from Verdantia."
+        title="Focused digital tools for practical AI work."
         visual="products"
-        meta={["Focused tools", "Separate product stories", "Built with practical AI thinking"]}
-        actions={<ButtonLink href="/contact">Discuss product thinking</ButtonLink>}
+        meta={["Focused tools", "Workflow clarity", "Practical AI thinking"]}
+        actions={<ButtonLink href="/contact">Discuss a practical tool need</ButtonLink>}
       >
         <p>
-          Verdantia builds focused digital products alongside its consulting and
-          training work. Product work sits within the wider Verdantia ecosystem,
-          giving the company room to grow beyond services while keeping each
-          product clear and separate.
+          Verdantia’s product thinking focuses on small, useful tools that make
+          AI-supported work easier to understand, repeat, and improve.
         </p>
       </PageHero>
 
       <section className="section product-studio-section" aria-labelledby="product-studio-heading">
         <div className="shell product-studio-grid">
           <div className="product-studio-copy">
-            <p className="section-kicker">Product studio</p>
-            <h2 id="product-studio-heading">A place for focused tools, not a distraction from the core offer.</h2>
+            <p className="section-kicker">Digital tools</p>
+            <h2 id="product-studio-heading">Tools should make the work clearer, not louder.</h2>
             <p>
-              Verdantia is service-led in this first public version. Product
-              work will be shared only when it has a clear audience, a useful
-              promise, and a story that can stand apart from consulting.
+              If Verdantia releases tools, they will support the same practical
+              goal as the training work: clearer workflows, safer habits, and
+              reusable materials.
             </p>
           </div>
 
@@ -101,11 +99,11 @@ export default function ProductsPage() {
       <section className="section product-roadmap-section" aria-labelledby="product-roadmap-heading">
         <div className="shell roadmap-panel">
           <div>
-            <p className="section-kicker">Future product space</p>
-            <h2 id="product-roadmap-heading">No public product is being announced yet.</h2>
+            <p className="section-kicker">Product direction</p>
+            <h2 id="product-roadmap-heading">No public product is being sold here yet.</h2>
             <p>
-              The Products page is here to make room for future Verdantia tools
-              without confusing the consulting and training story today.
+              Focused tools may follow when they clearly support team training,
+              workflow clarity, and practical adoption work.
             </p>
           </div>
           <div className="roadmap-steps">

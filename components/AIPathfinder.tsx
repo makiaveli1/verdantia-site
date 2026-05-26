@@ -172,16 +172,16 @@ function buildRecommendation(selections: Record<StepId, string>) {
         ? "The next phase should tighten governance, measurement, and reusable enablement materials."
         : "A short structured programme can connect existing experiments into a shared operating rhythm.";
 
-  const capability =
+  const offer =
     support === "training"
-      ? "AI Training for Teams"
+      ? "Practical AI Workshop"
       : support === "materials"
-        ? "Prompt Engineering & Prompt Libraries"
-        : outcome === "productivity"
-          ? "AI Automation"
-          : "AI Consulting";
+        ? "AI Adoption Day"
+        : outcome === "operating-rhythm" || stage === "scaling"
+          ? "AI Adoption Sprint"
+          : "AI Team Briefing";
 
-  return { primary, focus, pace, capability };
+  return { primary, focus, pace, offer };
 }
 
 export function AIPathfinder() {
@@ -205,26 +205,24 @@ export function AIPathfinder() {
   );
 
   const contactHref = `/contact?enquiryType=${encodeURIComponent(
-    recommendation.capability === "Prompt Engineering & Prompt Libraries"
-      ? "Prompt libraries"
-      : recommendation.capability === "AI Automation"
-        ? "Automation"
-        : recommendation.capability === "AI Training for Teams"
-          ? "Team training"
-          : "AI consulting",
+    recommendation.offer,
   )}&message=${encodeURIComponent(brief)}`;
 
   return (
     <section className="section pathfinder-section" aria-labelledby="pathfinder-heading">
       <div className="shell pathfinder-shell">
-        <div className="pathfinder-intro">
+        <div className="pathfinder-intro premium-pathfinder-intro">
           <p className="section-kicker">AI Pathfinder</p>
           <h2 id="pathfinder-heading">Turn a loose AI conversation into a useful starting brief.</h2>
           <p>
-            Choose the closest fit for your team. Pathfinder turns those choices
-            into a practical recommendation you can bring into a Verdantia
-            conversation.
+            Five quick choices become a practical recommendation, a suggested offer,
+            and a pre-filled enquiry brief. No vague “AI transformation” fog machine.
           </p>
+          <div className="pathfinder-progress" aria-hidden="true">
+            {steps.map((step, index) => (
+              <span key={step.id}>{String(index + 1).padStart(2, "0")}</span>
+            ))}
+          </div>
         </div>
 
         <div className="pathfinder-board">
@@ -270,8 +268,8 @@ export function AIPathfinder() {
 
             <dl>
               <div>
-                <dt>Best-fit capability</dt>
-                <dd>{recommendation.capability}</dd>
+                <dt>Best-fit offer</dt>
+                <dd>{recommendation.offer}</dd>
               </div>
               <div>
                 <dt>Conversation focus</dt>
@@ -279,9 +277,15 @@ export function AIPathfinder() {
               </div>
             </dl>
 
+            <div className="pathfinder-brief-card" aria-label="Selected brief summary">
+              <span>{findLabel("stage", selections.stage)}</span>
+              <span>{findLabel("tools", selections.tools)}</span>
+              <span>{findLabel("risk", selections.risk)}</span>
+            </div>
+
             <div className="pathfinder-actions">
               <Link className="button button-light" href={contactHref}>
-                <span>Start with this brief</span>
+                <span>Use this enquiry brief</span>
                 <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
                   <path d="M6.2 3.2 12 9l-5.8 5.8" />
                 </svg>

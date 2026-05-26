@@ -41,6 +41,7 @@ export function ContactForm() {
   const [values, setValues] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [notice, setNotice] = useState<string | null>(null);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -63,26 +64,32 @@ export function ContactForm() {
     return () => window.clearTimeout(timeout);
   }, []);
 
-  const mailtoHref = useMemo(() => {
-    const subject = encodeURIComponent(`Verdantia enquiry - ${values.enquiryType || "New enquiry"}`);
-    const body = encodeURIComponent(
+  const emailBody = useMemo(
+    () =>
       [
         `Name: ${values.name}`,
         `Organisation: ${values.organisation}`,
         `Email: ${values.email}`,
         `Enquiry type: ${values.enquiryType}`,
         "",
+        "Context:",
         values.message,
       ].join("\n"),
-    );
+    [values],
+  );
+
+  const mailtoHref = useMemo(() => {
+    const subject = encodeURIComponent(`Verdantia enquiry - ${values.enquiryType || "New enquiry"}`);
+    const body = encodeURIComponent(emailBody);
 
     return `mailto:${contactEmail}?subject=${subject}&body=${body}`;
-  }, [values]);
+  }, [emailBody, values.enquiryType]);
 
   function updateField(field: keyof FormState, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setNotice(null);
+    setCopyState("idle");
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -98,12 +105,29 @@ export function ContactForm() {
     // Email delivery is intentionally not faked in this MVP. Wire this submit path
     // to a verified backend/email provider before treating the form as sent.
     setNotice(
-      "The form is ready, but email delivery is not connected yet. Please use the email link below to send this enquiry directly.",
+      "Your enquiry is prepared. Email delivery is not connected yet, so use the mail link or copy the prepared brief below.",
     );
   }
 
+  async function copyBrief() {
+    try {
+      await navigator.clipboard.writeText(`To: ${contactEmail}\nSubject: Verdantia enquiry - ${values.enquiryType || "New enquiry"}\n\n${emailBody}`);
+      setCopyState("copied");
+      setNotice("Prepared enquiry copied. Paste it into your email client and send it directly.");
+    } catch {
+      setCopyState("failed");
+      setNotice("Copy failed in this browser. Select the prepared brief and copy it manually.");
+    }
+  }
+
   return (
-    <form className="contact-form" noValidate onSubmit={handleSubmit}>
+    <form className="contact-form premium-contact-form" noValidate onSubmit={handleSubmit}>
+      <div className="contact-form-header">
+        <span>Enquiry builder</span>
+        <strong>Prepare a useful brief</strong>
+        <p>This form checks the essentials and prepares a direct email you can send.</p>
+      </div>
+
       <div className="field-grid">
         <div className="field">
           <label htmlFor="name">Name</label>
@@ -172,16 +196,20 @@ export function ContactForm() {
       </div>
 
       <div className="field">
-        <label htmlFor="message">Message</label>
+        <label htmlFor="message">What would you like support with?</label>
         <textarea
           id="message"
           name="message"
-          rows={7}
+          rows={8}
           value={values.message}
+          placeholder="Example: We are a 25-person team. People are using ChatGPT and Copilot informally. We need safe prompting habits and a shared workflow for research, reports, and internal documents."
           onChange={(event) => updateField("message", event.target.value)}
           aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? "message-error" : undefined}
+          aria-describedby={errors.message ? "message-error" : "message-help"}
         />
+        <span id="message-help" className="field-help">
+          Include current tools, team size, risk concerns, and the work you want to improve first.
+        </span>
         {errors.message ? <p id="message-error">{errors.message}</p> : null}
       </div>
 
@@ -191,6 +219,11 @@ export function ContactForm() {
         </div>
       ) : null}
 
+      <div className="email-preview" aria-label="Prepared email preview">
+        <span>Prepared brief preview</span>
+        <pre>{emailBody}</pre>
+      </div>
+
       <div className="form-actions">
         <button type="submit" className="button button-primary">
           <span>Prepare enquiry</span>
@@ -199,8 +232,11 @@ export function ContactForm() {
           </svg>
         </button>
         <a className="direct-email" href={mailtoHref}>
-          {contactEmail}
+          Open email draft
         </a>
+        <button className="copy-brief-button" type="button" onClick={copyBrief}>
+          {copyState === "copied" ? "Copied" : copyState === "failed" ? "Copy manually" : "Copy brief"}
+        </button>
       </div>
     </form>
   );

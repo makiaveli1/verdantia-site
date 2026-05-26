@@ -1,46 +1,194 @@
-# Verdantia Site Agent Notes
+# Verdantia website workspace notes
 
-## Overview
-This repository contains the Verdantia Limited public website. It is a mostly static company site for practical AI consulting, training, adoption support, and future Verdantia products.
+## Current strategic direction
 
-## Stack
+Verdantia is a founder-led AI training and adoption practice.
+
+Core positioning:
+
+> Verdantia helps small and mid-sized teams move from scattered AI experiments to safe, practical, repeatable AI workflows.
+
+Founder/company split:
+
+- Verdantia is the commercial vehicle: website, contracts, proposals, workshops, retainers, subcontractors, procurement.
+- Gbemi / Oluwagbemi Enoch Akadiri is the visible trust engine: LinkedIn, speaking, teaching, practical field notes, workshops.
+- Best shorthand: **Verdantia is the vehicle. Gbemi is the trust engine.**
+
+Do not turn Verdantia into a generic AI automation agency. Automation/custom assistants are downstream after diagnosis.
+
+## First-market focus
+
+Primary early segments:
+
+1. Ireland/UK SMEs and smaller corporate teams.
+2. Training providers that need practical GenAI delivery capacity.
+3. Nonprofits/community organisations for accessible pilots and proof-building.
+
+Schools/education are secondary unless the brief is specifically staff AI literacy, teacher/admin workload support, or responsible-use guidance.
+
+## Offer ladder
+
+The site should keep the offer ladder clear and buyable:
+
+1. **AI Team Briefing**
+   - 60–90 minutes
+   - €500–€750
+   - Shared baseline, AI basics, practical examples, risks, Q&A, recommended next step.
+
+2. **Practical AI Workshop**
+   - Half day
+   - €1,250–€1,750
+   - Tool literacy, safe prompting, role-based practice, responsible-use checklist.
+
+3. **AI Adoption Day**
+   - Full day
+   - €2,250–€3,000
+   - Workshop plus workflow mapping, use-case discovery, starter prompt library, adoption roadmap.
+
+4. **AI Adoption Sprint**
+   - 2–4 weeks
+   - €3,500–€6,000
+   - Discovery, training, workflow/prompt pack, safe-use guidance, adoption roadmap, follow-up support.
+
+Revenue logic: €5k/month can come from two full-day workshops or one adoption sprint plus one smaller engagement.
+
+## Website state
+
+Repo path:
+
+```txt
+/home/likwid/projects/verdantia-site
+```
+
+Original Windows/OneDrive source copied from:
+
+```txt
+/mnt/c/Users/likwi/OneDrive/Documents/New project 2
+```
+
+Remote:
+
+```txt
+https://github.com/makiaveli1/verdantia-site.git
+```
+
+Current stack:
+
 - Next.js App Router
 - React
 - TypeScript
 - Custom CSS design system in `app/globals.css`
 - Static assets in `public/assets`
 
+Important routes:
+
+- `/` — homepage, now structured around practical AI training/adoption and the offer ladder.
+- `/offers` — main commercial offer ladder page.
+- `/capabilities` — redirects to `/offers`.
+- `/company` — founder-led/company-first story.
+- `/contact` — enquiry page, form prepares mailto only; email backend is not connected.
+- `/products` — still exists but should remain secondary/lower hierarchy unless explicitly requested.
+
+## Files and docs to know
+
+Commercial docs live in:
+
+```txt
+docs/commercial/
+```
+
+Key files:
+
+- `docs/commercial/verdantia-offer-sheet.md`
+- `docs/commercial/practical-ai-workshop-outline.md`
+- `docs/commercial/discovery-questions.md`
+- `docs/commercial/no-fail-presentation-protocol.md`
+- `docs/commercial/prospect-starter-list.md`
+- `docs/workspace/SESSION_BRIEF.md`
+
+Content/data:
+
+- `lib/site.ts` contains nav items, offers, capabilities, principles, and enquiry types.
+- `components/AIPathfinder.tsx` recommends one of the four offers and pre-fills `/contact` query params.
+
 ## Commands
-- Install: `npm install`
-- Development: `npm run dev`
-- Lint: `npm run lint`
-- Typecheck: `npm run typecheck`
-- Build: `npm run build`
 
-## Important Directories
-- `app/`: routes, layouts, metadata, robots, sitemap, global CSS
-- `components/`: shared layout, brand, CTA, and form components
-- `lib/`: content/data helpers
-- `public/assets/`: generated and optimized Verdantia visual assets
+Install:
 
-## Coding Conventions
-- Keep the site mostly static unless a feature needs client-side behavior.
-- Preserve the Verdantia tone: calm, practical, premium, Irish-business friendly.
-- Avoid generic AI visuals, neon gradients, robots, fake dashboards, and exaggerated AI hype.
-- Keep product work separated from the consulting story. Do not publish named product concepts unless explicitly requested.
-- Do not fake contact form delivery. Add backend/email integration explicitly when available.
+```bash
+npm install
+```
 
-## UI Verification
-- Check desktop, tablet, and mobile widths after visual changes.
-- Watch for horizontal overflow, clipped CTAs, crowded navigation, and text over busy imagery.
-- Maintain semantic heading order, labelled form fields, focus states, and accessible color contrast.
+Development:
 
-## Security Rules
-- Never commit secrets or private credentials.
-- Use environment variables for future integrations.
-- Validate form input on the client, and add server-side validation when backend handling is introduced.
+```bash
+npm run dev
+```
 
-## Definition of Done
-- Relevant lint, typecheck, and build commands pass or failures are documented.
-- Visual/runtime paths are checked for changed pages.
-- The final report includes changed files, validation evidence, visual QA, risks, and next steps.
+Verification:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+Quick local check:
+
+```bash
+curl -I http://localhost:3000
+curl -I http://localhost:3000/offers
+curl -I http://localhost:3000/capabilities
+```
+
+Expected: `/` and `/offers` return 200; `/capabilities` redirects to `/offers`.
+
+## Design and copy rules
+
+- Make the first 5 seconds clear: practical AI training and adoption support for teams.
+- Prefer concrete outcomes over broad hype.
+- Preserve the Verdantia tone: calm, practical, premium, Irish/UK business friendly.
+- Avoid generic AI visuals, neon gradients, robots, fake dashboards, and exaggerated transformation language.
+- Do not fake case studies, client logos, testimonials, or proof.
+- Do not publish named product concepts unless explicitly requested.
+- Keep automation/custom assistants below training/adoption in the hierarchy.
+- Do not fake contact form delivery. It currently validates and prepares the enquiry via mailto only.
+
+## Delivery reliability standard
+
+Every workshop/presentation should have a no-fail delivery path:
+
+- PDF/offline deck.
+- Preloaded tabs.
+- Screenshots/video backups for fragile demos.
+- Tech check 30–60 minutes before.
+- Fallback path: if tech fails, teach from the framework and prepared examples.
+
+## Current verification status
+
+Last verified in this workspace:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+All passed after the `/offers` work.
+
+Browser visual QA checked `/` and `/offers`; the offer grid issue was fixed by adding `offer-catalog` grid rules.
+
+## Recommended next website tasks
+
+1. Review the live local site with Gbemi.
+2. Tighten homepage hero if the line breaks feel too tall.
+3. Decide whether `/products` should be hidden from public nav entirely or left as a quiet future-product page.
+4. Add a real lead-capture/email backend only after choosing the provider.
+5. Create downloadable PDF versions of the offer sheet and workshop outline.
+6. Build a simple outreach tracker from `docs/commercial/prospect-starter-list.md`.
+
+## External action safety
+
+Do not publish, post, email, submit forms, or push commits without explicit approval.
+
+Drafts are safe. Local edits are safe. External-facing sends/publishes require approval of exact text.

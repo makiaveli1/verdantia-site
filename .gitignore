@@ -15,3 +15,6 @@ pnpm-debug.log*
 Thumbs.db
 .playwright-mcp/
 qa-*.png
+.hermes/*
+!.hermes/plans/
+!.hermes/plans/*.md
