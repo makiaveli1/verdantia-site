@@ -11,13 +11,13 @@ import {
   ScrollReveal,
 } from "@/components/HomeExperience";
 import { OfferLadder } from "@/components/OfferLadder";
-import { principles } from "@/lib/site";
+import { individualLearningTracks, principles, toolGroups } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "Verdantia | Practical AI Training & Adoption Support",
+  title: "Verdantia | Practical AI Training, Learning & Adoption Support",
   description:
-    "Verdantia helps Ireland and UK teams move from scattered AI experiments to safe, practical, repeatable AI workflows through briefings, workshops, adoption days, and adoption sprints.",
+    "Verdantia helps teams, training providers, and community organisations turn scattered AI use into safe, practical, repeatable workflows. Individual professionals can join a separate learning-labs lane.",
 });
 
 const proofItems = [
@@ -30,12 +30,16 @@ const proofItems = [
     copy: "Practical AI training and adoption support for SMEs, training providers, nonprofits, and smaller corporate teams.",
   },
   {
+    label: "Professional learning labs",
+    copy: "Short AI skills labs help professionals build practical tool fluency for their own work, with the same focus on judgement and usefulness.",
+  },
+  {
     label: "Tool-agnostic",
-    copy: "ChatGPT, Claude, Gemini, Microsoft Copilot, Perplexity, and wider GenAI workflows — matched to the job, not the hype.",
+    copy: "ChatGPT, Claude, Gemini, Microsoft Copilot, Perplexity, and other everyday AI tools — chosen for the task, not the trend.",
   },
   {
     label: "Automation when useful",
-    copy: "Custom assistants and automation are considered only when the workflow, data, and review needs are clear.",
+    copy: "Automation is only scoped once the team understands the task, the data, and how outputs will be reviewed.",
   },
 ] as const;
 
@@ -46,33 +50,37 @@ const audienceItems = [
   },
   {
     title: "Training providers",
-    copy: "For providers that need practical AI delivery capacity, workshop design, or specialist GenAI sessions.",
+    copy: "For providers that need extra delivery capacity, workshop design, or practical GenAI sessions for clients.",
   },
   {
     title: "Nonprofits and community organisations",
     copy: "For small teams that need accessible AI literacy without a heavy enterprise programme.",
+  },
+  {
+    title: "Individual professionals",
+    copy: "For professionals who want practical AI fluency, workflow confidence, and small-group skill-building without exaggerated career-transformation claims.",
   },
 ] as const;
 
 const deliverables = [
   {
     title: "AI readiness snapshot",
-    eyebrow: "Diagnostic",
+    eyebrow: "Starting point",
     copy: "A clear view of current tool use, confidence, risks, and immediate opportunities.",
   },
   {
     title: "Workflow map",
-    eyebrow: "Operating canvas",
+    eyebrow: "Working map",
     copy: "Priority tasks, decision points, review moments, and where AI support belongs.",
   },
   {
     title: "Prompt library",
-    eyebrow: "Reusable material",
+    eyebrow: "Reusable prompts",
     copy: "Role-based prompts, usage notes, and examples your team can improve over time.",
   },
   {
     title: "Responsible-use checklist",
-    eyebrow: "Safety layer",
+    eyebrow: "Responsible use",
     copy: "Practical guidance for data handling, review habits, quality checks, and human judgement.",
   },
 ] as const;
@@ -85,20 +93,30 @@ export default function Home() {
       <ReactiveArtifactField />
 
       <section className="home-hero premium-home-hero" aria-labelledby="hero-heading">
+        <div className="hero-atmosphere" aria-hidden="true">
+          <Image
+            src="/assets/verdantia-hero-field-guide.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
+
         <div className="shell hero-grid premium-hero-grid">
           <div className="hero-copy premium-hero-copy">
             <p className="eyebrow">Practical AI training and adoption support</p>
-            <h1 id="hero-heading">Make scattered AI use safe and repeatable.</h1>
+            <h1 id="hero-heading">Turn scattered AI use into safe, repeatable practice.</h1>
             <p className="hero-lede">
-              Verdantia helps Ireland and UK teams turn generative AI experiments into practical workflows, safer habits, and reusable materials.
+              Verdantia helps teams, training providers, and community organisations turn scattered AI use into safer, repeatable practice. Individual professionals can join a separate learning-labs lane for practical skill-building.
             </p>
             <p>
-              Start with the lightest useful step: a briefing, workshop, adoption day, or focused sprint built around your team’s real work.
+              Start with a briefing, workshop, adoption day, focused sprint, or skills lab shaped around the work you actually do.
             </p>
             <div className="hero-actions">
-              <ButtonLink href="/offers">Find the right offer</ButtonLink>
-              <ButtonLink href="/contact" variant="secondary" className="hero-secondary-link">
-                Send a useful brief
+              <ButtonLink href="/offers">Compare team offers</ButtonLink>
+              <ButtonLink href="/learning" variant="secondary" className="hero-secondary-link">
+                Explore learning labs
               </ButtonLink>
             </div>
           </div>
@@ -114,10 +132,27 @@ export default function Home() {
           </aside>
         </div>
 
-        <a className="hero-scroll-cue" href="#intro-heading" aria-label="Scroll to the next section">
-          <span>Scroll for the route</span>
+        <a className="hero-scroll-cue" href="#problem-section" aria-label="Open the problem section">
+          <span>The problem</span>
           <i aria-hidden="true" />
         </a>
+      </section>
+
+      <section id="problem-section" className="section intro-section scroll-rise" aria-labelledby="intro-heading">
+        <div className="shell intro-grid">
+          <div>
+            <p className="section-kicker">The problem</p>
+            <h2 id="intro-heading">Most teams do not need another AI talk. They need clear rules, useful examples, and a next step.</h2>
+          </div>
+          <div className="intro-copy">
+            <p>
+              People are already testing ChatGPT, Claude, Gemini, Copilot, Perplexity, and other tools. The hard part is deciding which tasks are suitable, what information is safe to use, how to check the output, and when not to use AI.
+            </p>
+            <p>
+              Verdantia helps teams turn informal AI use into shared practices people can use safely and consistently.
+            </p>
+          </div>
+        </div>
       </section>
 
       <div className="shell hero-proof-strip premium-proof-strip" aria-label="Verdantia summary">
@@ -131,35 +166,18 @@ export default function Home() {
 
       <div className="signal-band" aria-hidden="true">
         <div>
-          <span>AI Team Briefing / Practical AI Workshop / AI Adoption Day / AI Adoption Sprint / Safe AI habits / Workflow mapping /</span>
-          <span>AI Team Briefing / Practical AI Workshop / AI Adoption Day / AI Adoption Sprint / Safe AI habits / Workflow mapping /</span>
+          <span>Briefing / Workshop / Adoption day / Sprint / Safer AI habits / Practical team guidance /</span>
+          <span>Briefing / Workshop / Adoption day / Sprint / Safer AI habits / Practical team guidance /</span>
         </div>
       </div>
-
-      <section className="section intro-section scroll-rise" aria-labelledby="intro-heading">
-        <div className="shell intro-grid">
-          <div>
-            <p className="section-kicker">The problem</p>
-            <h2 id="intro-heading">Most teams do not need another AI hype talk. They need a working route.</h2>
-          </div>
-          <div className="intro-copy">
-            <p>
-              People are already testing ChatGPT, Claude, Gemini, Copilot, Perplexity, and other tools. The gap is not curiosity. The gap is judgement: what to use, when to use it, what not to trust, and how to review the result.
-            </p>
-            <p>
-              Verdantia helps teams move from “we should do something with AI” to safe, useful, repeatable AI workflows.
-            </p>
-          </div>
-        </div>
-      </section>
 
       <section className="section method-section scroll-rise" aria-labelledby="method-heading">
         <div className="shell method-layout">
           <div className="method-copy">
-            <p className="section-kicker">Signature method</p>
-            <h2 id="method-heading">First make the work visible. Then make it repeatable.</h2>
+            <p className="section-kicker">How the work starts</p>
+            <h2 id="method-heading">Clarify the work before changing the tools.</h2>
             <p>
-              The useful move is not adding a shiny assistant on top of a messy process. It is making current work clear enough that training, prompts, review habits, and tool decisions have somewhere sensible to land.
+              The useful move is not adding a shiny assistant on top of a messy process. It is understanding the team’s real tasks first, then building training, prompts, review habits, and tool choices around them.
             </p>
             <div className="method-proof-grid">
               <article className="method-proof-card">
@@ -174,8 +192,8 @@ export default function Home() {
               </article>
               <article className="method-proof-card">
                 <span>03</span>
-                <strong>Leave a system behind</strong>
-                <p>Checklists, prompts, maps, and next steps make progress repeatable.</p>
+                <strong>Leave reusable materials behind</strong>
+                <p>Checklists, prompts, maps, and next steps help the team keep using what it learned.</p>
               </article>
             </div>
           </div>
@@ -185,10 +203,10 @@ export default function Home() {
 
       <section className="section capability-system-section scroll-rise" aria-labelledby="offers-heading">
         <div className="shell section-heading section-heading-centered">
-          <p className="section-kicker">Offer ladder</p>
-          <h2 id="offers-heading">Four clear ways to start.</h2>
+          <p className="section-kicker">Ways to start</p>
+          <h2 id="offers-heading">Four clear ways for teams to start.</h2>
           <p>
-            Each offer is scoped so a team can buy a concrete outcome without committing to more support than it needs.
+            Each organisation offer gives teams a concrete outcome without committing to more support than they need.
           </p>
         </div>
         <div className="shell">
@@ -198,10 +216,10 @@ export default function Home() {
 
       <section className="section pathway-section scroll-rise" aria-labelledby="pathway-heading">
         <div className="shell section-heading section-heading-centered">
-          <p className="section-kicker">Adoption pathway</p>
+          <p className="section-kicker">How support can deepen</p>
           <h2 id="pathway-heading">Brief. Train. Map. Support.</h2>
           <p>
-            The offer ladder lets Verdantia start small, show value, then move into deeper adoption work when the need is real.
+            You can begin with a short session, then move into hands-on training or implementation support only when it is useful.
           </p>
         </div>
         <div className="shell">
@@ -212,10 +230,10 @@ export default function Home() {
       <section className="section deliverables-section scroll-rise" aria-labelledby="deliverables-heading">
         <div className="shell deliverables-layout">
           <div>
-            <p className="section-kicker">What your team leaves with</p>
-            <h2 id="deliverables-heading">Useful artefacts your team can return to.</h2>
+            <p className="section-kicker">What your team keeps using</p>
+            <h2 id="deliverables-heading">Materials your team can return to after the session.</h2>
             <p>
-              Progress shows up in materials your team can actually reuse: maps, prompts, checklists, and next steps.
+              Progress shows up in practical materials your team can reuse: maps, prompts, checklists, and next steps.
             </p>
           </div>
           <div className="artifact-stack" aria-label="Example Verdantia deliverables">
@@ -233,16 +251,68 @@ export default function Home() {
       <section className="section capability-system-section scroll-rise" aria-labelledby="capabilities-heading">
         <div className="shell capability-system">
           <aside className="capability-system-intro">
-            <p className="section-kicker">How Verdantia helps</p>
-            <h2 id="capabilities-heading">Training first. Adoption support next. Automation only when it makes sense.</h2>
+            <p className="section-kicker">What support can include</p>
+            <h2 id="capabilities-heading">Training first. Practical support next. Automation only when the basics are clear.</h2>
             <p>
-              The first step is practical AI training and adoption support. Deeper work can include workflow mapping, prompt systems, safe-use habits, and implementation support.
+              Most teams start with training. Deeper work can map priority tasks, create prompt guidance, define review habits, and support implementation.
             </p>
             <ButtonLink href="/offers" variant="secondary">
-              Explore offers
+              Compare starting points
             </ButtonLink>
           </aside>
           <CapabilityExplorer />
+        </div>
+      </section>
+
+      <section className="section tools-section scroll-rise" aria-labelledby="tools-heading">
+        <div className="shell tools-layout">
+          <div className="tools-intro">
+            <p className="section-kicker">Tools chosen by task</p>
+            <h2 id="tools-heading">The point is not to chase every launch. It is to choose the right tool for the work.</h2>
+            <p>
+              Verdantia helps people practise with familiar AI tools while keeping judgement, privacy, and review habits visible.
+            </p>
+          </div>
+          <div className="tool-cluster-grid" role="list" aria-label="AI tool categories Verdantia can cover">
+            {toolGroups.map((group) => (
+              <article className="tool-cluster-card" key={group.title} role="listitem">
+                <h3>{group.title}</h3>
+                <p>{group.copy}</p>
+                <div aria-label={`${group.title} examples`}>
+                  {group.tools.map((tool) => (
+                    <span key={tool}>{tool}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section individual-lane-section scroll-rise" aria-labelledby="individual-lane-heading">
+        <div className="shell individual-lane-panel">
+          <div>
+            <p className="section-kicker">Individual professionals</p>
+            <h2 id="individual-lane-heading">Practical AI learning for people doing the work.</h2>
+            <p>
+              Some professionals need a focused place to practise: short labs, clinics, and guided projects that turn AI tools into useful personal workflows.
+            </p>
+            <div className="individual-lane-actions">
+              <ButtonLink href="/learning">Explore learning labs</ButtonLink>
+              <ButtonLink href="/contact?enquiryType=Individual%20AI%20skills%20lab" variant="secondary">
+                Ask about a skills lab
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="individual-track-preview" role="list" aria-label="Individual learning lab tracks">
+            {individualLearningTracks.map((track, index) => (
+              <article key={track.title} role="listitem" style={{ "--track-index": index } as CSSProperties}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{track.title}</h3>
+                <p>{track.outcome}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -250,9 +320,9 @@ export default function Home() {
         <div className="shell operating-layout">
           <div className="operating-intro">
             <p className="section-kicker">Who Verdantia supports</p>
-            <h2 id="audience-heading">Start where trust and speed matter.</h2>
+            <h2 id="audience-heading">Best for people who need practical AI support quickly.</h2>
             <p>
-              Verdantia is best suited to organisations that need practical support quickly: enough structure to make progress, without a long transformation programme.
+              Verdantia works best when the goal is useful AI habits, not a long transformation programme or a generic tool tour.
             </p>
           </div>
           <div className="operating-stack">
@@ -287,10 +357,10 @@ export default function Home() {
             <p className="founder-image-caption">Gbemi Akadiri · Founder and lead trainer</p>
           </div>
           <div>
-            <p className="section-kicker">Founder-led, company-backed</p>
-            <h2 id="founder-signal-heading">Founder-led work, backed by a clear company offer.</h2>
+            <p className="section-kicker">Led by Gbemi Akadiri</p>
+            <h2 id="founder-signal-heading">Direct support from the person leading the work.</h2>
             <p>
-              Gbemi leads the thinking and teaching. Verdantia gives clients a clear way to buy practical AI briefings, workshops, adoption days, and focused sprints.
+              Gbemi leads the sessions and shapes the materials, so clients know who is responsible for the training, guidance, and follow-through.
             </p>
           </div>
           <div className="founder-proof-list" aria-label="Relevant experience">
@@ -322,12 +392,12 @@ export default function Home() {
       <section className="section final-cta scroll-rise" aria-labelledby="final-cta-heading">
         <div className="shell final-cta-inner">
           <p className="section-kicker">Start the work</p>
-          <h2 id="final-cta-heading">Book the right first step for your team.</h2>
+          <h2 id="final-cta-heading">Book the right first step.</h2>
           <p>
-            If your organisation wants to introduce AI without hype, chaos, or unsafe shortcuts, start with a practical conversation.
+            If your team, organisation, or personal workflow needs AI to become clearer, safer, and more useful, start with the route that fits: an organisation offer or a professional learning lab.
           </p>
           <ButtonLink href="/contact" variant="light">
-            Send a useful brief
+            Book a practical AI fit call
           </ButtonLink>
         </div>
       </section>

@@ -20,9 +20,10 @@ Do not turn Verdantia into a generic AI automation agency. Automation/custom ass
 
 Primary early segments:
 
-1. Ireland/UK SMEs and smaller corporate teams.
+1. SMEs and smaller corporate teams.
 2. Training providers that need practical GenAI delivery capacity.
-3. Nonprofits/community organisations for accessible pilots and proof-building.
+3. Nonprofits/community organisations for accessible AI literacy and proof-building routes.
+4. Individual professionals as a separate learning-labs lane, without diluting the B2B/team-adoption offer.
 
 Schools/education are secondary unless the brief is specifically staff AI literacy, teacher/admin workload support, or responsible-use guidance.
 
@@ -32,22 +33,22 @@ The site should keep the offer ladder clear and buyable:
 
 1. **AI Team Briefing**
    - 60–90 minutes
-   - €500–€750
+   - From €750 remote / from €950 onsite
    - Shared baseline, AI basics, practical examples, risks, Q&A, recommended next step.
 
 2. **Practical AI Workshop**
    - Half day
-   - €1,250–€1,750
+   - From €1,750 remote / from €2,250 onsite or customised
    - Tool literacy, safe prompting, role-based practice, responsible-use checklist.
 
 3. **AI Adoption Day**
    - Full day
-   - €2,250–€3,000
+   - From €3,000–€3,500
    - Workshop plus workflow mapping, use-case discovery, starter prompt library, adoption roadmap.
 
 4. **AI Adoption Sprint**
    - 2–4 weeks
-   - €3,500–€6,000
+   - From €5,500 for a tightly scoped starter sprint; standard €7,500–€12,000 depending on scope
    - Discovery, training, workflow/prompt pack, safe-use guidance, adoption roadmap, follow-up support.
 
 Revenue logic: €5k/month can come from two full-day workshops or one adoption sprint plus one smaller engagement.
@@ -100,6 +101,8 @@ docs/commercial/
 Key files:
 
 - `docs/commercial/verdantia-offer-sheet.md`
+- `docs/commercial/practical-ai-workshop-buyer-one-pager.md`
+- `docs/commercial/practical-ai-workshop-partner-one-pager.md`
 - `docs/commercial/practical-ai-workshop-outline.md`
 - `docs/commercial/discovery-questions.md`
 - `docs/commercial/no-fail-presentation-protocol.md`
@@ -147,7 +150,7 @@ Expected: `/` and `/offers` return 200; `/capabilities` redirects to `/offers`.
 
 - Make the first 5 seconds clear: practical AI training and adoption support for teams.
 - Prefer concrete outcomes over broad hype.
-- Preserve the Verdantia tone: calm, practical, premium, Irish/UK business friendly.
+- Preserve the Verdantia tone: calm, practical, premium, and buyer-safe; do not foreground Ireland/UK geography in public messaging unless it is contextually useful.
 - Avoid generic AI visuals, neon gradients, robots, fake dashboards, and exaggerated transformation language.
 - Do not fake case studies, client logos, testimonials, or proof.
 - Do not publish named product concepts unless explicitly requested.
@@ -164,9 +167,15 @@ Every workshop/presentation should have a no-fail delivery path:
 - Tech check 30–60 minutes before.
 - Fallback path: if tech fails, teach from the framework and prepared examples.
 
+## Public proof boundary
+
+Verdantia can say Gbemi has delivered Microsoft Copilot and introductory AI training for public-sector, financial-services, and workplace teams.
+
+Do **not** publicly name underlying client organisations. Named examples are private proof only unless Gbemi explicitly approves the exact public wording later.
+
 ## Current verification status
 
-Last verified in this workspace:
+Last verified in this workspace on 2026-05-26 after the commercial review/docs hardening:
 
 ```bash
 npm run lint
@@ -174,9 +183,9 @@ npm run typecheck
 npm run build
 ```
 
-All passed after the `/offers` work.
+All passed.
 
-Browser visual QA checked `/` and `/offers`; the offer grid issue was fixed by adding `offer-catalog` grid rules.
+Browser visual QA previously checked `/` and `/offers`; the offer grid issue was fixed by adding `offer-catalog` grid rules.
 
 ## Recommended next website tasks
 

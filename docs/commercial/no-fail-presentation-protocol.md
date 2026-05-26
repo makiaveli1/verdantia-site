@@ -13,6 +13,8 @@ Never rely on a live demo as the only path to teach the point.
 - Confirm audience size, room format, timing, tool access, and participant device expectations.
 - Confirm whether participants can use external AI tools during the session.
 - Ask about blocked websites, VPN, guest Wi-Fi, Teams/Zoom policies, and screen-sharing constraints.
+- Confirm that live exercises will use synthetic, anonymised, or explicitly approved data only.
+- Confirm whether client/customer/employee data may ever be used in approved internal tools; default is no.
 - Confirm accessibility needs.
 - Confirm whether recording is allowed.
 
@@ -50,6 +52,7 @@ Never rely on a live demo as the only path to teach the point.
 - Name the fallback calmly if technology fails.
 - Do not troubleshoot live for more than 2–3 minutes unless the session depends on it.
 - If a live AI tool fails, teach from screenshots, examples, and the framework.
+- Stop any exercise that risks exposing personal, client, confidential, or commercially sensitive data.
 - Keep exercises simple enough to complete without perfect tooling.
 - Capture useful questions and use cases.
 

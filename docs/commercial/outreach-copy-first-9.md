@@ -12,6 +12,71 @@ Founder/company frame: Verdantia is the commercial vehicle. Gbemi is the visible
 
 Front door: practical AI training, literacy, workflow adoption, responsible use, review habits, and tool judgement. Automation/custom assistants are downstream only after workflow diagnosis.
 
+## Approved proof line
+
+Use sparingly, mainly where credibility is the blocker:
+
+> I’ve delivered Microsoft Copilot and introductory AI training for public-sector, financial-services, and workplace teams, and I’m now building Verdantia around practical AI adoption for teams that need safer, more repeatable AI habits.
+
+Do not name specific organisations publicly unless explicitly approved in writing.
+
+## Shorter v2 core templates
+
+Use these as the default cold/warm outreach base. The longer versions below are now reference material, not the first draft to send.
+
+### SME / smaller corporate team — short email
+
+**Subject:** Practical AI workshop for [Company] teams
+
+Hi [Name],
+
+I’m reaching out because [Company] does the kind of work where AI often starts appearing in everyday workflows — content, support, documentation, customer education, internal communications, or operations.
+
+Verdantia helps teams turn that informal use into safer, more repeatable habits: where AI helps, where it should not be used, and how people should review outputs before relying on them.
+
+A useful first step is usually a 60–90 minute **AI Team Briefing** or a half-day **Practical AI Workshop** with role-based examples.
+
+Would it be worth a 15-minute conversation to see whether this is relevant for [team/function] this quarter?
+
+Best,
+Gbemi
+
+### Training provider — short email
+
+**Subject:** Practical GenAI workshop support
+
+Hi [Name],
+
+I’m reaching out because many professional learners are starting to be asked to use AI at work, often without clear guidance on quality, privacy, or review.
+
+I run Verdantia, a founder-led AI training and adoption practice. I may be useful as delivery or programme support for practical GenAI sessions: plain-English, vendor-neutral, and focused on workplace use rather than hype.
+
+Typical fit: AI literacy, prompting, tool judgement, responsible use, and role-based exercises for managers, admin, comms, support, or operations teams.
+
+Would it be worth a short conversation about whether this could support a current or future programme?
+
+Best,
+Gbemi
+
+### Nonprofit / community organisation — short email
+
+**Subject:** Practical AI briefing for nonprofit teams
+
+Hi [Name],
+
+I’m reaching out because many nonprofit teams are now asking a practical AI question: where can these tools help with admin, planning, communications, and documents without creating new risks?
+
+Verdantia runs plain-English AI briefings and workshops for teams that need useful, responsible adoption rather than hype.
+
+For nonprofit or member-facing teams, the session can focus on safe use, verification habits, communications, meeting summaries, policy/document support, and clear boundaries.
+
+Would a short briefing or pilot session be worth discussing for your team or member organisations?
+
+Best,
+Gbemi
+
+---
+
 ## Tone rules
 
 Use:
@@ -64,11 +129,11 @@ Hi [Name] — I work with teams on practical AI training and adoption: turning s
 
 Hi [Name],
 
-I’m reaching out because [Company] looks like the kind of organisation where AI is likely already showing up in everyday work — support, enablement, internal communications, content, documentation, or customer-facing workflows.
+I’m reaching out because [Company] does the kind of work where AI often starts to appear in everyday workflows — support, enablement, internal communications, content, documentation, or customer-facing work.
 
-That creates a useful opportunity, but also a common problem: different people experiment in different ways, without a shared baseline for quality, privacy, review, or when AI is actually appropriate.
+That can create a useful opportunity, but also a common problem: different people experiment in different ways, without a shared baseline for quality, privacy, review, or when AI is actually appropriate.
 
-I run Verdantia, a founder-led AI training and adoption practice for Ireland/UK teams. The work is practical rather than theoretical: helping teams understand the tools, identify realistic use cases, build safer prompting and review habits, and turn scattered experimentation into repeatable workflows.
+I run Verdantia, a founder-led AI training and adoption practice for teams that want practical AI habits rather than scattered experimentation. The work is practical rather than theoretical: helping teams understand the tools, identify realistic use cases, build safer prompting and review habits, and turn informal use into repeatable workflows.
 
 For teams like [Company], the most useful starting point is usually either:
 
@@ -128,7 +193,7 @@ Hi [Name] — I help teams build practical, responsible GenAI skills through wor
 
 Hi [Name],
 
-I’m getting in touch because [Organisation] works with the kind of professional learners who are now being asked to “use AI” at work — often without much clarity on what good, safe, or useful use actually looks like.
+I’m getting in touch because many professional learners are starting to be asked to “use AI” at work — often without much clarity on what good, safe, or useful use actually looks like.
 
 I run Verdantia, a founder-led AI training and adoption practice focused on practical AI literacy, responsible use, and workflow adoption for business teams.
 

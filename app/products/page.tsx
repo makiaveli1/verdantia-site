@@ -4,9 +4,9 @@ import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "Product Lab | Verdantia",
+  title: "Tools & Resources | Verdantia",
   description:
-    "A quiet Verdantia product-lab note for future digital tools that may support practical AI training, workflow clarity, and adoption.",
+    "Notes on future Verdantia tools and resources that may support practical AI training, workflow clarity, and adoption.",
   path: "/products",
 });
 
@@ -41,10 +41,10 @@ export default function ProductsPage() {
   return (
     <main id="main" className="inner-page">
       <PageHero
-        kicker="Product lab"
-        title="Future tools sit behind the training work."
+        kicker="Tools and resources"
+        title="Tools support the training work."
         visual="products"
-        meta={["Quiet lab", "Not a public product offer", "Training first"]}
+        meta={["Training first", "Workflow clarity", "Useful resources"]}
         actions={
           <>
             <ButtonLink href="/offers">Explore the current offers</ButtonLink>
@@ -55,21 +55,17 @@ export default function ProductsPage() {
         }
       >
         <p>
-          Verdantia is not selling a software product here. Any future tools will
-          support the core work: practical AI training, workflow clarity, safer
-          habits, and reusable adoption materials.
+          Verdantia’s main offer is practical AI training and adoption support. Any future tools or resources should make that work clearer, safer, and easier to repeat.
         </p>
       </PageHero>
 
       <section className="section product-studio-section" aria-labelledby="product-studio-heading">
         <div className="shell product-studio-grid">
           <div className="product-studio-copy">
-            <p className="section-kicker">Future product thinking</p>
+            <p className="section-kicker">Resource direction</p>
             <h2 id="product-studio-heading">Tools should make the work clearer, not louder.</h2>
             <p>
-              Product ideas stay secondary until they solve a real workshop or
-              adoption problem: helping a team understand the work, repeat a good
-              habit, or keep AI-supported outputs reviewable.
+              Useful resources should solve a real training or adoption problem: helping a team understand the work, repeat a good habit, or keep AI-supported outputs reviewable.
             </p>
           </div>
 
@@ -98,8 +94,8 @@ export default function ProductsPage() {
       <section className="section product-principles-section" aria-labelledby="product-principles-heading">
         <div className="shell product-principles">
           <div>
-            <p className="section-kicker">Product principles</p>
-            <h2 id="product-principles-heading">Product work follows the same Verdantia standard.</h2>
+            <p className="section-kicker">Resource principles</p>
+            <h2 id="product-principles-heading">Any tool should follow the same Verdantia standard.</h2>
           </div>
           <ul>
             {productPrinciples.map((principle) => (
@@ -112,11 +108,10 @@ export default function ProductsPage() {
       <section className="section product-roadmap-section" aria-labelledby="product-roadmap-heading">
         <div className="shell roadmap-panel">
           <div>
-            <p className="section-kicker">Product direction</p>
-            <h2 id="product-roadmap-heading">No public product is being sold here yet.</h2>
+            <p className="section-kicker">Resource direction</p>
+            <h2 id="product-roadmap-heading">The current support starts with training and adoption work.</h2>
             <p>
-              Focused tools may follow only when they clearly support team
-              training, workflow clarity, and practical adoption work.
+              Focused tools may follow when they clearly support team training, workflow clarity, and practical adoption work.
             </p>
           </div>
           <div className="roadmap-steps">
@@ -128,6 +123,19 @@ export default function ProductsPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section final-cta compact-cta" aria-labelledby="products-cta">
+        <div className="shell final-cta-inner">
+          <p className="section-kicker">Training first</p>
+          <h2 id="products-cta">Start with the current Verdantia offers.</h2>
+          <p>
+            If you need practical AI support now, begin with the offer ladder or a focused enquiry. Tools and resources are useful when they support that work.
+          </p>
+          <ButtonLink href="/offers" variant="light">
+            Explore current offers
+          </ButtonLink>
         </div>
       </section>
     </main>

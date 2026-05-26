@@ -25,7 +25,7 @@ function validate(values: FormState) {
   const errors: FieldErrors = {};
 
   if (!values.name.trim()) errors.name = "Enter your name.";
-  if (!values.organisation.trim()) errors.organisation = "Enter your organisation.";
+  if (!values.organisation.trim()) errors.organisation = "Enter your organisation or context.";
   if (!values.email.trim()) {
     errors.email = "Enter your email address.";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
@@ -43,6 +43,11 @@ export function ContactForm() {
   const [notice, setNotice] = useState<string | null>(null);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   const [draftReady, setDraftReady] = useState(false);
+
+  const hasUserDraftContent = useMemo(
+    () => [values.name, values.organisation, values.email, values.message].some((value) => value.trim().length > 0),
+    [values.email, values.message, values.name, values.organisation],
+  );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -69,7 +74,7 @@ export function ContactForm() {
     () =>
       [
         `Name: ${values.name}`,
-        `Organisation: ${values.organisation}`,
+        `Organisation / context: ${values.organisation}`,
         `Email: ${values.email}`,
         `Enquiry type: ${values.enquiryType}`,
         "",
@@ -148,7 +153,7 @@ export function ContactForm() {
         </div>
 
         <div className="field">
-          <label htmlFor="organisation">Organisation</label>
+          <label htmlFor="organisation">Organisation or context</label>
           <input
             id="organisation"
             name="organisation"
@@ -159,7 +164,7 @@ export function ContactForm() {
             aria-describedby={errors.organisation ? "organisation-error" : "organisation-help"}
           />
           <span id="organisation-help" className="field-help">
-            Company, team, training provider, or community organisation.
+            Company, team, training provider, community organisation, or professional context.
           </span>
           {errors.organisation ? <p id="organisation-error">{errors.organisation}</p> : null}
         </div>
@@ -207,15 +212,15 @@ export function ContactForm() {
         <textarea
           id="message"
           name="message"
-          rows={8}
+          rows={6}
           value={values.message}
-          placeholder="Example: We are a 25-person team. People are using ChatGPT and Copilot informally. We need safe prompting habits and a shared workflow for research, reports, and internal documents."
+          placeholder="Example: We are a 25-person team using ChatGPT and Copilot informally, and need safer prompting habits. Or: I want a practical AI workflow for research, writing, and presentations."
           onChange={(event) => updateField("message", event.target.value)}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : "message-help"}
         />
         <span id="message-help" className="field-help">
-          Include current tools, team size, risk concerns, and the work you want to improve first.
+          Include current tools, team size or role context, risk concerns, and the work you want to improve first.
         </span>
         {errors.message ? <p id="message-error">{errors.message}</p> : null}
       </div>
@@ -232,7 +237,7 @@ export function ContactForm() {
             <span>Draft ready</span>
             <h3>Your enquiry draft is prepared.</h3>
             <p>
-              Verdantia is not pretending this has been sent. Review it, then send the email directly or copy the brief into your own client.
+              Review the prepared draft, then send the email directly or copy the brief into your own email client.
             </p>
           </div>
           <div className="form-ready-actions">
@@ -246,24 +251,30 @@ export function ContactForm() {
         </div>
       ) : null}
 
-      <div className="email-preview" aria-label="Prepared email preview">
-        <span>Prepared brief preview</span>
-        <pre>{emailBody}</pre>
-      </div>
+      {hasUserDraftContent || draftReady ? (
+        <div className="email-preview" aria-label="Prepared email preview">
+          <span>Prepared brief preview</span>
+          <pre tabIndex={0}>{emailBody}</pre>
+        </div>
+      ) : null}
 
       <div className="form-actions">
         <button type="submit" className="button button-primary">
-          <span>Prepare enquiry</span>
+          <span>{draftReady ? "Update enquiry" : "Prepare enquiry"}</span>
           <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
             <path d="M6.2 3.2 12 9l-5.8 5.8" />
           </svg>
         </button>
-        <a className="direct-email" href={mailtoHref}>
-          Open email draft
-        </a>
-        <button className="copy-brief-button" type="button" onClick={copyBrief}>
-          {copyState === "copied" ? "Copied" : copyState === "failed" ? "Copy manually" : "Copy brief"}
-        </button>
+        {hasUserDraftContent && !draftReady ? (
+          <>
+            <a className="direct-email" href={mailtoHref}>
+              Open draft anyway
+            </a>
+            <button className="copy-brief-button" type="button" onClick={copyBrief}>
+              {copyState === "copied" ? "Copied" : copyState === "failed" ? "Copy manually" : "Copy brief"}
+            </button>
+          </>
+        ) : null}
       </div>
     </form>
   );

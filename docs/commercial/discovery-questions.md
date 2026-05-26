@@ -45,14 +45,41 @@ Use these questions before recommending an offer. The aim is to qualify fit, cho
 4. Have they paid for similar training or consulting before?
 5. Are they looking for a one-off session or an adoption path?
 
-## 6. Recommended offer logic
+## 6. Segment-specific questions
+
+### SMEs / smaller corporate teams
+
+1. Which team is the first audience: support, operations, comms, sales, HR/L&D, customer success, or management?
+2. Is AI use currently approved, tolerated, or informal?
+3. What workflow would be worth improving first?
+4. Who owns enablement or training budget?
+5. Is this a one-team pilot or company-wide baseline?
+
+### Training providers / partners
+
+1. Are you looking for external delivery, co-design, white-label support, or internal capability?
+2. Do you already have an AI course/module?
+3. Who is the learner audience?
+4. Is the session open-enrolment, corporate, or bespoke?
+5. What commercial model do you use for external facilitators?
+6. Do you need slides/materials, live delivery, exercises, or all three?
+
+### Nonprofits / community organisations
+
+1. Is the audience staff, volunteers, leadership, members, or grantees?
+2. Is there a sponsor/funder for capacity-building?
+3. Are there data protection or safeguarding constraints?
+4. Would a low-cost briefing, member webinar, or paid workshop be the best first step?
+5. What would be unsafe or inappropriate AI use in your context?
+
+## 7. Recommended offer logic
 
 - Choose **AI Team Briefing** if the team needs shared understanding, leadership buy-in, or a safe first conversation.
 - Choose **Practical AI Workshop** if the team needs hands-on confidence and usable habits.
 - Choose **AI Adoption Day** if the team already has interest and wants use-case mapping plus a starter roadmap.
 - Choose **AI Adoption Sprint** if there are clear workflows, urgency, and a need for reusable materials/follow-up support.
 
-## 7. Red flags
+## 8. Red flags
 
 - “We just need AI” with no owner, audience, or business problem.
 - No decision-maker or budget owner involved.
@@ -60,7 +87,7 @@ Use these questions before recommending an offer. The aim is to qualify fit, cho
 - Wanting proof of scale Verdantia cannot honestly claim yet.
 - Needing regulated/legal/compliance guarantees outside current capability.
 
-## 8. Green flags
+## 9. Green flags
 
 - Specific team and use case.
 - Clear decision-maker.

@@ -47,7 +47,7 @@ Positioning:
 
 Longer:
 
-> Verdantia helps small and mid-sized teams move from scattered AI experiments to safe, practical, repeatable AI workflows.
+> Verdantia helps teams, training providers, and individual professionals move from scattered AI experiments to safe, practical, repeatable AI workflows.
 
 Founder/company frame:
 
@@ -59,17 +59,20 @@ The website should make it easy for a buyer to understand what Verdantia does, c
 
 The website now points to four offers:
 
-1. **AI Team Briefing** — 60–90 minutes, €500–€750.
-2. **Practical AI Workshop** — half day, €1,250–€1,750.
-3. **AI Adoption Day** — full day, €2,250–€3,000.
-4. **AI Adoption Sprint** — 2–4 weeks, €3,500–€6,000.
+1. **AI Team Briefing** — 60–90 minutes, from €750 remote / from €950 onsite.
+2. **Practical AI Workshop** — half day, from €1,750 remote / from €2,250 onsite or customised.
+3. **AI Adoption Day** — full day, from €3,000–€3,500.
+4. **AI Adoption Sprint** — 2–4 weeks, from €5,500 for a tightly scoped starter sprint; standard €7,500–€12,000 depending on scope.
+
+Individual professional learning labs stay separate: AI Essentials (€95–€150 per seat), AI Workflow Studio (€295–€450 per seat), and AI Workflow Clinic (from €350 for an individual clinic).
 
 Do not blur these into a generic “services” page unless explicitly requested. The offer ladder is the conversion spine.
 
 ## Current route structure
 
-- `/` — homepage, now offer-led.
-- `/offers` — main offer ladder page.
+- `/` — homepage, now offer-led with a careful individual-learning lane.
+- `/offers` — main team offer ladder page with curriculum-shaped delivery detail.
+- `/learning` — individual professional AI skills labs and workflow clinic lane.
 - `/capabilities` — redirects to `/offers`.
 - `/company` — founder-led company story.
 - `/contact` — enquiry page with form validation and mailto preparation only.
@@ -96,6 +99,9 @@ Commercial docs created:
 - `outreach-tracker-guide.md`
 - `outreach-copy-first-9.md`
 - `visual-content-direction.md`
+- `practical-ai-workshop-buyer-one-pager.md`
+- `practical-ai-workshop-partner-one-pager.md`
+- `verdantia-commercial-review-2026-05-26.md`
 
 ## Verification commands
 
@@ -124,9 +130,10 @@ http://localhost:3000/offers
 
 - Contact form does not send email yet. Do not fake it.
 - No public case studies/testimonials/logos unless the user provides/approves them.
+- Public proof should stay unnamed: say Gbemi has delivered Microsoft Copilot and introductory AI training for public-sector, financial-services, and workplace teams. Do not publicly name underlying client organisations unless explicitly approved later.
 - LinkedIn posting and profile edits require explicit approval.
 - No external outreach/messages without exact-text approval.
-- Avoid “AI transformation partner”, “AI automation agency”, and vague AI hype.
+- Avoid “AI transformation partner”, “AI automation agency”, vague AI hype, and public copy that foregrounds Ireland/UK geography by default.
 
 ## Good next tasks
 
@@ -147,4 +154,4 @@ npm run typecheck
 npm run build
 ```
 
-Browser visual QA checked `/offers`; card grid layout looked clean after adding `.offer-catalog` CSS.
+Browser visual QA checked `/`, `/offers`, and `/learning` at desktop/mobile sizes; the offer grid issue was fixed by adding `.offer-catalog` CSS. Contact prefill now keeps offer-only query strings clean: it selects the enquiry type without showing a blank draft preview, while Pathfinder/learning links with a `message` still show the prepared brief preview.

@@ -11,8 +11,8 @@ export function SiteFooter() {
             <BrandMark className="brand-mark" />
             <span>Verdantia</span>
           </Link>
-          <p>Verdantia Limited - Practical AI & Digital Enablement.</p>
-          <p className="footer-line">Practical AI. Real Impact.</p>
+          <p>Verdantia Limited — Practical AI training and adoption support.</p>
+          <p className="footer-line">Practical AI training for safer team adoption.</p>
         </div>
 
         <nav className="footer-nav" aria-label="Footer navigation">
@@ -24,13 +24,13 @@ export function SiteFooter() {
         </nav>
 
         <div className="footer-contact">
-          <span>Ireland-based AI consulting, training, and adoption support.</span>
+          <span>Practical AI training, learning, and adoption support.</span>
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
         </div>
       </div>
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} Verdantia Limited.</span>
-        <span>Built for teams who want AI to become useful, safe, and repeatable.</span>
+        <span>Built for teams who want AI to become useful, safe, and easier to govern.</span>
       </div>
     </footer>
   );

@@ -15,7 +15,7 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
         ))}
       </div>
 
-      <div className="ladder-grid" role="list" aria-label="Verdantia offer ladder">
+      <div className="ladder-grid" role="list" aria-label="Verdantia ways to start">
         {offers.map((offer, index) => (
           <article className="ladder-offer" key={offer.title} role="listitem">
             <div className="ladder-offer-topline">
@@ -31,7 +31,7 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
                 <dd>{offer.duration}</dd>
               </div>
               <div>
-                <dt>Guide price</dt>
+                <dt>Public guide</dt>
                 <dd>{offer.price}</dd>
               </div>
             </dl>

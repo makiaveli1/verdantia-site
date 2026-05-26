@@ -18,3 +18,13 @@ qa-*.png
 .hermes/*
 !.hermes/plans/
 !.hermes/plans/*.md
+
+# Verdantia private commercial/research artefacts; keep PII, named proof, and live outreach notes out of git
+docs/private/
+docs/commercial/outreach-tracker*.csv
+docs/commercial/*private*
+docs/commercial/*proof-register*
+
+# Local generated sales exports / scratch environments
+output/
+.venv-pdf/

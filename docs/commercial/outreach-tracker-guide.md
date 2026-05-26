@@ -6,6 +6,10 @@ Purpose: run a small outreach experiment across three segments without turning V
 
 Related tracker: `docs/commercial/outreach-tracker-first-9.csv`
 
+## Privacy boundary
+
+Before adding named decision-makers, direct emails, private response notes, or objections, move the live tracker to gitignored private storage such as `docs/private/outreach/outreach-tracker-first-9.csv`. Keep only anonymised/template tracker material in GitHub-backed docs.
+
 ## First-nine experiment
 
 Do **not** contact all nine at once.
@@ -83,6 +87,21 @@ Use these values for `response_status`:
 - `no_response`
 - `unsubscribe_or_do_not_contact`
 
+## Experiment card
+
+**Primary hypothesis:** training providers will understand Verdantia’s offer faster than SMEs or nonprofits because they already buy/sell training and may need practical AI delivery capacity.
+
+**Secondary hypotheses:**
+
+- SMEs respond better when the message names one workflow category, not general AI adoption.
+- Nonprofits respond better to briefing/member-session language than to workshop-sales language.
+
+**Metrics to track:** route quality, named decision-maker found, connection acceptance, reply rate, positive/curious replies, meeting booked, clear need, clear budget path, objection type, and which phrase/angle triggered interest.
+
+**Batch rule:** research all nine first, send only Batch 1 after approval, follow up after 4–6 business days, close/no-response after 10–14 business days, and do not rewrite the whole positioning after one reply or one silence.
+
+**Signal threshold:** minimum viable signal is 2+ replies from 9; strong signal is 2+ qualified conversations from 9. Segment winner means best combination of reply quality, buyer clarity, and route accessibility — not just raw response count.
+
 ## Qualification scoring model
 
 Total score: **100 points**.
@@ -97,6 +116,18 @@ This is BANT-adjacent, but lighter. Early Verdantia outreach does not have relia
 | Timing / trigger potential | 15 | Is there a plausible reason to care this quarter? |
 | Reachability | 15 | Can we reach a real human without heroic archaeology? |
 | Strategic value | 10 | Would this teach us something, create proof, or open a channel? |
+
+## Scoring caps
+
+To avoid fantasy scores before real buyer evidence exists:
+
+- If no named decision-maker is found, cap authority at 10/20.
+- If no current trigger is found, cap timing at 7/15.
+- If the only route is a generic contact form, cap reachability at 8/15.
+- For nonprofits without a clear programme budget, cap budget proxy at 8/15.
+- Strategic value should not push a lead into Batch 1 if authority and reachability are weak.
+
+Recommended tracker additions before live outreach: `recipient_name`, `recipient_role`, `trigger_source`, `route_quality`, `buying_motion`, and `next_offer`.
 
 ### Bands
 

@@ -181,7 +181,7 @@ export function SiteHeader() {
             <BrandMark className="brand-mark" />
             <span className="brand-copy">
               <span className="brand-word">Verdantia</span>
-              <span className="brand-subline">Practical AI. Real Impact.</span>
+              <span className="brand-subline">Practical AI training</span>
             </span>
           </Link>
 
@@ -198,7 +198,7 @@ export function SiteHeader() {
 
           <div className="header-actions">
             <Link className="header-cta" href="/contact">
-              <span>Send a useful brief</span>
+              <span>Book a practical AI call</span>
             </Link>
 
             <button
@@ -239,7 +239,7 @@ export function SiteHeader() {
               })}
             </nav>
             <Link className="mobile-cta" href="/contact" onClick={() => setIsOpen(false)}>
-              Send a useful brief
+              Book a practical AI call
             </Link>
           </div>
         </div>

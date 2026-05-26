@@ -6,22 +6,36 @@
 
 - **Duration:** Half day, 3–3.5 hours plus breaks
 - **Audience:** Non-technical and mixed-skill workplace teams
+- **Group size:** up to 20 participants at standard pricing; larger groups should be split into cohorts or priced separately
 - **Tools:** ChatGPT, Claude, Gemini, Microsoft Copilot, Perplexity, or the tools already approved by the organisation
-- **Commercial guide:** €1,250–€1,750
+- **Commercial guide:** from €1,750 remote / from €2,250 onsite or customised
 
 ## Workshop promise
 
 By the end of the workshop, participants should understand where AI can help, where it can mislead them, how to prompt safely, and how to apply AI to real tasks with human review.
+
+## Before the workshop
+
+- 30-minute sponsor scoping call.
+- Confirm approved tools and data boundaries.
+- Confirm participant group, confidence level, and priority workflows.
+- Choose 2–4 role lanes for exercises.
+- Confirm whether participants can use live tools or whether prepared examples are required.
+
+## Participant requirements
+
+Participants should bring a laptop and access to any AI tools approved by the organisation. If live tool use is not possible, Verdantia will use prepared examples, screenshots, and safe demo material.
 
 ## Learning outcomes
 
 Participants will be able to:
 
 1. Match common AI tools to different work tasks.
-2. Write clearer prompts using role, task, context, constraints, and output format.
+2. Write clearer prompts using role, task, context, constraints, output format, and review criteria.
 3. Spot common failure modes: hallucination, weak sources, privacy risks, stale information, overconfident output.
 4. Apply AI to realistic workplace examples.
-5. Use a responsible-use checklist before sharing or acting on AI-assisted work.
+5. Use synthetic, anonymised, or organisation-approved examples only; do not paste real client, employee, personal, or confidential data into external AI tools during exercises.
+6. Use a responsible-use checklist before sharing or acting on AI-assisted work.
 
 ## Session flow
 
@@ -56,6 +70,7 @@ Pick 2–4 relevant lanes depending on audience:
 ### 5. Safe-use habits — 35 minutes
 
 - What not to paste into tools.
+- Use synthetic, anonymised, or organisation-approved examples only.
 - When AI output needs source checking.
 - Human review points.
 - Bias, tone, privacy, and accountability.
@@ -66,6 +81,13 @@ Pick 2–4 relevant lanes depending on audience:
 - Participants identify useful use cases.
 - Group ranks by value, risk, and ease.
 - Verdantia recommends next step: briefing follow-up, adoption day, sprint, or no further work needed.
+
+## After the workshop
+
+- Send participant materials.
+- Send responsible-use checklist.
+- Send use-case shortlist and recommended next step within 2 business days.
+- Offer a paid Workshop Follow-On Debrief if the sponsor wants support prioritising use cases.
 
 ## Deliverables
 

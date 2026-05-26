@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Company | Verdantia",
   description:
-    "Learn about Verdantia, an Ireland-based AI training and adoption practice founded by Gbemi Akadiri.",
+    "Learn about Verdantia, a founder-led AI training and adoption practice founded by Gbemi Akadiri.",
   path: "/company",
 });
 
@@ -16,15 +16,15 @@ const experience = [
   "Microsoft Copilot enablement",
   "prompt engineering",
   "workflow design",
-  "software development",
-  "product thinking",
+  "workflow design",
+  "practical delivery",
   "communication with technical and non-technical teams",
 ] as const;
 
 const workingPosture = [
   {
-    title: "Clear offer",
-    copy: "Verdantia gives organisations a straightforward way to buy practical AI training, workshops, and adoption support.",
+    title: "Clear support",
+    copy: "Verdantia gives organisations a straightforward way to get practical AI training, workshops, and adoption support.",
   },
   {
     title: "Founder-led",
@@ -56,13 +56,13 @@ export default function CompanyPage() {
     <main id="main" className="inner-page company-page-premium">
       <PageHero
         kicker="Company"
-        title="A founder-led AI adoption practice, not a generic automation agency."
+        title="A founder-led practice for practical AI training and adoption."
         visual="company"
-        meta={["Ireland-based", "Clear offer", "Founder-led"]}
-        actions={<ButtonLink href="/contact">Send a useful brief</ButtonLink>}
+        meta={["Clear offer", "Founder-led", "Practical learning"]}
+        actions={<ButtonLink href="/contact">Book a practical AI call</ButtonLink>}
       >
         <p>
-          Verdantia helps organisations move from AI curiosity to practical capability through training, workflow mapping, prompt systems, and responsible-use guidance.
+          Verdantia helps organisations move from informal AI use to practical capability through training, workflow mapping, prompt systems, and responsible-use guidance.
         </p>
       </PageHero>
 
@@ -79,7 +79,7 @@ export default function CompanyPage() {
               Verdantia exists for the moment when AI has moved beyond curiosity but has not yet become a reliable team practice.
             </p>
             <p>
-              The company’s work is shaped by practical experience across AI training, Microsoft Copilot enablement, communication support, workflow design, and software development.
+              The company’s work is shaped by practical experience across AI training, Microsoft Copilot enablement, communication support, workflow design, and practical delivery.
             </p>
             <p>
               The outcome is intentionally concrete: better team skills, clearer workflows, stronger adoption materials, and safe habits that survive after the workshop ends.
@@ -102,9 +102,9 @@ export default function CompanyPage() {
           </div>
           <div className="founder-editorial-copy">
             <p className="section-kicker">Founder-led, company-backed</p>
-            <h2 id="founder-heading">Clients work with a named practitioner, not an anonymous AI agency.</h2>
+            <h2 id="founder-heading">Clients know who is shaping the work.</h2>
             <p>
-              Oluwagbemi Enoch Akadiri, commonly known as Gbemi Akadiri, brings together AI consulting, training, prompt engineering, workflow design, software development, and product thinking.
+              Oluwagbemi Enoch Akadiri, commonly known as Gbemi Akadiri, brings together AI consulting, training, prompt engineering, workflow design, communication support, and practical delivery.
             </p>
           </div>
           <ul className="founder-credentials" aria-label="Relevant experience">
@@ -142,10 +142,10 @@ export default function CompanyPage() {
             <p className="section-kicker">How clients are supported</p>
             <h2 id="company-split-heading">Practical teaching, clear materials, and a reliable route forward.</h2>
           </div>
-          <div className="company-split-diagram" aria-label="Verdantia and founder role split">
+          <div className="company-split-diagram" aria-label="How Verdantia supports clients">
             <article>
               <span>Verdantia</span>
-              <h3>The company offer</h3>
+              <h3>The practical offer</h3>
               <p>Briefings, workshops, adoption days, sprints, and the reusable materials clients take back to their teams.</p>
             </article>
             <svg viewBox="0 0 260 90" aria-hidden="true" focusable="false">
@@ -154,7 +154,7 @@ export default function CompanyPage() {
             </svg>
             <article>
               <span>Gbemi</span>
-              <h3>The lead practitioner</h3>
+              <h3>The person leading the work</h3>
               <p>Teaching, practical examples, workflow judgement, and direct conversations about what the team needs next.</p>
             </article>
           </div>
@@ -180,13 +180,13 @@ export default function CompanyPage() {
 
       <section className="section final-cta compact-cta" aria-labelledby="company-cta">
         <div className="shell final-cta-inner">
-          <p className="section-kicker">Ireland-based AI support</p>
+          <p className="section-kicker">Practical AI support</p>
           <h2 id="company-cta">Talk to Verdantia about practical AI support.</h2>
           <p>
             If your organisation needs grounded advice, training, workflow design, or adoption support, start with a focused conversation.
           </p>
           <ButtonLink href="/contact" variant="light">
-            Send a useful brief
+            Book a practical AI call
           </ButtonLink>
         </div>
       </section>

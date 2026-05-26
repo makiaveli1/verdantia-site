@@ -15,14 +15,14 @@ const heroStates = [
     key: "visible",
     title: "Make the work visible",
     label: "Map the work",
-    copy: "Use cases, risks, documents, decisions, and repeated tasks are pulled out of scattered tool use and placed on one adoption canvas.",
+    copy: "Use cases, risks, documents, decisions, and repeated tasks are pulled out of scattered tool use and placed on one shared working map.",
     metric: "01",
   },
   {
     key: "structured",
     title: "Shape repeatable practice",
-    label: "Design the system",
-    copy: "Prompt patterns, review points, role examples, and workflow routes are designed around the work people actually do.",
+    label: "Agree the practice",
+    copy: "Prompt patterns, review points, role examples, and workflows are designed around the work people actually do.",
     metric: "02",
   },
   {
@@ -52,7 +52,7 @@ const pathwaySteps = [
   },
   {
     title: "Adoption",
-    label: "The system keeps improving",
+    label: "The habits keep improving",
     copy: "Guides, prompt libraries, champions, and feedback loops make progress repeatable.",
   },
 ] as const;
@@ -60,7 +60,7 @@ const pathwaySteps = [
 const capabilityDetails = [
   {
     title: "AI Team Briefings",
-    summary: "Plain-English sessions that give teams a shared baseline before tools sprawl further.",
+    summary: "Plain-English sessions that give teams a shared baseline before informal AI use spreads further.",
     preview: ["AI basics", "risk picture", "next step"],
   },
   {
@@ -73,7 +73,7 @@ const capabilityDetails = [
     title: "Workflow Mapping",
     summary:
       "Priority tasks, documents, decisions, and review points are mapped before automation or assistants are suggested.",
-    preview: ["use-case map", "workflow route", "risk gates"],
+    preview: ["use-case map", "workflow", "review points"],
   },
   {
     title: "Prompt & Guidance Libraries",
@@ -84,7 +84,7 @@ const capabilityDetails = [
   {
     title: "Adoption Sprints",
     summary:
-      "Short programmes that connect discovery, training, workflow design, and follow-up into one usable adoption system.",
+      "Short programmes that connect discovery, training, workflow design, and follow-up into one usable adoption rhythm.",
     preview: ["discovery", "training", "roadmap"],
   },
   {
@@ -96,12 +96,12 @@ const capabilityDetails = [
 ] as const;
 
 const pretextCopy =
-  "Scattered AI use usually starts as private experiments: a prompt in ChatGPT, a draft in Copilot, a research thread in Perplexity, a document rewritten in Claude, a shortcut nobody else can repeat. Verdantia slows the room down just enough to make the work visible. The team maps where judgement is needed, where review must happen, which tasks are worth improving, and what guidance people need before AI becomes part of normal work. Then the system tightens: clearer examples, safer prompts, reusable workflows, and a practical route from curiosity to capability.";
+  "Scattered AI use usually starts as private experiments: a prompt in ChatGPT, a draft in Copilot, a research thread in Perplexity, a document rewritten in Claude, a shortcut nobody else can repeat. Verdantia slows the room down just enough to make the work visible. The team maps where judgement is needed, where review must happen, which tasks are worth improving, and what guidance people need before AI becomes part of normal work. Then the practice tightens: clearer examples, safer prompts, reusable workflows, and a practical path from curiosity to capability.";
 
 const pretextSummary =
   "Private experiments become a shared map: where AI helps, where judgement is needed, and which habits the team can repeat safely.";
 
-const pretextTokens = ["private prompts", "Copilot drafts", "review gaps", "shared route"] as const;
+const pretextTokens = ["private prompts", "Copilot drafts", "review gaps", "shared practice"] as const;
 
 export function HomeLoader() {
   const [phase, setPhase] = useState<"visible" | "leaving" | "done">("visible");
@@ -195,12 +195,7 @@ export function ReactiveArtifactField() {
       if (!frame) frame = window.requestAnimationFrame(apply);
     };
 
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    apply();
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("pointermove", handlePointerMove);
+    const clearFieldVars = () => {
       [
         "--field-x-sm",
         "--field-y-sm",
@@ -215,6 +210,21 @@ export function ReactiveArtifactField() {
         "--field-x-lg-neg",
         "--field-y-lg-neg",
       ].forEach((property) => root.style.removeProperty(property));
+    };
+
+    const finePointer = window.matchMedia("(pointer: fine)");
+    if (reducedMotion.matches || !finePointer.matches) {
+      apply();
+      return clearFieldVars;
+    }
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    apply();
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("pointermove", handlePointerMove);
+      clearFieldVars();
     };
   }, []);
 
@@ -288,8 +298,6 @@ export function ScrollReveal() {
       ".canvas-paper",
     ].join(",");
 
-    body.classList.add("motion-ready");
-
     targets.forEach((target, targetIndex) => {
       target.style.setProperty("--reveal-index", String(targetIndex));
       const children = Array.from(target.querySelectorAll<HTMLElement>(childSelector));
@@ -304,6 +312,8 @@ export function ScrollReveal() {
       targets.forEach((target) => target.classList.add("is-visible"));
       return () => body.classList.remove("motion-ready");
     }
+
+    body.classList.add("motion-ready");
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -333,9 +343,52 @@ export function ScrollReveal() {
     }
 
     let frame = 0;
+    let curtainDistance = 680;
+    const desktopCurtainQuery = window.matchMedia("(min-width: 1121px) and (min-height: 760px)");
+
+    function clearHeroCurtain() {
+      body.classList.remove("hero-curtain-active", "hero-curtain-open");
+      document.documentElement.style.removeProperty("--hero-curtain-progress");
+      document.documentElement.style.removeProperty("--hero-curtain-lift");
+      document.documentElement.style.removeProperty("--hero-curtain-clip");
+      document.documentElement.style.removeProperty("--hero-curtain-nudge");
+      document.documentElement.style.removeProperty("--hero-curtain-shadow-y");
+      document.documentElement.style.removeProperty("--hero-curtain-shadow-blur");
+      document.documentElement.style.removeProperty("--hero-curtain-cue-opacity");
+    }
+
+    function measureHeroCurtain() {
+      const target = document.getElementById("problem-section") ?? document.getElementById("intro-heading");
+      if (!target || !desktopCurtainQuery.matches) return;
+
+      const targetTop = target.getBoundingClientRect().top + window.scrollY;
+      const headerHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 0;
+      curtainDistance = Math.max(680, targetTop - headerHeight);
+    }
+
     function updateScrollProgress() {
       const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       document.documentElement.style.setProperty("--scroll-progress", String(Math.min(1, window.scrollY / max).toFixed(4)));
+
+      if (!desktopCurtainQuery.matches) {
+        clearHeroCurtain();
+        return;
+      }
+
+      const progress = Math.min(1, Math.max(0, window.scrollY / curtainDistance));
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const liftEased = progress * (2 - progress);
+      const visualProgress = progress >= 0.985 ? 1 : eased;
+
+      document.documentElement.style.setProperty("--hero-curtain-progress", progress.toFixed(4));
+      document.documentElement.style.setProperty("--hero-curtain-lift", `${(-4.2 * liftEased).toFixed(3)}svh`);
+      document.documentElement.style.setProperty("--hero-curtain-clip", `${(100 * visualProgress).toFixed(2)}%`);
+      document.documentElement.style.setProperty("--hero-curtain-nudge", `${(-0.28 * liftEased).toFixed(3)}rem`);
+      document.documentElement.style.setProperty("--hero-curtain-shadow-y", `${(14 * liftEased).toFixed(2)}px`);
+      document.documentElement.style.setProperty("--hero-curtain-shadow-blur", `${(38 * liftEased).toFixed(2)}px`);
+      document.documentElement.style.setProperty("--hero-curtain-cue-opacity", String(Math.max(0, 1 - progress * 2.4).toFixed(3)));
+      body.classList.toggle("hero-curtain-active", progress > 0.03 && progress < 0.96);
+      body.classList.toggle("hero-curtain-open", progress >= 0.96);
     }
 
     function scheduleRevealCheck() {
@@ -348,19 +401,28 @@ export function ScrollReveal() {
       });
     }
 
+    function handleResize() {
+      measureHeroCurtain();
+      scheduleRevealCheck();
+    }
+
     targets.forEach((target) => observer.observe(target));
+    measureHeroCurtain();
     updateScrollProgress();
     revealVisibleTargets();
     window.addEventListener("scroll", scheduleRevealCheck, { passive: true });
-    window.addEventListener("resize", scheduleRevealCheck);
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("load", handleResize, { once: true });
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", scheduleRevealCheck);
-      window.removeEventListener("resize", scheduleRevealCheck);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("load", handleResize);
       observer.disconnect();
       body.classList.remove("motion-ready");
       document.documentElement.style.removeProperty("--scroll-progress");
+      clearHeroCurtain();
     };
   }, []);
 
@@ -370,6 +432,9 @@ export function ScrollReveal() {
 export function HeroStudio() {
   const [active, setActive] = useState(0);
   const isInteracting = useRef(false);
+  const shellRef = useRef<HTMLDivElement | null>(null);
+  const pointerFrame = useRef(0);
+  const latestPointer = useRef({ x: 58, y: 42 });
   const current = heroStates[active];
 
   useEffect(() => {
@@ -380,22 +445,54 @@ export function HeroStudio() {
       if (!isInteracting.current) {
         setActive((value) => (value + 1) % heroStates.length);
       }
-    }, 4600);
+    }, 5400);
 
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const shell = shellRef.current;
+
+    return () => {
+      if (pointerFrame.current) {
+        window.cancelAnimationFrame(pointerFrame.current);
+      }
+      shell?.style.removeProperty("--pointer-x");
+      shell?.style.removeProperty("--pointer-y");
+      shell?.style.removeProperty("--pointer-shift-x");
+      shell?.style.removeProperty("--pointer-shift-y");
+    };
+  }, []);
+
+  function applyPointerVars() {
+    pointerFrame.current = 0;
+    const shell = shellRef.current;
+    if (!shell) return;
+
+    const pointerShiftX = (latestPointer.current.x - 50) * 0.16;
+    const pointerShiftY = (latestPointer.current.y - 50) * 0.16;
+
+    shell.style.setProperty("--pointer-x", `${latestPointer.current.x.toFixed(2)}%`);
+    shell.style.setProperty("--pointer-y", `${latestPointer.current.y.toFixed(2)}%`);
+    shell.style.setProperty("--pointer-shift-x", `${pointerShiftX.toFixed(2)}px`);
+    shell.style.setProperty("--pointer-shift-y", `${pointerShiftY.toFixed(2)}px`);
+  }
+
   function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
     const bounds = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-    const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+    latestPointer.current = {
+      x: ((event.clientX - bounds.left) / Math.max(1, bounds.width)) * 100,
+      y: ((event.clientY - bounds.top) / Math.max(1, bounds.height)) * 100,
+    };
 
-    event.currentTarget.style.setProperty("--pointer-x", `${x.toFixed(2)}%`);
-    event.currentTarget.style.setProperty("--pointer-y", `${y.toFixed(2)}%`);
+    if (!pointerFrame.current) {
+      pointerFrame.current = window.requestAnimationFrame(applyPointerVars);
+    }
   }
 
   return (
     <div
+      ref={shellRef}
       className={`studio-shell studio-canvas-shell studio-state-${current.key}`}
       onPointerEnter={() => {
         isInteracting.current = true;
@@ -403,8 +500,14 @@ export function HeroStudio() {
       onPointerMove={handlePointerMove}
       onPointerLeave={(event) => {
         isInteracting.current = false;
+        if (pointerFrame.current) {
+          window.cancelAnimationFrame(pointerFrame.current);
+          pointerFrame.current = 0;
+        }
         event.currentTarget.style.removeProperty("--pointer-x");
         event.currentTarget.style.removeProperty("--pointer-y");
+        event.currentTarget.style.removeProperty("--pointer-shift-x");
+        event.currentTarget.style.removeProperty("--pointer-shift-y");
       }}
       onFocusCapture={() => {
         isInteracting.current = true;
@@ -435,7 +538,7 @@ export function HeroStudio() {
         </svg>
 
         <div className="messy-token token-a">prompt fragments</div>
-        <div className="messy-token token-b">tool sprawl</div>
+        <div className="messy-token token-b">tool overload</div>
         <div className="messy-token token-c">review gaps</div>
         <div className="messy-token token-d">private shortcuts</div>
 
@@ -454,9 +557,11 @@ export function HeroStudio() {
       </div>
 
       <div className="studio-method-card">
-        <span className="micro-label">{current.metric} / {current.label}</span>
-        <strong>{current.title}</strong>
-        <p>{current.copy}</p>
+        <div className="studio-method-copy" key={current.key}>
+          <span className="micro-label">{current.metric} / {current.label}</span>
+          <strong>{current.title}</strong>
+          <p>{current.copy}</p>
+        </div>
       </div>
 
       <div className="studio-controls" aria-label="Explore Verdantia method">
@@ -504,28 +609,52 @@ export function MethodPretext() {
     const pointerCurrent = { x: 0.62, y: 0.5 };
     const pointerVelocity = { x: 0, y: 0 };
     let palette = readPretextPalette(wrap);
+    let stageSize = { width: 0, height: 0 };
+    let overlayBoxes: Array<{ left: number; right: number; top: number; bottom: number }> = [];
 
     const scheduleDraw = () => {
       if (animationFrame || !isVisible || !isPageVisible) return;
       animationFrame = window.requestAnimationFrame(draw);
     };
 
+    const measureOverlayBoxes = () => {
+      const wrapRect = wrap.getBoundingClientRect();
+      const reserve = stageSize.width < 680 ? 14 : 20;
+      overlayBoxes = Array.from(
+        wrap.querySelectorAll<HTMLElement>(".pretext-stage-label, .pretext-token-cloud span, .pretext-fallback"),
+      )
+        .filter((element) => {
+          const styles = window.getComputedStyle(element);
+          return styles.display !== "none" && styles.visibility !== "hidden" && Number(styles.opacity || 1) !== 0;
+        })
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            left: rect.left - wrapRect.left - reserve,
+            right: rect.right - wrapRect.left + reserve,
+            top: rect.top - wrapRect.top - reserve,
+            bottom: rect.bottom - wrapRect.top + reserve,
+          };
+        })
+        .filter((box) => box.right > 0 && box.left < stageSize.width && box.bottom > 0 && box.top < stageSize.height);
+    };
+
     const resize = () => {
       const rect = wrap.getBoundingClientRect();
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
       palette = readPretextPalette(wrap);
+      stageSize = { width: rect.width, height: rect.height };
       canvas.width = Math.max(1, Math.floor(rect.width * ratio));
       canvas.height = Math.max(1, Math.floor(rect.height * ratio));
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      measureOverlayBoxes();
     };
 
     const draw = (time: number) => {
       animationFrame = 0;
-      const rect = wrap.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
+      const { width, height } = stageSize;
       if (width < 10 || height < 10) return;
 
       ctx.clearRect(0, 0, width, height);
@@ -646,36 +775,55 @@ export function MethodPretext() {
         ctx.stroke();
       });
 
-      ctx.fillStyle = palette.mapPill;
-      roundRect(ctx, objectX - objectW / 2 + 22, objectY + objectH / 2 - 52, objectW - 44, 30, 15);
-      ctx.fill();
-      ctx.fillStyle = palette.mapInkStrong;
-      ctx.font = "700 12px Georgia, 'Times New Roman', serif";
-      const statusLabel = objectW < 235 ? "VISIBLE → REPEATABLE" : "SCATTERED → VISIBLE → REPEATABLE";
-      ctx.fillText(statusLabel, objectX - objectW / 2 + 39, objectY + objectH / 2 - 32);
+      if (!isCompact) {
+        ctx.fillStyle = palette.mapPill;
+        roundRect(ctx, objectX - objectW / 2 + 22, objectY + objectH / 2 - 52, objectW - 44, 30, 15);
+        ctx.fill();
+        ctx.fillStyle = palette.mapInkStrong;
+        ctx.font = "700 12px Georgia, 'Times New Roman', serif";
+        ctx.fillText("SCATTERED → VISIBLE → REPEATABLE", objectX - objectW / 2 + 39, objectY + objectH / 2 - 32);
+      }
 
       ctx.font = font;
       ctx.fillStyle = pointerInside ? palette.textActive : palette.text;
       ctx.letterSpacing = "0px";
       let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 };
       let y = top;
+      const minReadableWidth = width < 680 ? 118 : 150;
+      const subtractInterval = (intervals: Array<[number, number]>, cutLeft: number, cutRight: number) => {
+        const next: Array<[number, number]> = [];
+        intervals.forEach(([startX, endX]) => {
+          const left = Math.max(margin, Math.min(width - margin, cutLeft));
+          const right = Math.max(margin, Math.min(width - margin, cutRight));
+          if (right <= startX || left >= endX) {
+            next.push([startX, endX]);
+            return;
+          }
+          if (left - startX >= minReadableWidth) next.push([startX, left]);
+          if (endX - right >= minReadableWidth) next.push([right, endX]);
+        });
+        return next;
+      };
 
       while (y < maxY) {
         const rowTop = y - lineHeight;
         const rowBottom = y + 6;
-        const overlaps = rowBottom > objectY - objectH / 2 - halo && rowTop < objectY + objectH / 2 + halo;
-        const intervals: Array<[number, number]> = [[margin, width - margin]];
+        let intervals: Array<[number, number]> = [[margin, width - margin]];
+        const objectOverlaps = rowBottom > objectY - objectH / 2 - halo && rowTop < objectY + objectH / 2 + halo;
 
-        if (overlaps && width > 560) {
-          const left = objectX - objectW / 2 - halo;
-          const right = objectX + objectW / 2 + halo;
-          intervals.length = 0;
-          if (left - margin > 150) intervals.push([margin, left - freeGap]);
-          if (width - margin - right > 150) intervals.push([right + freeGap, width - margin]);
-          if (intervals.length === 0) {
-            y += lineHeight;
-            continue;
+        if (objectOverlaps) {
+          intervals = subtractInterval(intervals, objectX - objectW / 2 - halo - freeGap, objectX + objectW / 2 + halo + freeGap);
+        }
+
+        overlayBoxes.forEach((box) => {
+          if (rowBottom > box.top && rowTop < box.bottom) {
+            intervals = subtractInterval(intervals, box.left - freeGap, box.right + freeGap);
           }
+        });
+
+        if (intervals.length === 0) {
+          y += lineHeight;
+          continue;
         }
 
         for (const [x0, x1] of intervals) {
@@ -696,6 +844,14 @@ export function MethodPretext() {
 
     resize();
     draw(performance.now());
+    const overlayRefreshTimer = window.setTimeout(() => {
+      measureOverlayBoxes();
+      scheduleDraw();
+    }, 180);
+    document.fonts?.ready.then(() => {
+      measureOverlayBoxes();
+      scheduleDraw();
+    });
     const resizeObserver = new ResizeObserver(() => {
       resize();
       scheduleDraw();
@@ -723,6 +879,8 @@ export function MethodPretext() {
     };
 
     const handlePointerMove = (event: globalThis.PointerEvent) => {
+      if (reducedMotion.matches) return;
+
       const rect = wrap.getBoundingClientRect();
       pointerInside = true;
       pointerTarget = {
@@ -742,6 +900,7 @@ export function MethodPretext() {
 
     const handleThemeChange = () => {
       palette = readPretextPalette(wrap);
+      measureOverlayBoxes();
       scheduleDraw();
     };
 
@@ -777,6 +936,7 @@ export function MethodPretext() {
         "--pretext-y-soft-neg",
       ].forEach((property) => wrap.style.removeProperty(property));
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      window.clearTimeout(overlayRefreshTimer);
     };
   }, []);
 
@@ -784,8 +944,8 @@ export function MethodPretext() {
     <div className="pretext-stage" ref={wrapRef}>
       <canvas ref={canvasRef} aria-hidden="true" />
       <div className="pretext-stage-label" aria-hidden="true">
-        <span>Live text flow</span>
-        <strong>Pretext method canvas</strong>
+        <span>From scattered use to shared practice</span>
+        <strong>Verdantia working map</strong>
       </div>
       <div className="pretext-token-cloud" aria-hidden="true">
         {pretextTokens.map((token) => (
@@ -888,7 +1048,7 @@ export function AdoptionPathway() {
       </div>
 
       <article className="pathway-panel" aria-live="polite">
-        <span className="micro-label">Current adoption state</span>
+        <span className="micro-label">Where your team may be now</span>
         <h3>{current.label}</h3>
         <p>{current.copy}</p>
       </article>

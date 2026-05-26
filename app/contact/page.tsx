@@ -6,15 +6,15 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Contact Verdantia | AI Training & Adoption Enquiries",
   description:
-    "Contact Verdantia about AI team briefings, practical AI workshops, adoption days, adoption sprints, and training provider partnerships.",
+    "Contact Verdantia about AI team briefings, practical AI workshops, adoption days, adoption sprints, learning labs, and training provider partnerships.",
   path: "/contact",
 });
 
 const enquiryGuidance = [
-  "Where your team is with AI today",
+  "Where your team, organisation, or workflow is with AI today",
   "The tools you are already using or considering",
-  "The workflows, roles, or risks that need attention",
-  "Whether you want a briefing, workshop, adoption day, sprint, or partnership conversation",
+  "The workflows, roles, skills, or risks that need attention",
+  "Whether you want a team offer, learning lab, workflow clinic, or partnership conversation",
 ] as const;
 
 const nextSteps = [
@@ -24,7 +24,7 @@ const nextSteps = [
   },
   {
     title: "Shape the conversation",
-    copy: "The first reply focuses on your team, likely support needs, fit, and sensible next steps.",
+    copy: "The first reply focuses on your context, likely support needs, fit, and sensible next steps.",
   },
   {
     title: "Keep it practical",
@@ -39,10 +39,10 @@ export default function ContactPage() {
         kicker="Contact"
         title="Start with the right first step."
         visual="contact"
-        meta={["Briefings", "Workshops", "Adoption sprints"]}
+        meta={["Briefings", "Workshops", "Adoption days", "Sprints"]}
       >
         <p>
-          Tell us what your team is trying to improve, where AI is already showing up, and what kind of support you are considering. If you used AI Pathfinder, your brief can be carried into the form automatically.
+          Tell us what you are trying to improve, where AI is already showing up, and what kind of support you are considering. If you used AI Pathfinder, your brief can be carried into the form automatically.
         </p>
       </PageHero>
 

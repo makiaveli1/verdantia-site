@@ -2,13 +2,13 @@ import { AIPathfinder } from "@/components/AIPathfinder";
 import { ButtonLink } from "@/components/ButtonLink";
 import { OfferLadder } from "@/components/OfferLadder";
 import { PageHero } from "@/components/PageHero";
-import { offers } from "@/lib/site";
+import { individualLearningTracks, offers } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "AI Training & Adoption Offers | Verdantia",
+  title: "AI Training, Adoption & Learning Offers | Verdantia",
   description:
-    "Explore Verdantia's practical AI offer ladder: AI Team Briefing, Practical AI Workshop, AI Adoption Day, and AI Adoption Sprint.",
+    "Explore Verdantia's practical AI training and adoption options for teams, training providers, and community organisations, with a separate learning-labs route for individual professionals.",
   path: "/offers",
 });
 
@@ -46,39 +46,124 @@ const segmentAngles = [
   },
 ] as const;
 
+const buyerRoutes = [
+  {
+    title: "Buying for a team",
+    copy: "Compare the organisation offer ladder: briefing, workshop, adoption day, or sprint.",
+    href: "#offer-ladder",
+    cta: "Compare team offers",
+  },
+  {
+    title: "Buying for yourself",
+    copy: "Use the professional learning-labs lane for small-group skill-building and workflow clinics.",
+    href: "/learning",
+    cta: "Explore learning labs",
+  },
+  {
+    title: "Training provider or community group",
+    copy: "Discuss delivery capacity, a specialist module, or accessible workshop support for your learners.",
+    href: "/contact?enquiryType=Training%20provider%20partnership",
+    cta: "Discuss the route",
+  },
+] as const;
+
 export default function OffersPage() {
   return (
     <main id="main" className="inner-page offers-page-premium">
       <PageHero
         kicker="Offers"
-        title="Choose the lightest useful AI adoption step."
+        title="Choose the lightest useful AI step for your team."
         visual="capabilities"
-        meta={["Briefings", "Workshops", "Adoption sprints"]}
+        meta={["Team briefings", "Workshops", "Adoption days", "Sprints"]}
         actions={
           <>
-            <ButtonLink href="#offer-ladder">Compare offers</ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
-              Send a useful brief
+            <ButtonLink href="#offer-ladder">Compare team offers</ButtonLink>
+            <ButtonLink href="/learning" variant="secondary">
+              Individual? Explore learning labs
             </ButtonLink>
           </>
         }
       >
         <p>
-          Verdantia’s offer ladder is deliberately simple: start with the amount of structure your team actually needs, then deepen only when the work justifies it.
+          Verdantia’s organisation offers are deliberately simple: start with the level of support your team needs now, then deepen only when the work justifies it.
         </p>
       </PageHero>
 
+      <section className="section offer-route-section scroll-rise" aria-labelledby="offer-route-heading">
+        <div className="shell section-heading section-heading-centered">
+          <p className="section-kicker">Choose the right route</p>
+          <h2 id="offer-route-heading">Choose the right buying route.</h2>
+          <p>
+            Organisation work stays in the team offer ladder. Individual professional development lives in the learning-labs lane, so neither route gets muddied.
+          </p>
+        </div>
+        <div className="shell offer-route-grid" role="list" aria-label="Verdantia buyer routes">
+          {buyerRoutes.map((route) => (
+            <article className="offer-route-card" key={route.title} role="listitem">
+              <h3>{route.title}</h3>
+              <p>{route.copy}</p>
+              <ButtonLink href={route.href} variant="secondary">
+                {route.cta}
+              </ButtonLink>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section id="offer-ladder" className="section capability-index-section scroll-rise" aria-labelledby="offer-ladder-heading">
         <div className="shell section-heading">
-          <p className="section-kicker">Offer ladder</p>
-          <h2 id="offer-ladder-heading">From shared baseline to adoption system.</h2>
+          <p className="section-kicker">Ways to start</p>
+          <h2 id="offer-ladder-heading">From shared baseline to practical adoption support.</h2>
           <p>
-            The goal is not to sell more AI activity for its own sake. It is to give teams the lightest useful intervention that creates clarity, confidence, and repeatable next steps.
+            The goal is not to sell more AI activity for its own sake. It is to give teams, training providers, and community organisations the lightest useful intervention that creates clarity, confidence, and repeatable next steps.
           </p>
         </div>
 
         <div className="shell">
           <OfferLadder context="offers" />
+        </div>
+      </section>
+
+      <section className="section offer-curriculum-section" aria-labelledby="offer-curriculum-heading">
+        <div className="shell section-heading section-heading-centered">
+          <p className="section-kicker">Inside the work</p>
+          <h2 id="offer-curriculum-heading">Each offer has a clear shape.</h2>
+          <p>
+            Sessions are built around practical exercises, useful examples, and materials people can keep using after the work ends.
+          </p>
+        </div>
+        <div className="shell offer-curriculum-grid" role="list" aria-label="What happens inside each Verdantia team offer">
+          {offers.map((offer) => (
+            <article className="offer-curriculum-card" key={offer.title} role="listitem">
+              <div className="offer-curriculum-card-header">
+                <span>{offer.level}</span>
+                <h3>{offer.title}</h3>
+                <p>{offer.duration}</p>
+              </div>
+              <div className="offer-curriculum-columns">
+                <div>
+                  <strong>In the room</strong>
+                  <ul>
+                    {offer.inRoom.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <strong>You practise</strong>
+                  <ul>
+                    {offer.practice.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="offer-curriculum-next">
+                <span>Next sensible step</span>
+                <p>{offer.nextStep}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -88,12 +173,12 @@ export default function OffersPage() {
             <p className="section-kicker">Buying clarity</p>
             <h2 id="comparison-heading">What each offer is meant to resolve.</h2>
           </div>
-          <div className="comparison-table" role="table" aria-label="Verdantia offer comparison">
+          <div className="comparison-table" role="table" aria-label="Verdantia offer comparison" tabIndex={0}>
             <div className="comparison-row comparison-head" role="row">
               <span role="columnheader">Offer</span>
               <span role="columnheader">Best question</span>
               <span role="columnheader">Intensity</span>
-              <span role="columnheader">Primary leave-behind</span>
+              <span role="columnheader">Leave-behind</span>
             </div>
             {offers.map((offer) => (
               <div className="comparison-row" role="row" key={offer.title}>
@@ -104,6 +189,7 @@ export default function OffersPage() {
               </div>
             ))}
           </div>
+          <p className="comparison-scroll-hint">Swipe sideways to compare the full table.</p>
         </div>
       </section>
 
@@ -129,13 +215,38 @@ export default function OffersPage() {
         <div className="shell company-posture">
           <div>
             <p className="section-kicker">Who this is for</p>
-            <h2 id="segments-heading">Three types of teams Verdantia can help.</h2>
+            <h2 id="segments-heading">Three organisation routes Verdantia can support.</h2>
           </div>
           <div className="posture-cards">
             {segmentAngles.map((item) => (
               <article key={item.title}>
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section individual-offer-section" aria-labelledby="individual-offer-heading">
+        <div className="shell individual-offer-layout">
+          <div>
+            <p className="section-kicker">Individual professionals</p>
+            <h2 id="individual-offer-heading">A separate learning-labs lane for professionals.</h2>
+            <p>
+              This is a separate professional-development lane, not a replacement for the organisation offer ladder. It is for individuals who want small-group practice with everyday AI tools, safer habits, and repeatable personal workflows.
+            </p>
+            <ButtonLink href="/learning" variant="secondary">
+              See professional learning labs
+            </ButtonLink>
+          </div>
+          <div className="individual-offer-cards" role="list" aria-label="Individual learning lab options">
+            {individualLearningTracks.map((track) => (
+              <article key={track.title} role="listitem">
+                <span>{track.format}</span>
+                <h3>{track.title}</h3>
+                <p className="individual-offer-price">{track.price}</p>
+                <p>{track.bestFor}</p>
               </article>
             ))}
           </div>
@@ -151,10 +262,10 @@ export default function OffersPage() {
           <p className="section-kicker">Next step</p>
           <h2 id="offers-cta">Not sure which offer fits?</h2>
           <p>
-            Send a short note about your team, current AI use, and the work you want to improve. Verdantia can recommend the lightest sensible starting point.
+            Send a short note about your team, learner group, or individual workflow. Verdantia can recommend the lightest sensible starting point.
           </p>
           <ButtonLink href="/contact" variant="light">
-            Send a useful brief
+            Book a practical AI call
           </ButtonLink>
         </div>
       </section>

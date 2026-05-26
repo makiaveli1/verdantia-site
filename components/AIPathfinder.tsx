@@ -153,10 +153,10 @@ function buildRecommendation(selections: Record<StepId, string>) {
 
   const primary =
     support === "training"
-      ? "Start with a practical team training sprint."
+      ? "Start with a practical team workshop."
       : support === "materials"
-        ? "Start with a reusable prompt and guidance library."
-        : "Start with a workflow design and adoption mapping sprint.";
+        ? "Start with reusable prompts and guidance."
+        : "Start with workflow mapping and adoption support.";
 
   const focus =
     risk === "safety"
@@ -187,6 +187,7 @@ function buildRecommendation(selections: Record<StepId, string>) {
 export function AIPathfinder() {
   const [selections, setSelections] = useState<Record<StepId, string>>(defaultSelections);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const recommendation = useMemo(() => buildRecommendation(selections), [selections]);
 
   const brief = useMemo(
@@ -230,23 +231,34 @@ export function AIPathfinder() {
     <section className="section pathfinder-section" aria-labelledby="pathfinder-heading">
       <div className="shell pathfinder-shell">
         <div className="pathfinder-intro premium-pathfinder-intro">
-          <p className="section-kicker">AI Pathfinder</p>
-          <h2 id="pathfinder-heading">Turn a loose AI conversation into a useful starting brief.</h2>
+          <p className="section-kicker">AI Pathfinder for teams</p>
+          <h2 id="pathfinder-heading">Turn a loose team AI conversation into a useful starting brief.</h2>
           <p>
             Five quick choices become a practical recommendation, a suggested offer,
-            and a pre-filled enquiry brief. No vague “AI transformation” fog machine.
+            and a pre-filled enquiry brief. This keeps the first conversation concrete.
           </p>
-          <div className="pathfinder-progress" aria-hidden="true">
+          <div className="pathfinder-progress" role="group" aria-label="Pathfinder questions">
             {steps.map((step, index) => (
-              <span key={step.id}>{String(index + 1).padStart(2, "0")}</span>
+              <button
+                key={step.id}
+                type="button"
+                aria-label={`Show question ${index + 1}: ${step.title}`}
+                aria-current={activeStepIndex === index ? "step" : undefined}
+                onClick={() => setActiveStepIndex(index)}
+              >
+                {String(index + 1).padStart(2, "0")}
+              </button>
             ))}
           </div>
         </div>
 
         <div className="pathfinder-board">
           <div className="pathfinder-steps">
-            {steps.map((step) => (
-              <fieldset className="pathfinder-step" key={step.id}>
+            {steps.map((step, index) => (
+              <fieldset
+                className={`pathfinder-step${activeStepIndex === index ? " is-current" : ""}${index < activeStepIndex ? " is-complete" : ""}`}
+                key={step.id}
+              >
                 <legend>
                   <span>{step.eyebrow}</span>
                   {step.title}
@@ -269,11 +281,30 @@ export function AIPathfinder() {
                     );
                   })}
                 </div>
+                <div className="pathfinder-step-controls" aria-label={`Question ${index + 1} navigation`}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveStepIndex((current) => Math.max(0, current - 1))}
+                    disabled={index === 0}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveStepIndex((current) => Math.min(steps.length - 1, current + 1))}
+                    disabled={index === steps.length - 1}
+                  >
+                    {index === steps.length - 1 ? "Review brief" : "Next question"}
+                  </button>
+                </div>
               </fieldset>
             ))}
           </div>
 
-          <aside className="pathfinder-result" aria-live="polite">
+          <aside className="pathfinder-result">
+            <p className="sr-only" role="status" aria-live="polite">
+              Recommended offer: {recommendation.offer}.
+            </p>
             <span className="status-badge">Recommended next step</span>
             <h3>{recommendation.primary}</h3>
             <p>{recommendation.pace}</p>
