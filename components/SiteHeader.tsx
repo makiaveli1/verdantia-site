@@ -198,7 +198,7 @@ export function SiteHeader() {
 
           <div className="header-actions">
             <Link className="header-cta" href="/contact">
-              <span>Start a conversation</span>
+              <span>Send a useful brief</span>
             </Link>
 
             <button
@@ -239,7 +239,7 @@ export function SiteHeader() {
               })}
             </nav>
             <Link className="mobile-cta" href="/contact" onClick={() => setIsOpen(false)}>
-              Start a conversation
+              Send a useful brief
             </Link>
           </div>
         </div>

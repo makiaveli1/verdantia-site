@@ -86,16 +86,16 @@ export default function Home() {
         <div className="shell hero-grid premium-hero-grid">
           <div className="hero-copy premium-hero-copy">
             <p className="eyebrow">Practical AI training and adoption support</p>
-            <h1 id="hero-heading">Turn scattered AI use into safe, repeatable team workflows.</h1>
+            <h1 id="hero-heading">Make scattered AI use safe and repeatable.</h1>
             <p className="hero-lede">
-              Verdantia helps Ireland and UK teams make sense of generative AI, practise it safely, and turn early experiments into useful working habits.
+              Verdantia helps Ireland and UK teams turn generative AI experiments into practical workflows, safer habits, and reusable materials.
             </p>
             <p>
               Start with the lightest useful step: a briefing, workshop, adoption day, or focused sprint built around your team’s real work.
             </p>
             <div className="hero-actions">
-              <ButtonLink href="/offers">Compare the offer ladder</ButtonLink>
-              <ButtonLink href="/contact" variant="secondary">
+              <ButtonLink href="/offers">Find the right offer</ButtonLink>
+              <ButtonLink href="/contact" variant="secondary" className="hero-secondary-link">
                 Send a useful brief
               </ButtonLink>
             </div>

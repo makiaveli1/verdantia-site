@@ -4,11 +4,16 @@ import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "Digital Products | Verdantia",
+  title: "Product Lab | Verdantia",
   description:
-    "Explore how Verdantia thinks about focused digital tools that support practical AI training, workflow clarity, and adoption.",
+    "A quiet Verdantia product-lab note for future digital tools that may support practical AI training, workflow clarity, and adoption.",
   path: "/products",
 });
+
+metadata.robots = {
+  index: false,
+  follow: true,
+};
 
 const productPrinciples = [
   "Solve a specific working problem.",
@@ -36,27 +41,35 @@ export default function ProductsPage() {
   return (
     <main id="main" className="inner-page">
       <PageHero
-        kicker="Products"
-        title="Focused digital tools for practical AI work."
+        kicker="Product lab"
+        title="Future tools sit behind the training work."
         visual="products"
-        meta={["Focused tools", "Workflow clarity", "Practical AI thinking"]}
-        actions={<ButtonLink href="/contact">Discuss a practical tool need</ButtonLink>}
+        meta={["Quiet lab", "Not a public product offer", "Training first"]}
+        actions={
+          <>
+            <ButtonLink href="/offers">Explore the current offers</ButtonLink>
+            <ButtonLink href="/contact" variant="secondary">
+              Discuss a practical tool need
+            </ButtonLink>
+          </>
+        }
       >
         <p>
-          Verdantia’s product thinking focuses on small, useful tools that make
-          AI-supported work easier to understand, repeat, and improve.
+          Verdantia is not selling a software product here. Any future tools will
+          support the core work: practical AI training, workflow clarity, safer
+          habits, and reusable adoption materials.
         </p>
       </PageHero>
 
       <section className="section product-studio-section" aria-labelledby="product-studio-heading">
         <div className="shell product-studio-grid">
           <div className="product-studio-copy">
-            <p className="section-kicker">Digital tools</p>
+            <p className="section-kicker">Future product thinking</p>
             <h2 id="product-studio-heading">Tools should make the work clearer, not louder.</h2>
             <p>
-              If Verdantia releases tools, they will support the same practical
-              goal as the training work: clearer workflows, safer habits, and
-              reusable materials.
+              Product ideas stay secondary until they solve a real workshop or
+              adoption problem: helping a team understand the work, repeat a good
+              habit, or keep AI-supported outputs reviewable.
             </p>
           </div>
 
@@ -102,8 +115,8 @@ export default function ProductsPage() {
             <p className="section-kicker">Product direction</p>
             <h2 id="product-roadmap-heading">No public product is being sold here yet.</h2>
             <p>
-              Focused tools may follow when they clearly support team training,
-              workflow clarity, and practical adoption work.
+              Focused tools may follow only when they clearly support team
+              training, workflow clarity, and practical adoption work.
             </p>
           </div>
           <div className="roadmap-steps">
