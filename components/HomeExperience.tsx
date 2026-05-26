@@ -369,7 +369,21 @@ export function ScrollReveal() {
 
 export function HeroStudio() {
   const [active, setActive] = useState(0);
+  const isInteracting = useRef(false);
   const current = heroStates[active];
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+
+    const interval = window.setInterval(() => {
+      if (!isInteracting.current) {
+        setActive((value) => (value + 1) % heroStates.length);
+      }
+    }, 4600);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -383,10 +397,23 @@ export function HeroStudio() {
   return (
     <div
       className={`studio-shell studio-canvas-shell studio-state-${current.key}`}
+      onPointerEnter={() => {
+        isInteracting.current = true;
+      }}
       onPointerMove={handlePointerMove}
       onPointerLeave={(event) => {
+        isInteracting.current = false;
         event.currentTarget.style.removeProperty("--pointer-x");
         event.currentTarget.style.removeProperty("--pointer-y");
+      }}
+      onFocusCapture={() => {
+        isInteracting.current = true;
+      }}
+      onBlurCapture={(event) => {
+        const nextTarget = event.relatedTarget;
+        if (!(nextTarget instanceof Node) || !event.currentTarget.contains(nextTarget)) {
+          isInteracting.current = false;
+        }
       }}
     >
       <div className="canvas-topline">
@@ -438,6 +465,7 @@ export function HeroStudio() {
             className={active === index ? "is-active" : ""}
             type="button"
             key={state.key}
+            aria-pressed={active === index}
             onClick={() => setActive(index)}
             onFocus={() => setActive(index)}
             onMouseEnter={() => setActive(index)}
@@ -474,6 +502,8 @@ export function MethodPretext() {
     let pointerInside = false;
     let pointerTarget = { x: 0.62, y: 0.5 };
     const pointerCurrent = { x: 0.62, y: 0.5 };
+    const pointerVelocity = { x: 0, y: 0 };
+    let palette = readPretextPalette(wrap);
 
     const scheduleDraw = () => {
       if (animationFrame || !isVisible || !isPageVisible) return;
@@ -483,6 +513,7 @@ export function MethodPretext() {
     const resize = () => {
       const rect = wrap.getBoundingClientRect();
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      palette = readPretextPalette(wrap);
       canvas.width = Math.max(1, Math.floor(rect.width * ratio));
       canvas.height = Math.max(1, Math.floor(rect.height * ratio));
       canvas.style.width = `${rect.width}px`;
@@ -499,20 +530,29 @@ export function MethodPretext() {
 
       ctx.clearRect(0, 0, width, height);
       const t = reducedMotion.matches ? 0.42 : (time - start) / 1000;
-      const pointerEase = reducedMotion.matches ? 1 : 0.085;
-      pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * pointerEase;
-      pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * pointerEase;
+      if (reducedMotion.matches) {
+        pointerCurrent.x = pointerTarget.x;
+        pointerCurrent.y = pointerTarget.y;
+      } else {
+        const stiffness = pointerInside ? 0.054 : 0.032;
+        const damping = pointerInside ? 0.76 : 0.82;
+        pointerVelocity.x = (pointerVelocity.x + (pointerTarget.x - pointerCurrent.x) * stiffness) * damping;
+        pointerVelocity.y = (pointerVelocity.y + (pointerTarget.y - pointerCurrent.y) * stiffness) * damping;
+        pointerCurrent.x += pointerVelocity.x;
+        pointerCurrent.y += pointerVelocity.y;
+      }
+      applyPretextPointerVars(wrap, pointerCurrent.x, pointerCurrent.y);
 
       const ambientGradient = ctx.createRadialGradient(width * 0.62, height * 0.5, 10, width * 0.62, height * 0.5, Math.max(width, height) * 0.72);
-      ambientGradient.addColorStop(0, "rgba(14, 61, 47, 0.15)");
-      ambientGradient.addColorStop(0.52, "rgba(201, 163, 90, 0.08)");
-      ambientGradient.addColorStop(1, "rgba(14, 61, 47, 0)");
+      ambientGradient.addColorStop(0, palette.ambientCore);
+      ambientGradient.addColorStop(0.52, palette.ambientMid);
+      ambientGradient.addColorStop(1, palette.transparent);
       ctx.fillStyle = ambientGradient;
       ctx.fillRect(0, 0, width, height);
 
       const cursorGlow = ctx.createRadialGradient(pointerCurrent.x * width, pointerCurrent.y * height, 0, pointerCurrent.x * width, pointerCurrent.y * height, Math.min(width, height) * 0.34);
-      cursorGlow.addColorStop(0, pointerInside ? "rgba(201, 163, 90, 0.18)" : "rgba(201, 163, 90, 0.08)");
-      cursorGlow.addColorStop(1, "rgba(201, 163, 90, 0)");
+      cursorGlow.addColorStop(0, pointerInside ? palette.cursorGlowActive : palette.cursorGlowIdle);
+      cursorGlow.addColorStop(1, palette.transparent);
       ctx.fillStyle = cursorGlow;
       ctx.fillRect(0, 0, width, height);
 
@@ -533,8 +573,8 @@ export function MethodPretext() {
       const freeGap = 16;
 
       ctx.save();
-      ctx.globalAlpha = 0.34;
-      ctx.strokeStyle = "rgba(14, 61, 47, 0.12)";
+      ctx.globalAlpha = pointerInside ? 0.46 : 0.34;
+      ctx.strokeStyle = palette.gridLine;
       ctx.lineWidth = 1;
       for (let x = margin; x < width - margin; x += 34) {
         ctx.beginPath();
@@ -552,27 +592,35 @@ export function MethodPretext() {
 
       ctx.save();
       ctx.globalAlpha = 0.72;
-      ctx.strokeStyle = "rgba(201, 163, 90, 0.48)";
+      ctx.strokeStyle = palette.routePrimary;
       ctx.lineWidth = 1.6;
       ctx.beginPath();
       ctx.moveTo(margin, height * 0.72);
       ctx.bezierCurveTo(width * 0.24, height * 0.52, width * 0.42, height * 0.86, objectX - objectW / 2, objectY + objectH * 0.2);
       ctx.stroke();
-      ctx.strokeStyle = "rgba(14, 61, 47, 0.2)";
+      ctx.strokeStyle = palette.routeSecondary;
       ctx.beginPath();
       ctx.moveTo(width - margin, height * 0.25);
       ctx.bezierCurveTo(width * 0.78, height * 0.4, width * 0.64, height * 0.22, objectX + objectW / 2, objectY - objectH * 0.24);
       ctx.stroke();
       ctx.restore();
 
+      const readingWash = ctx.createLinearGradient(margin - 18, top - 42, width - margin, top + 160);
+      readingWash.addColorStop(0, palette.readingWashStrong);
+      readingWash.addColorStop(0.55, palette.readingWashSoft);
+      readingWash.addColorStop(1, palette.transparent);
+      ctx.fillStyle = readingWash;
+      roundRect(ctx, margin - 20, top - 44, width - margin * 2 + 40, Math.min(220, height * 0.42), 34);
+      ctx.fill();
+
       const gradient = ctx.createLinearGradient(objectX - objectW / 2, objectY, objectX + objectW / 2, objectY);
-      gradient.addColorStop(0, "rgba(255, 253, 248, 0.96)");
-      gradient.addColorStop(1, "rgba(231, 225, 208, 0.9)");
+      gradient.addColorStop(0, palette.paperA);
+      gradient.addColorStop(1, palette.paperB);
       ctx.fillStyle = gradient;
-      ctx.shadowColor = "rgba(0, 0, 0, 0.28)";
+      ctx.shadowColor = palette.paperShadow;
       ctx.shadowBlur = 36;
       ctx.shadowOffsetY = 18;
-      ctx.strokeStyle = "rgba(201, 163, 90, 0.86)";
+      ctx.strokeStyle = palette.paperBorder;
       ctx.lineWidth = 1.7;
       roundRect(ctx, objectX - objectW / 2, objectY - objectH / 2, objectW, objectH, 26);
       ctx.fill();
@@ -581,7 +629,7 @@ export function MethodPretext() {
       ctx.shadowBlur = 0;
       ctx.shadowOffsetY = 0;
 
-      ctx.fillStyle = "rgba(14, 61, 47, 0.94)";
+      ctx.fillStyle = palette.mapInkStrong;
       ctx.font = "700 13px Arial, sans-serif";
       ctx.letterSpacing = "0.08em";
       ctx.fillText("OPERATING MAP", objectX - objectW / 2 + 22, objectY - objectH / 2 + 34);
@@ -589,25 +637,25 @@ export function MethodPretext() {
       ctx.letterSpacing = "0";
       ["Use cases", "Risk gates", "Prompt library", "Team rhythm"].forEach((label, index) => {
         const y = objectY - objectH / 2 + 68 + index * 27;
-        ctx.fillStyle = index === 1 ? "rgba(173, 122, 28, 0.95)" : "rgba(14, 61, 47, 0.8)";
+        ctx.fillStyle = index === 1 ? palette.mapAccent : palette.mapInk;
         ctx.fillText(label, objectX - objectW / 2 + 24, y);
-        ctx.strokeStyle = index === 1 ? "rgba(201, 163, 90, 0.5)" : "rgba(14, 61, 47, 0.16)";
+        ctx.strokeStyle = index === 1 ? palette.mapRuleAccent : palette.mapRule;
         ctx.beginPath();
         ctx.moveTo(objectX - objectW / 2 + 132, y - 5);
         ctx.lineTo(objectX + objectW / 2 - 24, y - 5);
         ctx.stroke();
       });
 
-      ctx.fillStyle = "rgba(14, 61, 47, 0.1)";
+      ctx.fillStyle = palette.mapPill;
       roundRect(ctx, objectX - objectW / 2 + 22, objectY + objectH / 2 - 52, objectW - 44, 30, 15);
       ctx.fill();
-      ctx.fillStyle = "rgba(14, 61, 47, 0.82)";
+      ctx.fillStyle = palette.mapInkStrong;
       ctx.font = "700 12px Georgia, 'Times New Roman', serif";
       const statusLabel = objectW < 235 ? "VISIBLE → REPEATABLE" : "SCATTERED → VISIBLE → REPEATABLE";
       ctx.fillText(statusLabel, objectX - objectW / 2 + 39, objectY + objectH / 2 - 32);
 
       ctx.font = font;
-      ctx.fillStyle = pointerInside ? "rgba(14, 61, 47, 0.68)" : "rgba(14, 61, 47, 0.58)";
+      ctx.fillStyle = pointerInside ? palette.textActive : palette.text;
       ctx.letterSpacing = "0px";
       let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 };
       let y = top;
@@ -681,17 +729,7 @@ export function MethodPretext() {
         x: Math.min(0.86, Math.max(0.16, (event.clientX - rect.left) / Math.max(1, rect.width))),
         y: Math.min(0.78, Math.max(0.18, (event.clientY - rect.top) / Math.max(1, rect.height))),
       };
-      const px = (pointerTarget.x - 0.5) * 22;
-      const py = (pointerTarget.y - 0.5) * 22;
       wrap.classList.add("is-reacting");
-      wrap.style.setProperty("--pretext-x", `${px.toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-y", `${py.toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-x-neg", `${(-px).toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-y-neg", `${(-py).toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-x-soft", `${(px * 0.22).toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-y-soft", `${(py * 0.22).toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-x-soft-neg", `${(-px * 0.22).toFixed(2)}px`);
-      wrap.style.setProperty("--pretext-y-soft-neg", `${(-py * 0.22).toFixed(2)}px`);
       scheduleDraw();
     };
 
@@ -699,18 +737,16 @@ export function MethodPretext() {
       pointerInside = false;
       pointerTarget = { x: 0.62, y: 0.5 };
       wrap.classList.remove("is-reacting");
-      [
-        "--pretext-x",
-        "--pretext-y",
-        "--pretext-x-neg",
-        "--pretext-y-neg",
-        "--pretext-x-soft",
-        "--pretext-y-soft",
-        "--pretext-x-soft-neg",
-        "--pretext-y-soft-neg",
-      ].forEach((property) => wrap.style.removeProperty(property));
       scheduleDraw();
     };
+
+    const handleThemeChange = () => {
+      palette = readPretextPalette(wrap);
+      scheduleDraw();
+    };
+
+    const themeObserver = new MutationObserver(handleThemeChange);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     const handleVisibilityChange = () => {
       isPageVisible = document.visibilityState === "visible";
@@ -725,10 +761,21 @@ export function MethodPretext() {
     return () => {
       resizeObserver.disconnect();
       visibilityObserver.disconnect();
+      themeObserver.disconnect();
       reducedMotion.removeEventListener("change", handleReducedMotionChange);
       wrap.removeEventListener("pointermove", handlePointerMove);
       wrap.removeEventListener("pointerleave", handlePointerLeave);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      [
+        "--pretext-x",
+        "--pretext-y",
+        "--pretext-x-neg",
+        "--pretext-y-neg",
+        "--pretext-x-soft",
+        "--pretext-y-soft",
+        "--pretext-x-soft-neg",
+        "--pretext-y-soft-neg",
+      ].forEach((property) => wrap.style.removeProperty(property));
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, []);
@@ -753,6 +800,49 @@ export function MethodPretext() {
       </div>
     </div>
   );
+}
+
+function readPretextPalette(element: HTMLElement) {
+  const styles = window.getComputedStyle(element);
+  const value = (name: string, fallback: string) => styles.getPropertyValue(name).trim() || fallback;
+
+  return {
+    ambientCore: value("--pretext-ambient-core", "rgba(14, 61, 47, 0.15)"),
+    ambientMid: value("--pretext-ambient-mid", "rgba(201, 163, 90, 0.08)"),
+    cursorGlowActive: value("--pretext-cursor-active", "rgba(201, 163, 90, 0.18)"),
+    cursorGlowIdle: value("--pretext-cursor-idle", "rgba(201, 163, 90, 0.08)"),
+    gridLine: value("--pretext-grid-line", "rgba(14, 61, 47, 0.12)"),
+    routePrimary: value("--pretext-route-primary", "rgba(201, 163, 90, 0.48)"),
+    routeSecondary: value("--pretext-route-secondary", "rgba(14, 61, 47, 0.2)"),
+    readingWashStrong: value("--pretext-reading-wash-strong", "rgba(255, 250, 241, 0.7)"),
+    readingWashSoft: value("--pretext-reading-wash-soft", "rgba(255, 250, 241, 0.18)"),
+    paperA: value("--pretext-paper-a", "rgba(255, 253, 248, 0.96)"),
+    paperB: value("--pretext-paper-b", "rgba(231, 225, 208, 0.9)"),
+    paperBorder: value("--pretext-paper-border", "rgba(201, 163, 90, 0.86)"),
+    paperShadow: value("--pretext-paper-shadow", "rgba(0, 0, 0, 0.28)"),
+    mapInkStrong: value("--pretext-map-ink-strong", "rgba(14, 61, 47, 0.94)"),
+    mapInk: value("--pretext-map-ink", "rgba(14, 61, 47, 0.8)"),
+    mapAccent: value("--pretext-map-accent", "rgba(126, 82, 16, 0.98)"),
+    mapRule: value("--pretext-map-rule", "rgba(14, 61, 47, 0.16)"),
+    mapRuleAccent: value("--pretext-map-rule-accent", "rgba(201, 163, 90, 0.5)"),
+    mapPill: value("--pretext-map-pill", "rgba(14, 61, 47, 0.1)"),
+    text: value("--pretext-text", "rgba(14, 61, 47, 0.63)"),
+    textActive: value("--pretext-text-active", "rgba(14, 61, 47, 0.76)"),
+    transparent: value("--pretext-transparent", "rgba(14, 61, 47, 0)"),
+  };
+}
+
+function applyPretextPointerVars(element: HTMLElement, x: number, y: number) {
+  const px = (x - 0.5) * 28;
+  const py = (y - 0.5) * 28;
+  element.style.setProperty("--pretext-x", `${px.toFixed(2)}px`);
+  element.style.setProperty("--pretext-y", `${py.toFixed(2)}px`);
+  element.style.setProperty("--pretext-x-neg", `${(-px).toFixed(2)}px`);
+  element.style.setProperty("--pretext-y-neg", `${(-py).toFixed(2)}px`);
+  element.style.setProperty("--pretext-x-soft", `${(px * 0.24).toFixed(2)}px`);
+  element.style.setProperty("--pretext-y-soft", `${(py * 0.24).toFixed(2)}px`);
+  element.style.setProperty("--pretext-x-soft-neg", `${(-px * 0.24).toFixed(2)}px`);
+  element.style.setProperty("--pretext-y-soft-neg", `${(-py * 0.24).toFixed(2)}px`);
 }
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
