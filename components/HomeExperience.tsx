@@ -104,12 +104,16 @@ const pretextSummary =
 const pretextTokens = ["private prompts", "Copilot drafts", "review gaps", "shared route"] as const;
 
 export function HomeLoader() {
-  const [phase, setPhase] = useState<"visible" | "leaving" | "done">(() =>
-    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "done" : "visible",
-  );
-  const skipLoader = useRef(phase === "done");
+  const [phase, setPhase] = useState<"visible" | "leaving" | "done">("visible");
+  const skipLoader = useRef(false);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      skipLoader.current = true;
+      const doneTimer = window.setTimeout(() => setPhase("done"), 0);
+      return () => window.clearTimeout(doneTimer);
+    }
+
     if (skipLoader.current) return;
 
     document.body.classList.add("home-loading");
@@ -146,6 +150,99 @@ export function HomeLoader() {
         </div>
       </div>
       <p>Preparing the field guide</p>
+    </div>
+  );
+}
+
+export function ReactiveArtifactField() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let latestX = window.innerWidth / 2;
+    let latestY = window.innerHeight / 2;
+
+    const apply = () => {
+      frame = 0;
+      const nx = latestX / Math.max(1, window.innerWidth) - 0.5;
+      const ny = latestY / Math.max(1, window.innerHeight) - 0.5;
+
+      const smX = nx * 8;
+      const smY = ny * 8;
+      const mdX = nx * 18;
+      const mdY = ny * 18;
+      const lgX = nx * 34;
+      const lgY = ny * 34;
+
+      root.style.setProperty("--field-x-sm", `${smX.toFixed(2)}px`);
+      root.style.setProperty("--field-y-sm", `${smY.toFixed(2)}px`);
+      root.style.setProperty("--field-x-sm-neg", `${(-smX).toFixed(2)}px`);
+      root.style.setProperty("--field-y-sm-neg", `${(-smY).toFixed(2)}px`);
+      root.style.setProperty("--field-x-md", `${mdX.toFixed(2)}px`);
+      root.style.setProperty("--field-y-md", `${mdY.toFixed(2)}px`);
+      root.style.setProperty("--field-x-md-neg", `${(-mdX).toFixed(2)}px`);
+      root.style.setProperty("--field-y-md-neg", `${(-mdY).toFixed(2)}px`);
+      root.style.setProperty("--field-x-lg", `${lgX.toFixed(2)}px`);
+      root.style.setProperty("--field-y-lg", `${lgY.toFixed(2)}px`);
+      root.style.setProperty("--field-x-lg-neg", `${(-lgX).toFixed(2)}px`);
+      root.style.setProperty("--field-y-lg-neg", `${(-lgY).toFixed(2)}px`);
+    };
+
+    const handlePointerMove = (event: globalThis.PointerEvent) => {
+      if (reducedMotion.matches) return;
+      latestX = event.clientX;
+      latestY = event.clientY;
+      if (!frame) frame = window.requestAnimationFrame(apply);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    apply();
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("pointermove", handlePointerMove);
+      [
+        "--field-x-sm",
+        "--field-y-sm",
+        "--field-x-sm-neg",
+        "--field-y-sm-neg",
+        "--field-x-md",
+        "--field-y-md",
+        "--field-x-md-neg",
+        "--field-y-md-neg",
+        "--field-x-lg",
+        "--field-y-lg",
+        "--field-x-lg-neg",
+        "--field-y-lg-neg",
+      ].forEach((property) => root.style.removeProperty(property));
+    };
+  }, []);
+
+  return (
+    <div className="reactive-artifact-field" aria-hidden="true">
+      <svg className="reactive-artifact artifact-route" viewBox="0 0 420 180" focusable="false">
+        <path d="M18 126C92 38 164 28 226 82c58 50 104 42 176-30" />
+        <path d="M54 142c88-72 214-72 304 0" />
+      </svg>
+      <svg className="reactive-artifact artifact-paper artifact-paper-one" viewBox="0 0 180 140" focusable="false">
+        <rect x="18" y="18" width="132" height="92" rx="18" />
+        <path d="M40 52h64M40 72h88M40 92h48" />
+      </svg>
+      <svg className="reactive-artifact artifact-paper artifact-paper-two" viewBox="0 0 180 140" focusable="false">
+        <rect x="22" y="20" width="124" height="88" rx="18" />
+        <path d="M44 50h72M44 70h44M44 90h78" />
+      </svg>
+      <svg className="reactive-artifact artifact-gate" viewBox="0 0 210 210" focusable="false">
+        <circle cx="105" cy="105" r="80" />
+        <path d="M58 105h94M105 58v94" />
+      </svg>
+      <svg className="reactive-artifact artifact-dots" viewBox="0 0 220 90" focusable="false">
+        <circle cx="22" cy="44" r="5" />
+        <circle cx="82" cy="44" r="5" />
+        <circle cx="142" cy="44" r="5" />
+        <circle cx="202" cy="44" r="5" />
+        <path d="M28 44h48M88 44h48M148 44h48" />
+      </svg>
     </div>
   );
 }
@@ -374,6 +471,9 @@ export function MethodPretext() {
     let start = performance.now();
     let isVisible = false;
     let isPageVisible = document.visibilityState === "visible";
+    let pointerInside = false;
+    let pointerTarget = { x: 0.62, y: 0.5 };
+    const pointerCurrent = { x: 0.62, y: 0.5 };
 
     const scheduleDraw = () => {
       if (animationFrame || !isVisible || !isPageVisible) return;
@@ -398,21 +498,34 @@ export function MethodPretext() {
       if (width < 10 || height < 10) return;
 
       ctx.clearRect(0, 0, width, height);
-      const stageGradient = ctx.createLinearGradient(0, 0, width, height);
-      stageGradient.addColorStop(0, "#08291f");
-      stageGradient.addColorStop(0.48, "#0d3d2f");
-      stageGradient.addColorStop(1, "#062016");
-      ctx.fillStyle = stageGradient;
+      const t = reducedMotion.matches ? 0.42 : (time - start) / 1000;
+      const pointerEase = reducedMotion.matches ? 1 : 0.085;
+      pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * pointerEase;
+      pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * pointerEase;
+
+      const ambientGradient = ctx.createRadialGradient(width * 0.62, height * 0.5, 10, width * 0.62, height * 0.5, Math.max(width, height) * 0.72);
+      ambientGradient.addColorStop(0, "rgba(14, 61, 47, 0.15)");
+      ambientGradient.addColorStop(0.52, "rgba(201, 163, 90, 0.08)");
+      ambientGradient.addColorStop(1, "rgba(14, 61, 47, 0)");
+      ctx.fillStyle = ambientGradient;
       ctx.fillRect(0, 0, width, height);
 
-      const t = reducedMotion.matches ? 0.42 : (time - start) / 1000;
+      const cursorGlow = ctx.createRadialGradient(pointerCurrent.x * width, pointerCurrent.y * height, 0, pointerCurrent.x * width, pointerCurrent.y * height, Math.min(width, height) * 0.34);
+      cursorGlow.addColorStop(0, pointerInside ? "rgba(201, 163, 90, 0.18)" : "rgba(201, 163, 90, 0.08)");
+      cursorGlow.addColorStop(1, "rgba(201, 163, 90, 0)");
+      ctx.fillStyle = cursorGlow;
+      ctx.fillRect(0, 0, width, height);
+
       const pulse = reducedMotion.matches ? 0 : Math.sin(t * 0.8) * 0.5 + 0.5;
       const isCompact = width < 560;
       const objectW = (isCompact ? Math.min(248, width * 0.68) : Math.min(310, width * 0.42)) + pulse * (isCompact ? 12 : 22);
       const objectH = (isCompact ? Math.min(152, height * 0.27) : Math.min(218, height * 0.38)) + (1 - pulse) * (isCompact ? 10 : 18);
-      const objectX = width * ((isCompact ? 0.56 : 0.62) + Math.sin(t * 0.32) * (isCompact ? 0.016 : 0.028));
-      const objectY = height * ((isCompact ? 0.43 : 0.5) + Math.cos(t * 0.36) * (isCompact ? 0.018 : 0.04));
-      const halo = isCompact ? 22 : 30;
+      const idleX = (isCompact ? 0.56 : 0.62) + Math.sin(t * 0.32) * (isCompact ? 0.016 : 0.028);
+      const idleY = (isCompact ? 0.43 : 0.5) + Math.cos(t * 0.36) * (isCompact ? 0.018 : 0.04);
+      const pointerStrength = pointerInside && !isCompact ? 0.58 : pointerInside ? 0.28 : 0;
+      const objectX = width * (idleX * (1 - pointerStrength) + pointerCurrent.x * pointerStrength);
+      const objectY = height * (idleY * (1 - pointerStrength) + pointerCurrent.y * pointerStrength);
+      const halo = (isCompact ? 22 : 30) + (pointerInside ? 14 : 0);
       const lineHeight = width < 680 ? 23 : 26;
       const margin = width < 680 ? 22 : 44;
       const top = width < 680 ? 92 : 118;
@@ -420,8 +533,8 @@ export function MethodPretext() {
       const freeGap = 16;
 
       ctx.save();
-      ctx.globalAlpha = 0.42;
-      ctx.strokeStyle = "rgba(255, 253, 248, 0.08)";
+      ctx.globalAlpha = 0.34;
+      ctx.strokeStyle = "rgba(14, 61, 47, 0.12)";
       ctx.lineWidth = 1;
       for (let x = margin; x < width - margin; x += 34) {
         ctx.beginPath();
@@ -439,13 +552,13 @@ export function MethodPretext() {
 
       ctx.save();
       ctx.globalAlpha = 0.72;
-      ctx.strokeStyle = "rgba(201, 163, 90, 0.42)";
+      ctx.strokeStyle = "rgba(201, 163, 90, 0.48)";
       ctx.lineWidth = 1.6;
       ctx.beginPath();
       ctx.moveTo(margin, height * 0.72);
       ctx.bezierCurveTo(width * 0.24, height * 0.52, width * 0.42, height * 0.86, objectX - objectW / 2, objectY + objectH * 0.2);
       ctx.stroke();
-      ctx.strokeStyle = "rgba(255, 253, 248, 0.18)";
+      ctx.strokeStyle = "rgba(14, 61, 47, 0.2)";
       ctx.beginPath();
       ctx.moveTo(width - margin, height * 0.25);
       ctx.bezierCurveTo(width * 0.78, height * 0.4, width * 0.64, height * 0.22, objectX + objectW / 2, objectY - objectH * 0.24);
@@ -494,7 +607,7 @@ export function MethodPretext() {
       ctx.fillText(statusLabel, objectX - objectW / 2 + 39, objectY + objectH / 2 - 32);
 
       ctx.font = font;
-      ctx.fillStyle = "rgba(255, 253, 248, 0.72)";
+      ctx.fillStyle = pointerInside ? "rgba(14, 61, 47, 0.68)" : "rgba(14, 61, 47, 0.58)";
       ctx.letterSpacing = "0px";
       let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 };
       let y = top;
@@ -561,18 +674,60 @@ export function MethodPretext() {
       scheduleDraw();
     };
 
+    const handlePointerMove = (event: globalThis.PointerEvent) => {
+      const rect = wrap.getBoundingClientRect();
+      pointerInside = true;
+      pointerTarget = {
+        x: Math.min(0.86, Math.max(0.16, (event.clientX - rect.left) / Math.max(1, rect.width))),
+        y: Math.min(0.78, Math.max(0.18, (event.clientY - rect.top) / Math.max(1, rect.height))),
+      };
+      const px = (pointerTarget.x - 0.5) * 22;
+      const py = (pointerTarget.y - 0.5) * 22;
+      wrap.classList.add("is-reacting");
+      wrap.style.setProperty("--pretext-x", `${px.toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-y", `${py.toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-x-neg", `${(-px).toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-y-neg", `${(-py).toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-x-soft", `${(px * 0.22).toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-y-soft", `${(py * 0.22).toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-x-soft-neg", `${(-px * 0.22).toFixed(2)}px`);
+      wrap.style.setProperty("--pretext-y-soft-neg", `${(-py * 0.22).toFixed(2)}px`);
+      scheduleDraw();
+    };
+
+    const handlePointerLeave = () => {
+      pointerInside = false;
+      pointerTarget = { x: 0.62, y: 0.5 };
+      wrap.classList.remove("is-reacting");
+      [
+        "--pretext-x",
+        "--pretext-y",
+        "--pretext-x-neg",
+        "--pretext-y-neg",
+        "--pretext-x-soft",
+        "--pretext-y-soft",
+        "--pretext-x-soft-neg",
+        "--pretext-y-soft-neg",
+      ].forEach((property) => wrap.style.removeProperty(property));
+      scheduleDraw();
+    };
+
     const handleVisibilityChange = () => {
       isPageVisible = document.visibilityState === "visible";
       scheduleDraw();
     };
 
     reducedMotion.addEventListener("change", handleReducedMotionChange);
+    wrap.addEventListener("pointermove", handlePointerMove, { passive: true });
+    wrap.addEventListener("pointerleave", handlePointerLeave);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       resizeObserver.disconnect();
       visibilityObserver.disconnect();
       reducedMotion.removeEventListener("change", handleReducedMotionChange);
+      wrap.removeEventListener("pointermove", handlePointerMove);
+      wrap.removeEventListener("pointerleave", handlePointerLeave);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };

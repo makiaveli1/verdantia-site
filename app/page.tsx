@@ -7,6 +7,7 @@ import {
   HeroStudio,
   HomeLoader,
   MethodPretext,
+  ReactiveArtifactField,
   ScrollReveal,
 } from "@/components/HomeExperience";
 import { OfferLadder } from "@/components/OfferLadder";
@@ -81,6 +82,7 @@ export default function Home() {
     <main id="main" className="home-page">
       <HomeLoader />
       <ScrollReveal />
+      <ReactiveArtifactField />
 
       <section className="home-hero premium-home-hero" aria-labelledby="hero-heading">
         <div className="shell hero-grid premium-hero-grid">

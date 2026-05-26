@@ -4175,6 +4175,88 @@ p {
 }
 
 /* Premium Verdantia redesign layer — editorial AI field guide, not neon SaaS soup. */
+.reactive-artifact-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+}
+
+.reactive-artifact {
+  position: absolute;
+  fill: none;
+  stroke: color-mix(in srgb, var(--brand-evergreen) 42%, transparent);
+  stroke-width: 1.4;
+  opacity: 0.28;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 18px 36px rgba(14, 61, 47, 0.08));
+  transition: opacity 280ms var(--ease-out);
+}
+
+.reactive-artifact path,
+.reactive-artifact circle,
+.reactive-artifact rect {
+  vector-effect: non-scaling-stroke;
+}
+
+.artifact-route {
+  top: clamp(6rem, 11vw, 10rem);
+  right: -7rem;
+  width: clamp(18rem, 32vw, 34rem);
+  stroke: color-mix(in srgb, var(--brand-gold) 48%, transparent);
+  stroke-width: 1.2;
+  transform: translate3d(var(--field-x-lg, 0px), var(--field-y-md, 0px), 0) rotate(-5deg);
+}
+
+.artifact-paper rect {
+  fill: color-mix(in srgb, var(--surface-panel-solid) 48%, transparent);
+  stroke: color-mix(in srgb, var(--brand-evergreen) 32%, transparent);
+}
+
+.artifact-paper path {
+  stroke: color-mix(in srgb, var(--brand-gold) 48%, transparent);
+}
+
+.artifact-paper-one {
+  top: 44vh;
+  left: -3.8rem;
+  width: clamp(9rem, 14vw, 14rem);
+  transform: translate3d(var(--field-x-md, 0px), var(--field-y-lg, 0px), 0) rotate(-10deg);
+}
+
+.artifact-paper-two {
+  top: 126vh;
+  right: -4.4rem;
+  width: clamp(8.8rem, 13vw, 13rem);
+  opacity: 0.22;
+  transform: translate3d(var(--field-x-md-neg, 0px), var(--field-y-sm, 0px), 0) rotate(9deg);
+}
+
+.artifact-gate {
+  top: 82vh;
+  right: 6vw;
+  width: clamp(9rem, 16vw, 17rem);
+  stroke: color-mix(in srgb, var(--brand-evergreen) 30%, transparent);
+  transform: translate3d(var(--field-x-sm-neg, 0px), var(--field-y-lg-neg, 0px), 0) rotate(14deg);
+}
+
+.artifact-dots {
+  top: 178vh;
+  left: 5vw;
+  width: clamp(12rem, 18vw, 20rem);
+  stroke: color-mix(in srgb, var(--brand-gold) 42%, transparent);
+  transform: translate3d(var(--field-x-lg, 0px), var(--field-y-md-neg, 0px), 0) rotate(-2deg);
+}
+
+.home-page > section,
+.home-page > .shell,
+.home-page > .signal-band {
+  position: relative;
+  z-index: 1;
+}
+
 .premium-home-hero {
   overflow: hidden;
   padding-top: clamp(2.4rem, 5vw, 5.7rem);
@@ -4457,63 +4539,66 @@ p {
 .pretext-stage {
   position: relative;
   min-height: clamp(35rem, 52vw, 44rem);
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--brand-gold) 36%, rgba(255, 253, 248, 0.2));
-  border-radius: calc(var(--brand-radius) + 6px);
-  background:
-    radial-gradient(circle at 72% 44%, rgba(201, 163, 90, 0.22), transparent 17rem),
-    linear-gradient(135deg, #08291f, #0e3d2f 48%, #071d15);
-  box-shadow:
-    0 38px 110px rgba(6, 32, 22, 0.24),
-    inset 0 1px 0 rgba(255, 253, 248, 0.18);
+  overflow: visible;
+  cursor: crosshair;
   isolation: isolate;
 }
 
 .pretext-stage::before {
   position: absolute;
-  inset: 1px;
-  z-index: 1;
-  border-radius: inherit;
+  inset: -5rem -4rem;
+  z-index: 0;
   background:
-    linear-gradient(180deg, rgba(255, 253, 248, 0.12), transparent 30%, transparent 74%, rgba(0, 0, 0, 0.16)),
-    radial-gradient(circle at 28% 16%, rgba(255, 253, 248, 0.08), transparent 18rem);
+    radial-gradient(circle at 68% 46%, color-mix(in srgb, var(--brand-evergreen) 20%, transparent), transparent 18rem),
+    radial-gradient(circle at 24% 18%, color-mix(in srgb, var(--brand-gold) 16%, transparent), transparent 15rem),
+    linear-gradient(118deg, transparent 12%, color-mix(in srgb, var(--brand-sage-soft) 28%, transparent) 42%, transparent 76%);
   content: "";
+  filter: blur(1px);
+  opacity: 0.92;
   pointer-events: none;
 }
 
 .pretext-stage canvas {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
 }
 
 .pretext-stage::after {
   position: absolute;
-  inset: 0;
+  inset: -1.2rem 0 auto;
   z-index: 2;
-  background:
-    linear-gradient(90deg, rgba(6, 32, 22, 0.4), transparent 22%, transparent 76%, rgba(6, 32, 22, 0.42)),
-    radial-gradient(circle at 68% 50%, transparent 0 11rem, rgba(255, 253, 248, 0.04) 11.2rem, transparent 17rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand-gold) 60%, transparent), transparent);
   content: "";
   pointer-events: none;
 }
 
 .pretext-stage-label {
   position: absolute;
-  top: 1.15rem;
-  left: 1.15rem;
+  top: 0;
+  left: 0;
   z-index: 4;
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  border: 1px solid rgba(255, 253, 248, 0.18);
-  border-radius: 999px;
-  background: rgba(6, 32, 22, 0.68);
-  color: rgba(255, 253, 248, 0.88);
-  padding: 0.5rem 0.72rem;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(16px);
+  color: var(--text-subtle);
+  padding: 0;
+  transform: translate3d(var(--pretext-x-soft-neg, 0px), var(--pretext-y-soft-neg, 0px), 0);
+  transition: transform 260ms var(--ease-out), color 260ms var(--ease-out);
+}
+
+.pretext-stage-label::after {
+  width: 4.8rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--brand-gold), transparent);
+  content: "";
+}
+
+.pretext-stage.is-reacting .pretext-stage-label {
+  color: var(--text-heading);
 }
 
 .pretext-stage-label span {
@@ -4525,7 +4610,7 @@ p {
 }
 
 .pretext-stage-label strong {
-  color: var(--brand-ivory-2);
+  color: var(--text-heading);
   font-size: 0.86rem;
   line-height: 1;
 }
@@ -4542,55 +4627,63 @@ p {
   display: inline-flex;
   align-items: center;
   min-height: 2.45rem;
-  border: 1px solid rgba(255, 253, 248, 0.18);
+  border: 1px solid color-mix(in srgb, var(--brand-evergreen) 18%, transparent);
   border-radius: 999px;
-  background: rgba(255, 253, 248, 0.13);
-  color: rgba(255, 253, 248, 0.88);
+  background: color-mix(in srgb, var(--surface-panel-solid) 64%, transparent);
+  color: var(--text-heading);
   padding: 0.52rem 0.8rem;
   font-size: 0.74rem;
   font-weight: 850;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  box-shadow: 0 18px 52px rgba(14, 61, 47, 0.1);
   backdrop-filter: blur(12px);
+  transition: transform 280ms var(--ease-out), border-color 280ms var(--ease-out), background 280ms var(--ease-out);
+}
+
+.pretext-stage.is-reacting .pretext-token-cloud span {
+  border-color: color-mix(in srgb, var(--brand-gold) 48%, transparent);
+  background: color-mix(in srgb, var(--surface-panel-solid) 78%, transparent);
 }
 
 .pretext-token-cloud span:nth-child(1) {
   top: 6.2rem;
   left: 2.2rem;
-  transform: rotate(-4deg);
+  transform: translate3d(var(--pretext-x-neg, 0px), var(--pretext-y-neg, 0px), 0) rotate(-4deg);
 }
 
 .pretext-token-cloud span:nth-child(2) {
   top: 14.4rem;
   right: 1.65rem;
-  transform: rotate(5deg);
+  transform: translate3d(var(--pretext-x-soft, 0px), var(--pretext-y-soft-neg, 0px), 0) rotate(5deg);
 }
 
 .pretext-token-cloud span:nth-child(3) {
   right: 3.2rem;
   bottom: 12.8rem;
   color: var(--brand-gold-text);
-  transform: rotate(-3deg);
+  transform: translate3d(var(--pretext-x, 0px), var(--pretext-y, 0px), 0) rotate(-3deg);
 }
 
 .pretext-token-cloud span:nth-child(4) {
   bottom: 6.2rem;
   left: 2.5rem;
-  transform: rotate(3deg);
+  transform: translate3d(var(--pretext-x-neg, 0px), var(--pretext-y, 0px), 0) rotate(3deg);
 }
 
 .pretext-fallback {
   position: absolute;
-  right: 1.15rem;
-  bottom: 1.15rem;
+  right: 0;
+  bottom: 0;
   z-index: 4;
   width: min(25rem, calc(100% - 2.3rem));
-  border: 1px solid rgba(201, 163, 90, 0.5);
-  border-radius: 22px;
-  background: rgba(255, 253, 248, 0.9);
-  box-shadow: 0 24px 78px rgba(0, 0, 0, 0.2);
-  padding: 1.2rem;
-  backdrop-filter: blur(18px);
+  border-left: 2px solid var(--brand-gold);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--surface-page-raised) 84%, transparent), color-mix(in srgb, var(--surface-page-raised) 38%, transparent));
+  box-shadow: 0 24px 72px rgba(14, 61, 47, 0.08);
+  padding: 0.2rem 0 0.25rem 1.1rem;
+  transform: translate3d(var(--pretext-x-soft, 0px), var(--pretext-y-soft, 0px), 0);
+  backdrop-filter: blur(12px);
+  transition: transform 260ms var(--ease-out), background 260ms var(--ease-out);
 }
 
 .pretext-fallback h3 {
@@ -5162,6 +5255,10 @@ p {
   .canvas-routes .route-gold,
   .canvas-routes .route-bridge,
   .messy-token,
+  .reactive-artifact,
+  .pretext-token-cloud span,
+  .pretext-fallback,
+  .pretext-stage-label,
   .artifact-card,
   .ladder-offer,
   .ladder-link svg {
@@ -5198,6 +5295,10 @@ p {
 }
 
 @media (max-width: 760px) {
+  .reactive-artifact-field {
+    display: none;
+  }
+
   .hero-commercial-strip,
   .comparison-row,
   .form-ready-panel {
@@ -5235,7 +5336,11 @@ p {
 
   .pretext-stage {
     min-height: 37rem;
-    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .pretext-stage::before {
+    inset: -3rem -1rem;
   }
 
   .pretext-stage-label {
@@ -5243,7 +5348,6 @@ p {
     left: 0.85rem;
     justify-content: space-between;
     gap: 0.5rem;
-    padding: 0.48rem 0.62rem;
   }
 
   .pretext-stage-label span {
@@ -5281,7 +5385,7 @@ p {
     bottom: 0.8rem;
     left: 0.8rem;
     width: auto;
-    padding: 1rem;
+    padding: 0 0 0 0.85rem;
   }
 
   .pretext-fallback h3 {
