@@ -20,6 +20,8 @@ export const offers = [
     intensity: "Light",
     ctaLabel: "Start with a briefing",
     price: "From €750 remote / from €950 onsite",
+    priceDisplay: "From €750",
+    priceDetail: "Remote. Onsite from €950.",
     duration: "60–90 minutes",
     summary:
       "A low-friction session that gives leaders and teams a clear baseline: what AI can help with, where the risks sit, and what to do next.",
@@ -44,6 +46,8 @@ export const offers = [
     intensity: "Hands-on",
     ctaLabel: "Plan a workshop",
     price: "From €1,750 remote / from €2,250 onsite or customised",
+    priceDisplay: "From €1,750",
+    priceDetail: "Remote. Onsite or custom from €2,250.",
     duration: "Half day",
     summary:
       "Hands-on AI literacy and workplace practice for teams using tools like ChatGPT, Claude, Gemini, Microsoft Copilot, and Perplexity.",
@@ -68,6 +72,8 @@ export const offers = [
     intensity: "Deep dive",
     ctaLabel: "Plan an adoption day",
     price: "From €3,000–€3,500",
+    priceDisplay: "From €3,000",
+    priceDetail: "Typical range €3,000–€3,500.",
     duration: "Full day",
     summary:
       "A deeper day combining training, use-case discovery, workflow mapping, starter prompts, and manager recommendations.",
@@ -92,6 +98,8 @@ export const offers = [
     intensity: "Structured support",
     ctaLabel: "Discuss a sprint",
     price: "From €5,500; standard €7,500–€12,000 depending on scope",
+    priceDisplay: "From €5,500",
+    priceDetail: "Standard scope €7,500–€12,000.",
     duration: "2–4 weeks",
     summary:
       "A focused sprint to map priority work, train the team, build reusable materials, and support practical adoption after the workshop.",

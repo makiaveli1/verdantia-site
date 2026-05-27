@@ -1,4 +1,3 @@
-import { AIPathfinder } from "@/components/AIPathfinder";
 import { ButtonLink } from "@/components/ButtonLink";
 import { OfferLadder } from "@/components/OfferLadder";
 import { PageHero } from "@/components/PageHero";
@@ -77,9 +76,9 @@ export default function OffersPage() {
         meta={["Team briefings", "Workshops", "Adoption days", "Sprints"]}
         actions={
           <>
-            <ButtonLink href="#offer-ladder">Compare team offers</ButtonLink>
-            <ButtonLink href="/learning" variant="secondary">
-              Individual? Explore learning labs
+            <ButtonLink href="/pathfinder">Use the AI Pathfinder</ButtonLink>
+            <ButtonLink href="#offer-ladder" variant="secondary">
+              Compare team offers
             </ButtonLink>
           </>
         }
@@ -107,6 +106,30 @@ export default function OffersPage() {
               </ButtonLink>
             </article>
           ))}
+        </div>
+
+        <div id="pathfinder" className="shell offer-pathfinder-callout pathfinder-teaser" aria-labelledby="pathfinder-teaser-heading">
+          <div>
+            <p className="section-kicker">AI Pathfinder</p>
+            <h2 id="pathfinder-teaser-heading">Need help choosing without reading every card?</h2>
+            <p>
+              Answer a few practical questions about your audience, tools, workflow clarity, risks, and realistic format. The Pathfinder suggests the lightest useful route and prepares a short enquiry brief.
+            </p>
+          </div>
+          <div className="pathfinder-teaser-panel" aria-label="What the Pathfinder gives you">
+            <span>No gated report. No fake score.</span>
+            <ul>
+              <li>A suggested offer or learning route</li>
+              <li>The reasons behind the recommendation</li>
+              <li>A copyable brief for the first conversation</li>
+            </ul>
+            <div className="pathfinder-teaser-actions">
+              <ButtonLink href="/pathfinder">Open the Pathfinder</ButtonLink>
+              <ButtonLink href="#offer-ladder" variant="secondary">
+                Compare offers instead
+              </ButtonLink>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -253,10 +276,6 @@ export default function OffersPage() {
         </div>
       </section>
 
-      <div id="pathfinder">
-        <AIPathfinder />
-      </div>
-
       <section className="section final-cta compact-cta" aria-labelledby="offers-cta">
         <div className="shell final-cta-inner">
           <p className="section-kicker">Next step</p>
@@ -264,9 +283,14 @@ export default function OffersPage() {
           <p>
             Send a short note about your team, learner group, or individual workflow. Verdantia can recommend the lightest sensible starting point.
           </p>
-          <ButtonLink href="/contact" variant="light">
-            Book a practical AI call
-          </ButtonLink>
+          <div className="final-cta-actions">
+            <ButtonLink href="/pathfinder" variant="light">
+              Use the AI Pathfinder
+            </ButtonLink>
+            <ButtonLink href="/contact" variant="light">
+              Book a practical AI call
+            </ButtonLink>
+          </div>
         </div>
       </section>
     </main>

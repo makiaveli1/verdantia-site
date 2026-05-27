@@ -18,12 +18,14 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
       <div className="ladder-grid" role="list" aria-label="Verdantia ways to start">
         {offers.map((offer, index) => (
           <article className="ladder-offer" key={offer.title} role="listitem">
-            <div className="ladder-offer-topline">
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <span>{offer.level}</span>
+            <div className="ladder-offer-header">
+              <div className="ladder-offer-topline">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{offer.level}</span>
+              </div>
+              <h3>{offer.title}</h3>
+              <p className="ladder-offer-summary">{offer.summary}</p>
             </div>
-            <h3>{offer.title}</h3>
-            <p>{offer.summary}</p>
 
             <dl className="ladder-offer-meta">
               <div>
@@ -32,25 +34,33 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
               </div>
               <div>
                 <dt>Public guide</dt>
-                <dd>{offer.price}</dd>
+                <dd>
+                  <strong>{offer.priceDisplay}</strong>
+                  <span>{offer.priceDetail}</span>
+                </dd>
               </div>
             </dl>
 
-            <div className="ladder-fit-note">
-              <span>Choose this when</span>
-              <p>{offer.bestWhen}</p>
+            <div className="ladder-note-grid">
+              <div className="ladder-fit-note">
+                <span>Choose this when</span>
+                <p>{offer.bestWhen}</p>
+              </div>
+
+              <div className="ladder-leave-note">
+                <span>Team leaves with</span>
+                <p>{offer.leaveWith}</p>
+              </div>
             </div>
 
-            <div className="ladder-leave-note">
-              <span>Team leaves with</span>
-              <p>{offer.leaveWith}</p>
+            <div className="ladder-deliverables">
+              <span className="ladder-deliverables-label">Includes</span>
+              <ul aria-label={`${offer.title} deliverables`}>
+                {offer.outputs.map((output) => (
+                  <li key={output}>{output}</li>
+                ))}
+              </ul>
             </div>
-
-            <ul aria-label={`${offer.title} deliverables`}>
-              {offer.outputs.map((output) => (
-                <li key={output}>{output}</li>
-              ))}
-            </ul>
 
             <Link
               className="ladder-link"

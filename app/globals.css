@@ -58,10 +58,10 @@
   --surface-inverse: #1a533f;
   --text-heading: #fffaf1;
   --text-body: rgba(255, 250, 241, 0.92);
-  --text-muted: rgba(255, 250, 241, 0.78);
-  --text-subtle: rgba(255, 250, 241, 0.64);
+  --text-muted: rgba(255, 250, 241, 0.86);
+  --text-subtle: rgba(255, 250, 241, 0.76);
   --text-on-dark: #fffaf1;
-  --text-on-dark-muted: rgba(255, 250, 241, 0.82);
+  --text-on-dark-muted: rgba(255, 250, 241, 0.9);
   --line-soft: rgba(221, 231, 216, 0.14);
   --line-strong: rgba(221, 231, 216, 0.28);
   --focus-ring: rgba(201, 163, 90, 0.92);
@@ -736,10 +736,10 @@ p {
   align-items: center;
   gap: 0.56rem;
   color: var(--brand-gold-text);
-  font-size: 0.77rem;
+  font-size: 0.79rem;
   font-weight: 950;
   letter-spacing: 0.13em;
-  line-height: 1;
+  line-height: 1.18;
   text-transform: uppercase;
 }
 
@@ -1026,9 +1026,14 @@ p {
   line-height: 0.95;
 }
 
+.studio-method-card .micro-label {
+  color: currentColor;
+  opacity: 0.92;
+}
+
 .studio-method-card p {
   margin-top: 0.72rem;
-  color: rgba(255, 253, 248, 0.82);
+  color: rgba(255, 253, 248, 0.9);
   font-size: 0.95rem;
   line-height: 1.55;
 }
@@ -1253,7 +1258,7 @@ p {
   inset: 0;
   background: url("/assets/verdantia-pathway-motif.svg") center 4rem / min(90rem, 120vw) auto no-repeat;
   content: "";
-  opacity: 0.28;
+  opacity: 0.18;
   pointer-events: none;
 }
 
@@ -1349,8 +1354,14 @@ p {
   font-size: clamp(2rem, 4vw, 3.55rem);
 }
 
+.pathway-panel .micro-label {
+  color: var(--brand-gold-on-dark);
+}
+
 .pathway-panel p {
   color: var(--text-on-dark-muted);
+  font-size: 1rem;
+  line-height: 1.58;
 }
 
 .operating-section {
@@ -1456,7 +1467,7 @@ p {
 }
 
 .capability-system-section .section-heading p:not(.section-kicker) {
-  color: rgba(255, 250, 241, 0.86);
+  color: rgba(255, 250, 241, 0.9);
 }
 
 .capability-system-section .section-kicker,
@@ -1472,8 +1483,8 @@ p {
 }
 
 .capability-system-section .capability-card small {
-  font-size: 0.78rem;
-  line-height: 1.55;
+  font-size: 0.82rem;
+  line-height: 1.6;
 }
 
 .capability-system {
@@ -1498,7 +1509,7 @@ p {
 }
 
 .capability-system-intro p {
-  color: rgba(255, 250, 241, 0.84);
+  color: rgba(255, 250, 241, 0.9);
 }
 
 .capability-explorer {
@@ -1801,7 +1812,7 @@ p {
 .product-thinking-grid p:not(.section-kicker) {
   max-width: 48rem;
   margin-top: 1rem;
-  color: rgba(255, 250, 241, 0.84);
+  color: rgba(255, 250, 241, 0.9);
   font-size: 1.1rem;
 }
 
@@ -1965,7 +1976,7 @@ p {
   height: 18rem;
   background: url("/assets/verdantia-pathway-motif.svg") center / contain no-repeat;
   content: "";
-  opacity: 0.2;
+  opacity: 0.12;
 }
 
 .final-cta-inner > * {
@@ -1982,7 +1993,7 @@ p {
 .final-cta-inner p:not(.section-kicker) {
   max-width: 43rem;
   margin-block: 1.15rem 1.8rem;
-  color: rgba(255, 250, 241, 0.84);
+  color: rgba(255, 250, 241, 0.9);
   font-size: 1.16rem;
 }
 
@@ -2595,87 +2606,261 @@ p {
 
 .pathfinder-shell {
   display: grid;
-  gap: 2rem;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-.pathfinder-intro {
+.pathfinder-intro,
+.pathfinder-teaser,
+.pathfinder-explainer,
+.pathfinder-rules-panel {
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(20rem, 0.54fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(20rem, 0.58fr);
   gap: clamp(1.5rem, 5vw, 4rem);
-  align-items: end;
+  align-items: center;
 }
 
-.pathfinder-intro p:not(.section-kicker) {
-  font-size: 1.12rem;
+.pathfinder-intro p:not(.section-kicker),
+.pathfinder-teaser p,
+.pathfinder-explainer > div:first-child p {
+  max-width: 58rem;
+  font-size: 1.08rem;
+}
+
+.pathfinder-note-card,
+.pathfinder-teaser-panel,
+.pathfinder-rules-panel {
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 26%, var(--line-soft));
+  border-radius: calc(var(--brand-radius) + 2px);
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--brand-gold) 16%, transparent), transparent 38%),
+    color-mix(in srgb, var(--surface-page-raised) 90%, transparent);
+  box-shadow: var(--brand-shadow-soft);
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.pathfinder-note-card span,
+.pathfinder-teaser-panel span {
+  display: block;
+  color: var(--brand-gold-text);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pathfinder-note-card p,
+.pathfinder-teaser-panel p {
+  margin: 0.55rem 0 0;
+  color: var(--text-muted);
+}
+
+.pathfinder-teaser-actions,
+.final-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+
+.pathfinder-explainer-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.pathfinder-explainer-grid article {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--brand-radius-tight);
+  background: color-mix(in srgb, var(--surface-page-raised) 78%, transparent);
+  padding: 1rem;
+}
+
+.pathfinder-explainer-grid h3 {
+  color: var(--text-heading);
+  font-size: 1rem;
+}
+
+.pathfinder-explainer-grid p {
+  margin-top: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.pathfinder-studio {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 30%, var(--line-soft));
+  border-radius: calc(var(--brand-radius) + 12px);
+  background:
+    linear-gradient(90deg, rgba(255, 253, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.04) 1px, transparent 1px),
+    color-mix(in srgb, var(--surface-panel) 78%, transparent);
+  background-size: 44px 44px;
+  box-shadow: var(--brand-shadow);
+}
+
+.pathfinder-progress {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line-soft);
+  background: color-mix(in srgb, var(--surface-page-raised) 74%, transparent);
+}
+
+.pathfinder-progress button {
+  position: relative;
+  min-height: 4.3rem;
+  border: 0;
+  border-right: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--text-subtle);
+  cursor: pointer;
+  display: grid;
+  gap: 0.25rem;
+  justify-items: start;
+  padding: 0.85rem clamp(0.5rem, 1.4vw, 1rem);
+  text-align: left;
+  transition:
+    background 220ms var(--ease-out),
+    color 220ms var(--ease-out);
+}
+
+.pathfinder-progress button:last-child {
+  border-right: 0;
+}
+
+.pathfinder-progress button::after {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.65rem;
+  left: 0.8rem;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand-gold) 0%, transparent);
+  content: "";
+  transition: background 220ms var(--ease-out);
+}
+
+.pathfinder-progress button:hover,
+.pathfinder-progress button:focus-visible,
+.pathfinder-progress button[aria-current="step"],
+.pathfinder-progress button.is-complete {
+  background: color-mix(in srgb, var(--brand-gold) 10%, transparent);
+  color: var(--text-heading);
+}
+
+.pathfinder-progress button[aria-current="step"]::after,
+.pathfinder-progress button.is-complete::after {
+  background: color-mix(in srgb, var(--brand-gold) 74%, transparent);
+}
+
+.pathfinder-progress span {
+  color: var(--brand-gold-text);
+  font-size: 0.68rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pathfinder-progress strong {
+  font-size: clamp(0.68rem, 1vw, 0.78rem);
+  line-height: 1.15;
 }
 
 .pathfinder-board {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(19rem, 0.42fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(21rem, 0.48fr);
+  gap: clamp(1rem, 2vw, 1.4rem);
   align-items: start;
+  padding: clamp(1rem, 3vw, 1.4rem);
 }
 
-.pathfinder-steps {
+.pathfinder-question-panel {
+  min-width: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.9rem;
+  gap: 0.85rem;
 }
 
 .pathfinder-step {
   min-width: 0;
   display: grid;
-  gap: 0.9rem;
+  gap: clamp(1rem, 2vw, 1.35rem);
   border: 1px solid var(--line-soft);
-  border-radius: var(--brand-radius);
-  background: var(--surface-panel);
+  border-radius: calc(var(--brand-radius) + 2px);
+  background:
+    radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--brand-gold) 10%, transparent), transparent 18rem),
+    var(--surface-panel);
   margin: 0;
-  padding: 1rem;
-}
-
-.pathfinder-step:last-child {
-  grid-column: 1 / -1;
+  padding: clamp(1rem, 3vw, 1.35rem);
 }
 
 .pathfinder-step legend {
   display: grid;
   gap: 0.35rem;
+  max-width: 48rem;
   color: var(--text-heading);
-  font-weight: 850;
+  font-family: var(--font-serif);
+  font-size: clamp(1.65rem, 4vw, 3rem);
+  font-weight: 720;
+  line-height: 0.98;
+}
+
+.pathfinder-step legend span {
+  font-family: var(--font-body);
 }
 
 .pathfinder-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11.25rem, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+  gap: 0.75rem;
 }
 
 .pathfinder-options button {
-  min-height: 9.5rem;
+  position: relative;
+  min-height: 9rem;
   display: grid;
   align-content: start;
-  gap: 0.45rem;
+  gap: 0.5rem;
   border: 1px solid var(--line-soft);
   border-radius: var(--brand-radius-tight);
-  background: color-mix(in srgb, var(--surface-page-raised) 58%, transparent);
+  background: color-mix(in srgb, var(--surface-page-raised) 70%, transparent);
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0.78rem;
+  padding: 1rem 1rem 1rem 3rem;
   text-align: left;
   transition:
     background 240ms var(--ease-out),
     border-color 240ms var(--ease-out),
     color 240ms var(--ease-out),
-    transform 240ms var(--ease-out);
+    transform 240ms var(--ease-out),
+    box-shadow 240ms var(--ease-out);
 }
 
 .pathfinder-options button:hover,
 .pathfinder-options button:focus-visible,
 .pathfinder-options button.is-active {
-  border-color: color-mix(in srgb, var(--brand-gold) 58%, var(--line-soft));
+  border-color: color-mix(in srgb, var(--brand-gold) 62%, var(--line-soft));
   background: var(--surface-page-raised);
   color: var(--text-body);
   transform: translateY(-1px);
+  box-shadow: 0 18px 45px rgba(54, 43, 25, 0.1);
+}
+
+.pathfinder-option-check {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 42%, var(--line-soft));
+  border-radius: 999px;
+  color: var(--brand-green-deep);
+  font-size: 0.75rem;
+  font-weight: 950;
+}
+
+.pathfinder-options button.is-active .pathfinder-option-check {
+  background: color-mix(in srgb, var(--brand-gold) 46%, var(--brand-ivory));
 }
 
 .pathfinder-options strong {
@@ -2683,24 +2868,73 @@ p {
   line-height: 1.2;
 }
 
-.pathfinder-options span {
-  font-size: 0.86rem;
+.pathfinder-options button > span:not(.pathfinder-option-check) {
+  font-size: 0.9rem;
   line-height: 1.45;
+}
+
+.pathfinder-step-controls {
+  display: flex;
+  gap: 0.65rem;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 0.85rem;
+}
+
+.pathfinder-step-controls button {
+  min-height: 2.9rem;
+  min-width: 8rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-panel-solid) 82%, transparent);
+  color: var(--text-heading);
+  cursor: pointer;
+  font-weight: 900;
+  padding: 0.5rem 0.95rem;
+}
+
+.pathfinder-step-controls button:hover,
+.pathfinder-step-controls button:focus-visible {
+  border-color: color-mix(in srgb, var(--brand-gold) 58%, var(--line-soft));
+}
+
+.pathfinder-step-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
 }
 
 .pathfinder-result {
   position: sticky;
-  top: calc(var(--header-height) + 1.5rem);
-  overflow: hidden;
+  top: calc(var(--header-height) + 1.2rem);
+  overflow: visible;
   border: 1px solid rgba(255, 253, 248, 0.18);
   border-radius: calc(var(--brand-radius) + 4px);
   background:
-    radial-gradient(circle at 80% 8%, rgba(228, 197, 114, 0.18), transparent 10rem),
+    radial-gradient(circle at 80% 8%, rgba(228, 197, 114, 0.2), transparent 10rem),
     url("/assets/verdantia-pathway-motif.svg") center / 150% auto no-repeat,
     linear-gradient(145deg, #124936, #185640 62%, #0b3528);
+  background-color: var(--brand-evergreen);
   color: var(--brand-ivory-2);
   padding: clamp(1.15rem, 3vw, 1.55rem);
   box-shadow: var(--brand-shadow);
+}
+
+.pathfinder-result-topline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pathfinder-result-topline > span:last-child {
+  border: 1px solid rgba(255, 253, 248, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.08);
+  color: rgba(255, 250, 241, 0.78);
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.32rem 0.55rem;
 }
 
 .pathfinder-result h3 {
@@ -2710,25 +2944,27 @@ p {
 
 .pathfinder-result p {
   margin-top: 0.85rem;
-  color: rgba(255, 250, 241, 0.84);
+  color: rgba(255, 250, 241, 0.9);
 }
 
-.pathfinder-result dl {
+.pathfinder-result-meta {
   display: grid;
   gap: 0.75rem;
   margin: 1.2rem 0 0;
 }
 
-.pathfinder-result dl div {
+.pathfinder-result-meta div {
   border-top: 1px solid rgba(255, 253, 248, 0.14);
   padding-top: 0.75rem;
 }
 
-.pathfinder-result dt {
-  color: rgba(255, 250, 241, 0.72);
-  font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.12em;
+.pathfinder-result dt,
+.pathfinder-result-block h4,
+.pathfinder-caution-card h4 {
+  color: rgba(255, 250, 241, 0.84);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
@@ -2736,6 +2972,79 @@ p {
   margin: 0.2rem 0 0;
   color: var(--brand-ivory-2);
   font-weight: 850;
+}
+
+.pathfinder-result-block,
+.pathfinder-caution-card {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(255, 253, 248, 0.14);
+  padding-top: 0.9rem;
+}
+
+.pathfinder-result-block ul,
+.pathfinder-teaser-panel ul,
+.pathfinder-rules-panel ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pathfinder-result-block li,
+.pathfinder-teaser-panel li,
+.pathfinder-rules-panel li {
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.pathfinder-result-block li {
+  color: rgba(255, 250, 241, 0.9);
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.pathfinder-result-block li::before,
+.pathfinder-teaser-panel li::before,
+.pathfinder-rules-panel li::before {
+  position: absolute;
+  top: 0.65em;
+  left: 0;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--brand-gold);
+  content: "";
+}
+
+.pathfinder-caution-card {
+  border: 1px solid rgba(228, 197, 114, 0.24);
+  border-radius: 18px;
+  background: rgba(228, 197, 114, 0.08);
+  padding: 0.9rem;
+}
+
+.pathfinder-caution-card p {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+}
+
+.pathfinder-brief-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  margin: 1rem 0 0;
+}
+
+.pathfinder-brief-card span {
+  min-height: 2.1rem;
+  border: 1px solid rgba(255, 253, 248, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.08);
+  color: rgba(255, 250, 241, 0.82);
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.4rem 0.6rem;
 }
 
 .pathfinder-actions {
@@ -2769,6 +3078,213 @@ p {
   margin: 0.75rem 0 0;
   color: rgba(255, 253, 248, 0.76);
   font-size: 0.88rem;
+}
+
+/* Pathfinder cohesion polish: compact the live recommendation and move the full brief into the studio body. */
+.pathfinder-page .pathfinder-section {
+  padding-top: clamp(2.25rem, 4vw, 3.6rem);
+}
+
+.pathfinder-studio {
+  display: grid;
+}
+
+.pathfinder-board {
+  grid-template-columns: minmax(0, 1.08fr) minmax(19rem, 0.42fr);
+  align-items: start;
+}
+
+.pathfinder-result {
+  display: grid;
+  align-self: start;
+  gap: 0.82rem;
+  padding: clamp(1rem, 2vw, 1.28rem);
+}
+
+.pathfinder-result h3,
+.pathfinder-result p,
+.pathfinder-result-meta,
+.pathfinder-result-snapshot,
+.pathfinder-actions,
+.pathfinder-copy-status {
+  margin-block-start: 0;
+}
+
+.pathfinder-result h3 {
+  margin-top: 0.08rem;
+  font-size: clamp(1.55rem, 2.3vw, 2.05rem);
+  line-height: 1;
+}
+
+.pathfinder-result-lede,
+.pathfinder-result-focus {
+  color: rgba(255, 250, 241, 0.9);
+  font-size: 0.98rem;
+  line-height: 1.52;
+}
+
+.pathfinder-result-focus {
+  color: rgba(255, 250, 241, 0.94);
+}
+
+.pathfinder-result-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.pathfinder-result-meta div {
+  min-width: 0;
+  border: 1px solid rgba(255, 253, 248, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.065);
+  padding: 0.58rem 0.62rem;
+}
+
+.pathfinder-result-meta div:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.pathfinder-result dd {
+  overflow-wrap: anywhere;
+  font-size: 0.92rem;
+  line-height: 1.22;
+}
+
+.pathfinder-result-snapshot {
+  border-top: 1px solid rgba(255, 253, 248, 0.14);
+  padding-top: 0.78rem;
+}
+
+.pathfinder-result-snapshot h4,
+.pathfinder-detail-card > span {
+  color: rgba(255, 250, 241, 0.72);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pathfinder-result-snapshot p {
+  margin-top: 0.42rem;
+  color: rgba(255, 250, 241, 0.84);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.pathfinder-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.1rem;
+}
+
+.pathfinder-actions .button,
+.pathfinder-actions .pathfinder-learning-action {
+  grid-column: 1 / -1;
+  min-height: 2.85rem;
+}
+
+.pathfinder-actions > button {
+  min-width: 0;
+  min-height: 2.55rem;
+  padding-inline: 0.65rem;
+}
+
+.pathfinder-detail-deck {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  background: transparent;
+  padding: 0;
+}
+
+.pathfinder-context-card {
+  grid-column: 1 / -1;
+}
+
+.pathfinder-detail-card {
+  min-width: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface-page-raised) 82%, transparent);
+  padding: clamp(0.95rem, 2vw, 1.08rem);
+}
+
+.pathfinder-detail-card > span {
+  display: block;
+  color: var(--brand-gold-text);
+}
+
+.pathfinder-detail-card ul {
+  display: grid;
+  gap: 0.48rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pathfinder-detail-card li {
+  position: relative;
+  color: var(--text-body);
+  font-size: 0.93rem;
+  line-height: 1.45;
+  padding-left: 1rem;
+}
+
+.pathfinder-detail-card li::before {
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 999px;
+  background: var(--brand-gold);
+  content: "";
+}
+
+.pathfinder-detail-card p {
+  margin: 0.6rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  line-height: 1.48;
+}
+
+.pathfinder-detail-card .pathfinder-brief-card {
+  margin-top: 0.75rem;
+}
+
+.pathfinder-detail-card .pathfinder-brief-card span {
+  border-color: color-mix(in srgb, var(--brand-evergreen) 16%, var(--line-soft));
+  background: color-mix(in srgb, var(--brand-sage-soft) 42%, transparent);
+  color: var(--text-heading);
+}
+
+.pathfinder-option-check {
+  color: var(--brand-evergreen);
+}
+
+@media (max-width: 1120px) {
+  .pathfinder-detail-deck {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pathfinder-context-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .pathfinder-detail-deck,
+  .pathfinder-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .pathfinder-context-card {
+    grid-column: auto;
+  }
+
+  .offer-pathfinder-callout {
+    border-radius: calc(var(--brand-radius) - 6px);
+  }
 }
 
 .product-studio-grid,
@@ -3097,8 +3613,8 @@ p {
 
 .footer-brand p {
   max-width: 25rem;
-  color: var(--text-muted);
-  font-size: 0.98rem;
+  color: var(--text-body);
+  font-size: 1rem;
 }
 
 .footer-line {
@@ -3118,8 +3634,8 @@ p {
   width: max-content;
   display: inline-flex;
   align-items: center;
-  color: var(--text-subtle);
-  font-weight: 800;
+  color: var(--text-body);
+  font-weight: 850;
   text-decoration: none;
 }
 
@@ -3133,7 +3649,7 @@ p {
 }
 
 .footer-contact span {
-  color: var(--text-muted);
+  color: var(--text-body);
 }
 
 .footer-bottom {
@@ -3143,8 +3659,8 @@ p {
   border-top: 1px solid var(--line-soft);
   margin-top: 2.4rem;
   padding-top: 1.2rem;
-  color: var(--text-subtle);
-  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
 }
 
 :root.theme-transition body,
@@ -3314,6 +3830,19 @@ p {
 :root[data-theme="dark"] .page-hero::before,
 :root[data-theme="dark"] .final-cta-inner::after {
   filter: brightness(1.7) saturate(0.7);
+  opacity: 0.16;
+}
+
+:root[data-theme="dark"] .deliverables-section::before {
+  filter: brightness(1.35) saturate(0.76);
+  opacity: 0.12;
+}
+
+:root[data-theme="dark"] .deliverables-layout > div:first-child::before {
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .artifact-card::after {
   opacity: 0.16;
 }
 
@@ -4029,6 +4558,9 @@ p {
 @media (max-width: 1120px) {
   .page-hero-inner,
   .pathfinder-intro,
+  .pathfinder-teaser,
+  .pathfinder-explainer,
+  .pathfinder-rules-panel,
   .pathfinder-board,
   .product-studio-grid,
   .company-story-grid,
@@ -4089,13 +4621,17 @@ p {
 @media (max-width: 760px) {
   .page-hero-actions,
   .pathfinder-actions,
+  .pathfinder-teaser-actions,
+  .final-cta-actions,
   .form-actions {
     align-items: stretch;
     flex-direction: column;
   }
 
   .page-hero-actions .button,
-  .pathfinder-actions .button {
+  .pathfinder-actions .button,
+  .pathfinder-teaser-actions .button,
+  .final-cta-actions .button {
     width: 100%;
   }
 
@@ -4872,6 +5408,11 @@ p {
   text-transform: uppercase;
 }
 
+.ladder-offer-header {
+  display: grid;
+  gap: 0.82rem;
+}
+
 .ladder-offer h3 {
   max-width: 11.5ch;
   color: var(--text-heading);
@@ -4881,7 +5422,7 @@ p {
   letter-spacing: -0.042em;
 }
 
-.ladder-offer > p,
+.ladder-offer-summary,
 .ladder-fit-note p,
 .ladder-leave-note p {
   margin: 0;
@@ -4906,9 +5447,9 @@ p {
 }
 
 .ladder-offer-meta dt {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  font-weight: 850;
+  color: var(--text-body);
+  font-size: 0.84rem;
+  font-weight: 900;
 }
 
 .ladder-offer-meta dd {
@@ -4916,6 +5457,24 @@ p {
   color: var(--text-heading);
   font-weight: 850;
   text-align: right;
+}
+
+.ladder-offer-meta dd strong,
+.ladder-offer-meta dd span {
+  display: block;
+}
+
+.ladder-offer-meta dd span {
+  margin-top: 0.16rem;
+  color: var(--text-body);
+  font-size: 0.88rem;
+  font-weight: 780;
+  line-height: 1.4;
+}
+
+.ladder-note-grid {
+  display: grid;
+  gap: 0.72rem;
 }
 
 .ladder-fit-note,
@@ -4936,9 +5495,24 @@ p {
   display: block;
   margin-bottom: 0.34rem;
   color: var(--brand-gold-text);
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   font-weight: 950;
   letter-spacing: 0.12em;
+  line-height: 1.18;
+  text-transform: uppercase;
+}
+
+.ladder-deliverables {
+  display: grid;
+  gap: 0.58rem;
+}
+
+.ladder-deliverables-label {
+  color: var(--brand-gold-text);
+  font-size: 0.8rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  line-height: 1.18;
   text-transform: uppercase;
 }
 
@@ -4991,6 +5565,133 @@ p {
 
 .ladder-link:hover svg {
   transform: translateX(3px);
+}
+
+.premium-offer-ladder-offers {
+  padding-top: 0;
+}
+
+.premium-offer-ladder-offers .ladder-rail {
+  display: none;
+}
+
+.premium-offer-ladder-offers .ladder-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.1rem, 2.4vw, 1.7rem);
+}
+
+.premium-offer-ladder-offers .ladder-offer {
+  gap: 1.15rem;
+  overflow: hidden;
+  padding: clamp(1.35rem, 2.4vw, 1.85rem);
+}
+
+.premium-offer-ladder-offers .ladder-offer h3 {
+  max-width: none;
+  font-size: clamp(1.85rem, 3vw, 2.6rem);
+  line-height: 0.96;
+}
+
+.premium-offer-ladder-offers .ladder-offer-summary {
+  max-width: 42rem;
+  color: var(--text-body);
+  font-size: 1rem;
+  line-height: 1.56;
+}
+
+.premium-offer-ladder-offers .ladder-offer-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.78rem;
+}
+
+.premium-offer-ladder-offers .ladder-offer-meta div {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  justify-content: stretch;
+  gap: 0.3rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-page-raised) 74%, transparent);
+  padding: 0.84rem;
+}
+
+.premium-offer-ladder-offers .ladder-offer-meta dt {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.premium-offer-ladder-offers .ladder-offer-meta dd {
+  min-width: 0;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.32;
+}
+
+.premium-offer-ladder-offers .ladder-offer-meta dd span {
+  font-size: 0.86rem;
+}
+
+.premium-offer-ladder-offers .ladder-note-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.78rem;
+}
+
+.premium-offer-ladder-offers .ladder-fit-note,
+.premium-offer-ladder-offers .ladder-leave-note {
+  min-height: 100%;
+  background: color-mix(in srgb, var(--brand-gold) 10%, var(--surface-page-raised));
+}
+
+.premium-offer-ladder-offers .ladder-leave-note {
+  background: color-mix(in srgb, var(--brand-evergreen) 6%, var(--surface-page-raised));
+}
+
+.premium-offer-ladder-offers .ladder-deliverables {
+  gap: 0.62rem;
+}
+
+.premium-offer-ladder-offers .ladder-offer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.premium-offer-ladder-offers .ladder-offer li {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--brand-evergreen) 16%, var(--line-soft));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand-sage-soft) 38%, transparent);
+  color: var(--text-heading);
+  font-size: 0.76rem;
+  font-weight: 850;
+  line-height: 1.2;
+  padding: 0.42rem 0.62rem;
+}
+
+.premium-offer-ladder-offers .ladder-offer li::before {
+  display: none;
+}
+
+.premium-offer-ladder-offers .ladder-link {
+  width: 100%;
+  justify-content: center;
+  border: 1px solid var(--brand-evergreen);
+  border-radius: 999px;
+  background: var(--brand-evergreen);
+  color: var(--brand-ivory-2);
+  padding: 0.82rem 1rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .premium-offer-ladder-offers .ladder-offer-meta,
+  .premium-offer-ladder-offers .ladder-note-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .offer-comparison-layout {
@@ -5050,6 +5751,22 @@ p {
 
 .deliverables-layout h2 {
   max-width: 11ch;
+}
+
+.deliverables-layout > div:first-child {
+  position: relative;
+  z-index: 2;
+}
+
+.deliverables-layout > div:first-child::before {
+  position: absolute;
+  inset: -1.2rem -1rem -1.4rem -1.2rem;
+  z-index: -1;
+  border-radius: 24px;
+  background: linear-gradient(90deg, rgba(8, 24, 18, 0.78), rgba(8, 24, 18, 0.34), transparent);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
 }
 
 .deliverables-layout p:not(.section-kicker) {
@@ -5116,45 +5833,6 @@ p {
   line-height: 1.55;
 }
 
-.pathfinder-progress,
-.pathfinder-brief-card {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.42rem;
-}
-
-.pathfinder-progress {
-  margin-top: 1.3rem;
-}
-
-.pathfinder-progress button,
-.pathfinder-brief-card span {
-  min-height: 2.1rem;
-  border: 1px solid var(--line-soft);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface-panel-solid) 72%, transparent);
-  color: var(--text-heading);
-  cursor: pointer;
-  font-size: 0.72rem;
-  font-weight: 900;
-  padding: 0.4rem 0.6rem;
-}
-
-.pathfinder-progress button:hover,
-.pathfinder-progress button:focus-visible,
-.pathfinder-progress button[aria-current="step"] {
-  border-color: color-mix(in srgb, var(--brand-gold) 58%, var(--line-soft));
-  background: color-mix(in srgb, var(--brand-gold) 16%, var(--surface-panel-solid));
-}
-
-.pathfinder-step-controls {
-  display: none;
-}
-
-.pathfinder-brief-card {
-  margin: 1rem 0 0;
-}
-
 .premium-contact-form .contact-form-header {
   border: 1px solid color-mix(in srgb, var(--brand-gold) 30%, var(--line-soft));
   border-radius: 18px;
@@ -5190,8 +5868,9 @@ p {
 .field-help {
   display: block;
   margin-top: 0.45rem;
-  color: var(--text-subtle);
-  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
 .form-ready-panel {
@@ -5373,6 +6052,19 @@ p {
   max-width: 12ch;
 }
 
+.offers-page-premium .section {
+  padding-block: clamp(4.2rem, 7vw, 6.6rem);
+}
+
+.offers-page-premium .page-hero,
+.offers-page-premium .final-cta {
+  padding-block: clamp(5rem, 8vw, 7.4rem);
+}
+
+.offer-route-section {
+  padding-bottom: clamp(4.4rem, 7vw, 6rem);
+}
+
 .tool-cluster-grid,
 .individual-track-preview,
 .individual-offer-cards,
@@ -5425,6 +6117,53 @@ p {
 .offer-route-card .button {
   width: max-content;
   margin-top: auto;
+}
+
+.offer-pathfinder-callout {
+  margin-top: clamp(1rem, 2.8vw, 1.6rem);
+  border: 1px solid color-mix(in srgb, var(--brand-gold) 28%, var(--line-soft));
+  border-radius: calc(var(--brand-radius) + 2px);
+  background:
+    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--brand-gold) 14%, transparent), transparent 18rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--surface-panel-solid) 95%, transparent), color-mix(in srgb, var(--brand-sage-soft) 28%, transparent)),
+    var(--surface-panel-solid);
+  box-shadow: var(--brand-shadow-soft);
+  padding: clamp(1.1rem, 2.8vw, 1.7rem);
+}
+
+.offer-pathfinder-callout.pathfinder-teaser {
+  grid-template-columns: minmax(0, 0.86fr) minmax(19rem, 0.5fr);
+  gap: clamp(1.2rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.offer-pathfinder-callout h2 {
+  max-width: 13.5ch;
+  font-size: clamp(2rem, 3.6vw, 3.15rem);
+}
+
+.offer-pathfinder-callout p:not(.section-kicker) {
+  max-width: 52rem;
+}
+
+.offer-pathfinder-callout .pathfinder-teaser-panel {
+  box-shadow: none;
+}
+
+.offer-pathfinder-callout .pathfinder-teaser-actions .button {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.offer-pathfinder-callout .pathfinder-teaser-actions .button span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1120px) {
+  .offer-pathfinder-callout.pathfinder-teaser {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tool-cluster-card,
@@ -5919,8 +6658,18 @@ p {
     font-size: clamp(1.55rem, 8vw, 2.1rem);
   }
 
-  .ladder-grid {
+  .ladder-grid,
+  .premium-offer-ladder-offers .ladder-grid {
     grid-template-columns: 1fr;
+  }
+
+  .premium-offer-ladder-offers .ladder-offer-meta,
+  .premium-offer-ladder-offers .ladder-note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-offer-ladder-offers .ladder-link {
+    min-height: 3rem;
   }
 
   .ladder-rail {
@@ -6266,6 +7015,7 @@ body.home-loading {
     linear-gradient(90deg, rgba(14, 61, 47, 0.06) 1px, transparent 1px),
     linear-gradient(rgba(14, 61, 47, 0.06) 1px, transparent 1px),
     linear-gradient(135deg, #fffdf8, #f2e9db);
+  background-color: #fffdf8;
   background-size: 34px 34px, 34px 34px, auto;
   box-shadow: 0 44px 130px rgba(0, 0, 0, 0.34);
   transform-origin: 50% 72%;
@@ -6670,7 +7420,8 @@ body.home-loading {
   color: var(--text-muted);
 }
 
-.founder-image-caption {
+.founder-image-caption,
+.founder-signal .founder-image-caption {
   right: 0.75rem;
   bottom: 0.75rem;
   left: 0.75rem;
@@ -6681,8 +7432,10 @@ body.home-loading {
   letter-spacing: 0.01em;
 }
 
-:root[data-theme="dark"] .founder-image-caption {
+:root[data-theme="dark"] .founder-image-caption,
+:root[data-theme="dark"] .founder-signal .founder-image-caption {
   background: color-mix(in srgb, #07130f 78%, transparent);
+  color: var(--brand-ivory-2);
 }
 
 :root[data-theme="dark"] .hero-scroll-cue {
@@ -6895,7 +7648,8 @@ body.home-loading {
 }
 
 .deliverables-section::before {
-  top: 1.2rem;
+  top: clamp(5rem, 9vw, 8rem);
+  opacity: 0.46;
   transform: rotate(180deg);
 }
 
@@ -6970,12 +7724,13 @@ body.home-loading {
   z-index: 0;
   border-radius: inherit;
   background:
+    linear-gradient(90deg, rgba(8, 28, 21, 0.88) 0%, rgba(8, 28, 21, 0.52) 42%, transparent 68%),
     linear-gradient(90deg, rgba(255, 253, 248, 0.08) 1px, transparent 1px),
     linear-gradient(rgba(255, 253, 248, 0.06) 1px, transparent 1px),
-    url("/assets/verdantia-route-ornament.svg") center bottom / 78rem auto no-repeat;
-  background-size: 4rem 4rem, 4rem 4rem, 78rem auto;
+    url("/assets/verdantia-route-ornament.svg") calc(100% + 18rem) calc(100% + 2.5rem) / 62rem auto no-repeat;
+  background-size: auto, 4rem 4rem, 4rem 4rem, 62rem auto;
   content: "";
-  opacity: 0.42;
+  opacity: 0.28;
   pointer-events: none;
 }
 
@@ -7722,71 +8477,54 @@ body.home-loading {
     gap: 1.1rem;
   }
 
-  .offers-page-premium .pathfinder-steps,
+  .offers-page-premium .pathfinder-progress {
+    grid-template-columns: repeat(7, minmax(5.6rem, 1fr));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .offers-page-premium .pathfinder-progress button {
+    min-height: 3.65rem;
+    padding: 0.65rem;
+  }
+
+  .offers-page-premium .pathfinder-progress strong {
+    font-size: 0.68rem;
+  }
+
   .offers-page-premium .pathfinder-board {
     gap: 0.75rem;
+    padding: 0.75rem;
   }
 
   .offers-page-premium .pathfinder-step {
-    display: none;
     border-radius: 16px;
     padding: 0.85rem;
   }
 
-  .offers-page-premium .pathfinder-step.is-current {
-    display: grid;
+  .offers-page-premium .pathfinder-options {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .offers-page-premium .pathfinder-options button {
+    min-height: 5.5rem;
+    padding: 0.72rem 0.72rem 0.72rem 2.7rem;
+  }
+
+  .offers-page-premium .pathfinder-options button > span:not(.pathfinder-option-check) {
+    font-size: 0.82rem;
   }
 
   .offers-page-premium .pathfinder-step-controls {
-    display: flex;
     gap: 0.55rem;
-    justify-content: space-between;
-    border-top: 1px solid var(--line-soft);
     margin-top: 0.15rem;
-    padding-top: 0.75rem;
   }
 
   .offers-page-premium .pathfinder-step-controls button {
     min-height: 2.75rem;
     min-width: 7rem;
-    border: 1px solid var(--line-soft);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--surface-panel-solid) 82%, transparent);
-    color: var(--text-heading);
-    cursor: pointer;
-    font-weight: 900;
     padding: 0.45rem 0.85rem;
-  }
-
-  .offers-page-premium .pathfinder-step-controls button:disabled {
-    cursor: not-allowed;
-    opacity: 0.42;
-  }
-
-  .offers-page-premium .pathfinder-progress {
-    gap: 0.5rem;
-  }
-
-  .offers-page-premium .pathfinder-progress button {
-    min-width: 2.2rem;
-    justify-content: center;
-  }
-
-  .offers-page-premium .pathfinder-options {
-    grid-template-columns: repeat(auto-fit, minmax(8.2rem, 1fr));
-    gap: 0.5rem;
-  }
-
-  .offers-page-premium .pathfinder-options button {
-    min-height: 5rem;
-    padding: 0.62rem;
-  }
-
-  .offers-page-premium .pathfinder-options span {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
   }
 
   .ladder-link {
