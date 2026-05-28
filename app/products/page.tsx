@@ -8,12 +8,11 @@ export const metadata = pageMetadata({
   description:
     "Notes on future Verdantia tools and resources that may support practical AI training, workflow clarity, and adoption.",
   path: "/products",
+  robots: {
+    index: false,
+    follow: true,
+  },
 });
-
-metadata.robots = {
-  index: false,
-  follow: true,
-};
 
 const productPrinciples = [
   "Solve a specific working problem.",

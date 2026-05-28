@@ -1,13 +1,17 @@
 import { ButtonLink } from "@/components/ButtonLink";
+import { JsonLd } from "@/components/JsonLd";
 import { OfferLadder } from "@/components/OfferLadder";
 import { PageHero } from "@/components/PageHero";
 import { individualLearningTracks, offers } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, faqPageSchema, graphSchema, offerCatalogSchema, webPageSchema } from "@/lib/schema";
+
+const offersDescription =
+  "Compare Verdantia AI briefings, workshops, adoption days, sprints, and learning labs for safer, practical AI use at work.";
 
 export const metadata = pageMetadata({
   title: "AI Training, Adoption & Learning Offers | Verdantia",
-  description:
-    "Explore Verdantia's practical AI training and adoption options for teams, training providers, and community organisations, with a separate learning-labs route for individual professionals.",
+  description: offersDescription,
   path: "/offers",
 });
 
@@ -66,9 +70,47 @@ const buyerRoutes = [
   },
 ] as const;
 
+const offerFaqs = [
+  {
+    question: "Which AI training offer should we start with?",
+    answer:
+      "Start with the lightest useful step: a briefing for shared language, a workshop for hands-on practice, an adoption day for workflow mapping, or a sprint for follow-up support.",
+  },
+  {
+    question: "Can Verdantia cover tools like ChatGPT, Claude, Gemini, Copilot, and Perplexity?",
+    answer:
+      "Yes. Tools are chosen around the work, risk, and review habits needed rather than taught as a generic tool tour.",
+  },
+  {
+    question: "Does Verdantia build automation?",
+    answer:
+      "Automation is considered downstream, once the workflow, data, permissions, and human review points are clear.",
+  },
+  {
+    question: "Can individuals join Verdantia training?",
+    answer:
+      "Yes. Individual professionals use the separate learning-labs lane for practical AI fluency and workflow practice.",
+  },
+] as const;
+
 export default function OffersPage() {
   return (
     <main id="main" className="inner-page offers-page-premium">
+      <JsonLd
+        data={graphSchema([
+          webPageSchema({
+            name: "AI Training, Adoption & Learning Offers",
+            description: offersDescription,
+            path: "/offers",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Offers", path: "/offers" },
+          ]),
+          offerCatalogSchema,
+          faqPageSchema([...offerFaqs]),
+        ])}
+      />
       <PageHero
         kicker="Offers"
         title="Choose the lightest useful AI step for your team."
@@ -273,6 +315,24 @@ export default function OffersPage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section offer-faq-section" aria-labelledby="offer-faq-heading">
+        <div className="shell section-heading section-heading-centered">
+          <p className="section-kicker">Questions buyers ask</p>
+          <h2 id="offer-faq-heading">Clear answers before the first call.</h2>
+          <p>
+            The offer ladder is designed to keep the first step practical, scoped, and proportionate to the need.
+          </p>
+        </div>
+        <div className="shell faq-grid" role="list" aria-label="Verdantia offer questions">
+          {offerFaqs.map((item) => (
+            <article className="faq-card" key={item.question} role="listitem">
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))}
         </div>
       </section>
 

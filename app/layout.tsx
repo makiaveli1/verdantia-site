@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Cinzel, Montserrat, Newsreader } from "next/font/google";
 import Script from "next/script";
+import { JsonLd } from "@/components/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { siteUrl } from "@/lib/site";
+import { graphSchema, organizationSchema, websiteSchema } from "@/lib/schema";
 import "./globals.css";
 
 const display = Newsreader({
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Verdantia helps teams, training providers, community organisations, and professionals turn scattered AI use into safe, practical, repeatable workflows through briefings, workshops, learning labs, adoption days, and adoption sprints.",
+    "Verdantia helps teams, training providers, community organisations, and professionals turn scattered AI use into safer, repeatable workflows through briefings, workshops, learning labs, adoption days, and adoption sprints.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -96,6 +98,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <SiteHeader />
+        <JsonLd data={graphSchema([organizationSchema, websiteSchema])} />
         {children}
         <SiteFooter />
       </body>

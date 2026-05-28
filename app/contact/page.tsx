@@ -1,12 +1,16 @@
 import { ContactForm } from "@/components/ContactForm";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { contactEmail } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, contactPageSchema, graphSchema, webPageSchema } from "@/lib/schema";
+
+const contactDescription =
+  "Contact Verdantia about AI team briefings, practical AI workshops, adoption days, adoption sprints, learning labs, and training provider partnerships.";
 
 export const metadata = pageMetadata({
   title: "Contact Verdantia | AI Training & Adoption Enquiries",
-  description:
-    "Contact Verdantia about AI team briefings, practical AI workshops, adoption days, adoption sprints, learning labs, and training provider partnerships.",
+  description: contactDescription,
   path: "/contact",
 });
 
@@ -35,6 +39,20 @@ const nextSteps = [
 export default function ContactPage() {
   return (
     <main id="main" className="inner-page">
+      <JsonLd
+        data={graphSchema([
+          webPageSchema({
+            name: "Contact Verdantia",
+            description: contactDescription,
+            path: "/contact",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+          contactPageSchema,
+        ])}
+      />
       <PageHero
         kicker="Contact"
         title="Start with the right first step."

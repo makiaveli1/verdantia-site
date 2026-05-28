@@ -1,12 +1,16 @@
 import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, founderPersonSchema, graphSchema, webPageSchema } from "@/lib/schema";
+
+const companyDescription =
+  "Learn about Verdantia, the founder-led AI training and adoption practice led by Gbemi Akadiri.";
 
 export const metadata = pageMetadata({
-  title: "Company | Verdantia",
-  description:
-    "Learn about Verdantia, a founder-led AI training and adoption practice founded by Gbemi Akadiri.",
+  title: "Founder-Led AI Training Practice | Verdantia",
+  description: companyDescription,
   path: "/company",
 });
 
@@ -15,7 +19,6 @@ const experience = [
   "AI training",
   "Microsoft Copilot enablement",
   "prompt engineering",
-  "workflow design",
   "workflow design",
   "practical delivery",
   "communication with technical and non-technical teams",
@@ -54,6 +57,20 @@ const teachingPrinciples = [
 export default function CompanyPage() {
   return (
     <main id="main" className="inner-page company-page-premium">
+      <JsonLd
+        data={graphSchema([
+          webPageSchema({
+            name: "Founder-Led AI Training Practice",
+            description: companyDescription,
+            path: "/company",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Company", path: "/company" },
+          ]),
+          founderPersonSchema,
+        ])}
+      />
       <PageHero
         kicker="Company"
         title="A founder-led practice for practical AI training and adoption."

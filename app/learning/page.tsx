@@ -1,12 +1,16 @@
 import { ButtonLink } from "@/components/ButtonLink";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { individualLearningTracks, toolGroups } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, graphSchema, learningCourseSchemas, webPageSchema } from "@/lib/schema";
+
+const learningDescription =
+  "Practical AI learning labs for professionals who want tool fluency, workflow confidence, and guided AI skill-building.";
 
 export const metadata = pageMetadata({
   title: "AI Learning Labs for Professionals | Verdantia",
-  description:
-    "Explore Verdantia's small practical AI learning labs for professionals who want tool fluency, workflow confidence, and guided AI skill-building.",
+  description: learningDescription,
   path: "/learning",
 });
 
@@ -35,6 +39,20 @@ const learnerSituations = [
 export default function LearningPage() {
   return (
     <main id="main" className="inner-page learning-page">
+      <JsonLd
+        data={graphSchema([
+          webPageSchema({
+            name: "AI Learning Labs for Professionals",
+            description: learningDescription,
+            path: "/learning",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Learning", path: "/learning" },
+          ]),
+          ...learningCourseSchemas,
+        ])}
+      />
       <PageHero
         kicker="Learning labs"
         title="Practical AI skill-building for individual professionals."

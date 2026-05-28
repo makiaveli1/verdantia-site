@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
+import { JsonLd } from "@/components/JsonLd";
 import {
   AdoptionPathway,
   CapabilityExplorer,
@@ -13,11 +14,14 @@ import {
 import { OfferLadder } from "@/components/OfferLadder";
 import { individualLearningTracks, principles, toolGroups } from "@/lib/site";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, graphSchema, webPageSchema } from "@/lib/schema";
+
+const homeDescription =
+  "Practical AI training and adoption support for teams, training providers, community organisations, and professionals who need safer, repeatable AI workflows.";
 
 export const metadata = pageMetadata({
   title: "Verdantia | Practical AI Training, Learning & Adoption Support",
-  description:
-    "Verdantia helps teams, training providers, and community organisations turn scattered AI use into safe, practical, repeatable workflows. Individual professionals can join a separate learning-labs lane.",
+  description: homeDescription,
 });
 
 const proofItems = [
@@ -88,6 +92,16 @@ const deliverables = [
 export default function Home() {
   return (
     <main id="main" className="home-page">
+      <JsonLd
+        data={graphSchema([
+          webPageSchema({
+            name: "Verdantia",
+            description: homeDescription,
+            path: "/",
+          }),
+          breadcrumbSchema([{ name: "Home", path: "/" }]),
+        ])}
+      />
       <HomeLoader />
       <ScrollReveal />
       <ReactiveArtifactField />

@@ -1,12 +1,16 @@
 import { AIPathfinder } from "@/components/AIPathfinder";
 import { ButtonLink } from "@/components/ButtonLink";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { pageMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, graphSchema, webPageSchema } from "@/lib/schema";
+
+const pathfinderDescription =
+  "Use the AI Pathfinder to choose a practical starting point for team training, adoption support, learning labs, or partner delivery.";
 
 export const metadata = pageMetadata({
-  title: "AI Pathfinder | Verdantia",
-  description:
-    "Use Verdantia's AI Pathfinder to turn a loose AI conversation into a practical starting brief for team training, adoption support, learning labs, or partnership delivery.",
+  title: "AI Pathfinder for Training & Adoption | Verdantia",
+  description: pathfinderDescription,
   path: "/pathfinder",
 });
 
@@ -35,6 +39,19 @@ const recommendationRules = [
 export default function PathfinderPage() {
   return (
     <main id="main" className="inner-page offers-page-premium pathfinder-page">
+      <JsonLd
+        data={graphSchema([
+          webPageSchema({
+            name: "AI Pathfinder for Training & Adoption",
+            description: pathfinderDescription,
+            path: "/pathfinder",
+          }),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Pathfinder", path: "/pathfinder" },
+          ]),
+        ])}
+      />
       <PageHero
         kicker="AI Pathfinder"
         title="Find the lightest useful AI starting point."

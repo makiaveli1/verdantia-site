@@ -1,5 +1,6 @@
 "use client";
 
+import type { KeyboardEvent } from "react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -48,6 +49,22 @@ export function AIPathfinder() {
       [stepId]: value,
     }));
     setCopyState("idle");
+  }
+
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLButtonElement>, optionIndex: number) {
+    if (!["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft"].includes(event.key)) return;
+
+    event.preventDefault();
+    const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (optionIndex + direction + activeStep.options.length) % activeStep.options.length;
+    const nextOption = activeStep.options[nextIndex];
+    const optionGroup = event.currentTarget.parentElement;
+
+    updateSelection(activeStep.id, nextOption.value);
+    window.requestAnimationFrame(() => {
+      const buttons = optionGroup?.querySelectorAll<HTMLButtonElement>('[role="radio"]');
+      buttons?.[nextIndex]?.focus();
+    });
   }
 
   function resetPathfinder() {
@@ -101,22 +118,28 @@ export function AIPathfinder() {
           <div className="pathfinder-board">
             <div className="pathfinder-question-panel">
               <fieldset className="pathfinder-step is-current" key={activeStep.id}>
-                <legend>
+                <legend id={`pathfinder-${activeStep.id}-legend`}>
                   <span>{activeStep.eyebrow}</span>
                   {activeStep.title}
                 </legend>
 
-                <div className="pathfinder-options">
-                  {activeStep.options.map((option) => {
+                <div
+                  className="pathfinder-options"
+                  role="radiogroup"
+                  aria-labelledby={`pathfinder-${activeStep.id}-legend`}
+                >
+                  {activeStep.options.map((option, optionIndex) => {
                     const isActive = selections[activeStep.id] === option.value;
 
                     return (
                       <button
                         key={option.value}
                         type="button"
-                        aria-pressed={isActive}
+                        role="radio"
+                        aria-checked={isActive}
                         className={isActive ? "is-active" : ""}
                         onClick={() => updateSelection(activeStep.id, option.value)}
+                        onKeyDown={(event) => handleOptionKeyDown(event, optionIndex)}
                       >
                         <span className="pathfinder-option-check" aria-hidden="true">
                           {isActive ? "✓" : ""}
