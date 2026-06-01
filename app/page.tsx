@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import { ButtonLink } from "@/components/ButtonLink";
+import { EditorialImage } from "@/components/EditorialImage";
 import { JsonLd } from "@/components/JsonLd";
 import {
   AdoptionPathway,
@@ -27,11 +27,11 @@ export const metadata = pageMetadata({
 const proofItems = [
   {
     label: "Founder-led",
-    copy: "Work is led by Gbemi Akadiri, so clients know who is shaping the training, materials, and adoption guidance.",
+    copy: "Gbemi Akadiri leads the work directly and has delivered Microsoft Copilot and introductory AI training for public-sector, financial-services, and workplace teams.",
   },
   {
     label: "Built for teams",
-    copy: "Practical AI training and adoption support for SMEs, training providers, nonprofits, and smaller corporate teams.",
+    copy: "Designed for teams already using AI for drafts, summaries, research, or planning who need clearer habits before heavier automation.",
   },
   {
     label: "Professional learning labs",
@@ -50,15 +50,15 @@ const proofItems = [
 const audienceItems = [
   {
     title: "SMEs and smaller corporate teams",
-    copy: "For teams where AI use is already happening, but practice is inconsistent, risky, or hard to repeat.",
+    copy: "For a 10–50 person team where some staff use ChatGPT, Copilot, Claude, or Gemini, but nobody has agreed what data is safe, what outputs need review, or which tasks should become normal practice.",
   },
   {
     title: "Training providers",
-    copy: "For providers that need extra delivery capacity, workshop design, or practical GenAI sessions for clients.",
+    copy: "For providers that need a practical GenAI module, half-day workshop, or client-ready session covering tool choice, safer prompting, output review, and workplace examples.",
   },
   {
     title: "Nonprofits and community organisations",
-    copy: "For small teams that need accessible AI literacy without a heavy enterprise programme.",
+    copy: "For small staff or volunteer teams that need accessible AI help for funding drafts, event planning, volunteer communications, reporting, research, or admin — without enterprise jargon.",
   },
   {
     title: "Individual professionals",
@@ -70,22 +70,37 @@ const deliverables = [
   {
     title: "AI readiness snapshot",
     eyebrow: "Starting point",
-    copy: "A clear view of current tool use, confidence, risks, and immediate opportunities.",
+    copy: "A one-page view of current tool use, confidence, risky habits, repeated tasks, and immediate opportunities.",
   },
   {
     title: "Workflow map",
     eyebrow: "Working map",
-    copy: "Priority tasks, decision points, review moments, and where AI support belongs.",
+    copy: "A one-page map showing the task, input data, AI role, human review point, risk level, owner, and next action.",
   },
   {
     title: "Prompt library",
     eyebrow: "Reusable prompts",
-    copy: "Role-based prompts, usage notes, and examples your team can improve over time.",
+    copy: "Starter prompts for agreed team tasks, with context fields, safe-use notes, review criteria, and weak prompt → improved prompt examples.",
   },
   {
     title: "Responsible-use checklist",
     eyebrow: "Responsible use",
-    copy: "Practical guidance for data handling, review habits, quality checks, and human judgement.",
+    copy: "What not to paste, when to use synthetic data, when to check sources, who reviews output before sharing, and when AI should not be used.",
+  },
+] as const;
+
+const problemCards = [
+  {
+    title: "Access is not adoption.",
+    copy: "Teams can have ChatGPT, Copilot, Claude, or Gemini and still lack shared confidence about where AI belongs.",
+  },
+  {
+    title: "Prompts are not process.",
+    copy: "Useful AI work needs repeatable workflows, review habits, and clear examples people can return to.",
+  },
+  {
+    title: "Automation comes after judgement.",
+    copy: "The sensible sequence is to map the work, risks, and review model before building heavier systems.",
   },
 ] as const;
 
@@ -108,31 +123,39 @@ export default function Home() {
 
       <section className="home-hero premium-home-hero" aria-labelledby="hero-heading">
         <div className="hero-atmosphere" aria-hidden="true">
-          <Image
-            src="/assets/verdantia-hero-field-guide.png"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-          />
+          <EditorialImage assetKey="homeHero" fill priority decorative sizes="100vw" />
         </div>
 
         <div className="shell hero-grid premium-hero-grid">
           <div className="hero-copy premium-hero-copy">
-            <p className="eyebrow">Practical AI training and adoption support</p>
-            <h1 id="hero-heading">Turn scattered AI use into safe, repeatable practice.</h1>
+            <p className="eyebrow">Dublin + remote · Practical AI training for teams</p>
+            <h1 id="hero-heading">Turn scattered AI use into safe, repeatable team workflows.</h1>
             <p className="hero-lede">
-              Verdantia helps teams, training providers, and community organisations turn scattered AI use into safer, repeatable practice. Individual professionals can join a separate learning-labs lane for practical skill-building.
+              Verdantia helps teams learn when to use AI, how to use it well, and how to turn promising experiments into practical working habits.
             </p>
             <p>
-              Start with a briefing, workshop, adoption day, focused sprint, or skills lab shaped around the work you actually do.
+              Most teams start with the half-day Practical AI Workshop. Use a briefing if leaders need a baseline first; move to an adoption day or sprint when workflows are ready to map.
             </p>
             <div className="hero-actions">
-              <ButtonLink href="/offers">Compare team offers</ButtonLink>
-              <ButtonLink href="/learning" variant="secondary" className="hero-secondary-link">
-                Explore learning labs
+              <ButtonLink href="/contact?enquiryType=Practical%20AI%20Workshop">Book an AI adoption call</ButtonLink>
+              <ButtonLink href="/offers" variant="secondary" className="hero-secondary-link">
+                View workshops
               </ButtonLink>
             </div>
+            <dl className="hero-commercial-strip" aria-label="Verdantia workshop summary">
+              <div>
+                <dt>Most common start</dt>
+                <dd>Practical AI Workshop</dd>
+              </div>
+              <div>
+                <dt>Format</dt>
+                <dd>Half-day · remote or onsite</dd>
+              </div>
+              <div>
+                <dt>Leave with</dt>
+                <dd>Prompts, checklist, next steps</dd>
+              </div>
+            </dl>
           </div>
 
           <aside className="hero-stage premium-hero-stage" aria-label="Verdantia method preview">
@@ -152,6 +175,15 @@ export default function Home() {
         </a>
       </section>
 
+      <div className="shell hero-proof-strip premium-proof-strip" aria-label="Verdantia summary">
+        {proofItems.map((item, index) => (
+          <article key={item.label} style={{ "--proof-index": index } as CSSProperties}>
+            <span>{item.label}</span>
+            <p>{item.copy}</p>
+          </article>
+        ))}
+      </div>
+
       <section id="problem-section" className="section intro-section scroll-rise" aria-labelledby="intro-heading">
         <div className="shell intro-grid">
           <div>
@@ -162,21 +194,18 @@ export default function Home() {
             <p>
               People are already testing ChatGPT, Claude, Gemini, Copilot, Perplexity, and other tools. The hard part is deciding which tasks are suitable, what information is safe to use, how to check the output, and when not to use AI.
             </p>
-            <p>
-              Verdantia helps teams turn informal AI use into shared practices people can use safely and consistently.
-            </p>
+            <div className="problem-card-grid" role="list" aria-label="Common AI adoption gaps">
+              {problemCards.map((item, index) => (
+                <article key={item.title} role="listitem" style={{ "--problem-index": index } as CSSProperties}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
-
-      <div className="shell hero-proof-strip premium-proof-strip" aria-label="Verdantia summary">
-        {proofItems.map((item, index) => (
-          <article key={item.label} style={{ "--proof-index": index } as CSSProperties}>
-            <span>{item.label}</span>
-            <p>{item.copy}</p>
-          </article>
-        ))}
-      </div>
 
       <div className="signal-band" aria-hidden="true">
         <div>
@@ -220,11 +249,24 @@ export default function Home() {
           <p className="section-kicker">Ways to start</p>
           <h2 id="offers-heading">Four clear ways for teams to start.</h2>
           <p>
-            Each organisation offer gives teams a concrete outcome without committing to more support than they need.
+            For most teams already experimenting with AI, the Practical AI Workshop is the likely starting point. The other offers keep the route proportionate when you need less or more.
           </p>
         </div>
         <div className="shell">
           <OfferLadder />
+        </div>
+        <div className="shell flagship-offer-callout" aria-labelledby="home-flagship-heading">
+          <div>
+            <p className="section-kicker">Most common starting point</p>
+            <h3 id="home-flagship-heading">Practical AI Workshop for teams already experimenting.</h3>
+            <p>
+              A half-day session for teams using ChatGPT, Copilot, Claude, Gemini, or Perplexity informally. Participants practise safer prompts, compare outputs, review privacy and quality risks, and capture realistic team use cases.
+            </p>
+          </div>
+          <div className="flagship-offer-actions">
+            <ButtonLink href="/offers/practical-ai-workshop">See workshop details</ButtonLink>
+            <ButtonLink href="/resources" variant="secondary">Preview materials</ButtonLink>
+          </div>
         </div>
       </section>
 
@@ -360,13 +402,10 @@ export default function Home() {
       <section className="section founder-signal-section scroll-rise" aria-labelledby="founder-signal-heading">
         <div className="shell founder-signal premium-founder-signal">
           <div className="founder-image-shell">
-            <Image
-              src="/assets/gbemi-akadiri.webp"
-              width={900}
-              height={900}
-              alt="Gbemi Akadiri, founder of Verdantia."
+            <EditorialImage
+              assetKey="founderPortrait"
+              fill={false}
               sizes="(max-width: 900px) 88vw, 280px"
-              loading="eager"
             />
             <p className="founder-image-caption">Gbemi Akadiri · Founder and lead trainer</p>
           </div>
@@ -408,10 +447,10 @@ export default function Home() {
           <p className="section-kicker">Start the work</p>
           <h2 id="final-cta-heading">Book the right first step.</h2>
           <p>
-            If your team, organisation, or personal workflow needs AI to become clearer, safer, and more useful, start with the route that fits: an organisation offer or a professional learning lab.
+            Send a short brief and Verdantia will recommend the lightest useful starting point: briefing, workshop, adoption day, sprint, learning lab, or no engagement yet.
           </p>
           <ButtonLink href="/contact" variant="light">
-            Book a practical AI fit call
+            Request a practical AI fit call
           </ButtonLink>
         </div>
       </section>

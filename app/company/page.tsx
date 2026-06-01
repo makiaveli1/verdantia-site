@@ -73,13 +73,14 @@ export default function CompanyPage() {
       />
       <PageHero
         kicker="Company"
-        title="A founder-led practice for practical AI training and adoption."
+        title="The person behind the Verdantia room."
         visual="company"
+        asset="company"
         meta={["Clear offer", "Founder-led", "Practical learning"]}
-        actions={<ButtonLink href="/contact">Book a practical AI call</ButtonLink>}
+        actions={<ButtonLink href="/contact">Request a practical AI call</ButtonLink>}
       >
         <p>
-          Verdantia helps organisations move from informal AI use to practical capability through training, workflow mapping, prompt systems, and responsible-use guidance.
+          Verdantia is founder-led because trust matters in AI training. Clients should know who is shaping the examples, reading the room, and turning messy AI curiosity into usable practice.
         </p>
       </PageHero>
 
@@ -88,7 +89,7 @@ export default function CompanyPage() {
           <div>
             <p className="section-kicker">Why Verdantia exists</p>
             <h2 id="company-story-heading">
-              AI adoption needs clear work, careful judgement, and useful materials.
+              AI adoption needs a human teaching it, not just a tool list.
             </h2>
           </div>
           <div className="company-copy-panel">
@@ -96,10 +97,10 @@ export default function CompanyPage() {
               Verdantia exists for the moment when AI has moved beyond curiosity but has not yet become a reliable team practice.
             </p>
             <p>
-              The company’s work is shaped by practical experience across AI training, Microsoft Copilot enablement, communication support, workflow design, and practical delivery.
+              The company’s work is shaped by experience across AI training, Microsoft Copilot enablement, communication support, workflow design, and practical delivery, including introductory AI and Copilot training for public-sector, financial-services, and workplace teams.
             </p>
             <p>
-              The outcome is intentionally concrete: better team skills, clearer workflows, stronger adoption materials, and safe habits that survive after the workshop ends.
+              The point is concrete delivery: better team skills, clearer examples, stronger review habits, and material people can return to after the room goes quiet.
             </p>
           </div>
         </div>
@@ -121,7 +122,7 @@ export default function CompanyPage() {
             <p className="section-kicker">Founder-led, company-backed</p>
             <h2 id="founder-heading">Clients know who is shaping the work.</h2>
             <p>
-              Oluwagbemi Enoch Akadiri, commonly known as Gbemi Akadiri, brings together AI consulting, training, prompt engineering, workflow design, communication support, and practical delivery.
+              Oluwagbemi Enoch Akadiri, commonly known as Gbemi Akadiri, brings together AI consulting, training, prompt engineering, workflow design, communication support, and practical delivery. Verdantia keeps that experience focused on safer prompts, review habits, workflow examples, and reusable materials.
             </p>
           </div>
           <ul className="founder-credentials" aria-label="Relevant experience">
@@ -203,7 +204,7 @@ export default function CompanyPage() {
             If your organisation needs grounded advice, training, workflow design, or adoption support, start with a focused conversation.
           </p>
           <ButtonLink href="/contact" variant="light">
-            Book a practical AI call
+            Request a practical AI call
           </ButtonLink>
         </div>
       </section>

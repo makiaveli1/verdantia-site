@@ -164,6 +164,12 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const isHome = pathname === "/";
 
+  function isNavItemActive(href: string) {
+    if (href === "/") return pathname === "/";
+    if (href === "/offers") return pathname === "/offers" || pathname.startsWith("/offers/");
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setIsOpen(false);
@@ -187,7 +193,7 @@ export function SiteHeader() {
 
           <nav className="desktop-nav" aria-label="Primary navigation">
             {navItems.map((item) => {
-              const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              const isActive = isNavItemActive(item.href);
               return (
                 <Link key={item.href} href={item.href} aria-current={isActive ? "page" : undefined}>
                   {item.label}
@@ -198,7 +204,7 @@ export function SiteHeader() {
 
           <div className="header-actions">
             <Link className="header-cta" href="/contact">
-              <span>Book a practical AI call</span>
+              <span>Request a practical AI call</span>
             </Link>
 
             <button
@@ -224,7 +230,7 @@ export function SiteHeader() {
           <div className="shell mobile-panel-inner">
             <nav aria-label="Mobile navigation">
               {navItems.map((item, index) => {
-                const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                const isActive = isNavItemActive(item.href);
                 return (
                   <Link
                     key={item.href}
@@ -239,7 +245,7 @@ export function SiteHeader() {
               })}
             </nav>
             <Link className="mobile-cta" href="/contact" onClick={() => setIsOpen(false)}>
-              Book a practical AI call
+              Request a practical AI call
             </Link>
           </div>
         </div>

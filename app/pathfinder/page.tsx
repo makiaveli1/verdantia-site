@@ -54,8 +54,9 @@ export default function PathfinderPage() {
       />
       <PageHero
         kicker="AI Pathfinder"
-        title="Find the lightest useful AI starting point."
+        title="Use the Pathfinder, then move the brief."
         visual="capabilities"
+        asset="pathfinder"
         meta={["Team route", "Learning labs", "Partner delivery", "Brief ready"]}
         actions={
           <>
@@ -67,7 +68,7 @@ export default function PathfinderPage() {
         }
       >
         <p>
-          A focused decision tool for teams, training providers, community groups, and individual professionals who need practical AI support without guessing the package first.
+          A focused decision tool for people who do not want to guess the package first. Answer the questions, get the route, then carry the brief into contact.
         </p>
       </PageHero>
 
@@ -121,7 +122,7 @@ export default function PathfinderPage() {
               Compare offers
             </ButtonLink>
             <ButtonLink href="/contact" variant="light">
-              Book a practical AI call
+              Request a practical AI call
             </ButtonLink>
           </div>
         </div>
