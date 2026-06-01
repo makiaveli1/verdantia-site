@@ -21,6 +21,14 @@ const learningPrinciples = [
   "Reusable personal systems after each session.",
 ] as const;
 
+const learnerOutputs = [
+  "Research workflow with source checks and synthesis prompts.",
+  "Meeting-notes workflow with actions, risks, and follow-up drafts.",
+  "Presentation outline workflow from messy notes to useful structure.",
+  "Spreadsheet or data-question workflow with verification prompts.",
+  "Proposal, job-search, or stakeholder-update workflow where relevant.",
+] as const;
+
 const learnerSituations = [
   {
     title: "You use AI occasionally but not systematically",
@@ -55,8 +63,9 @@ export default function LearningPage() {
       />
       <PageHero
         kicker="Learning labs"
-        title="Practical AI skill-building for individual professionals."
+        title="A practical AI lab for your own work."
         visual="capabilities"
+        asset="learning"
         meta={["Small groups", "Live practice", "Workflow-led", "Practical support"]}
         actions={
           <>
@@ -68,7 +77,7 @@ export default function LearningPage() {
         }
       >
         <p>
-          Verdantia’s learning labs are a separate professional-development lane for individuals who want practical AI fluency for their own work: clearer tool choice, safer prompting, better review habits, and repeatable workflows. If you are buying for a team, training provider, or community organisation, start with the organisation offers.
+          Individual labs are for professionals who want to use AI better in their own work: tool choice, prompt habits, review judgement, and repeatable workflows. Team buyers should use the workshop route instead.
         </p>
       </PageHero>
 
@@ -76,9 +85,9 @@ export default function LearningPage() {
         <div className="shell learning-position-grid">
           <div>
             <p className="section-kicker">Learning approach</p>
-            <h2 id="learning-position-heading">Learn through the work you already do.</h2>
+            <h2 id="learning-position-heading">Build one useful workflow at a time.</h2>
             <p>
-              The labs focus on practical use: writing, research, planning, presentations, analysis, and simple workflows people can repeat after the session.
+              The lab format keeps the work small enough to practise properly: a document, meeting, research task, analysis question, presentation, or repeatable personal process.
             </p>
           </div>
           <ul className="learning-principles" aria-label="Learning lane principles">
@@ -132,6 +141,21 @@ export default function LearningPage() {
         </div>
       </section>
 
+      <section className="section learning-availability-section" aria-labelledby="learning-availability-heading">
+        <div className="shell learning-availability-panel">
+          <div>
+            <p className="section-kicker">Availability</p>
+            <h2 id="learning-availability-heading">Public dates are shaped around demand.</h2>
+            <p>Next public dates are coming soon. Private small-group labs and 1:1 workflow clinics are available by request.</p>
+          </div>
+          <ul aria-label="Example learner outputs">
+            {learnerOutputs.map((output) => (
+              <li key={output}>{output}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="section learner-situations-section" aria-labelledby="learner-situations-heading">
         <div className="shell learner-situations-panel">
           <div>
@@ -153,9 +177,9 @@ export default function LearningPage() {
         <div className="shell tools-layout learning-tools-layout">
           <div className="tools-intro">
             <p className="section-kicker">Tools covered when useful</p>
-            <h2 id="learning-tools-heading">Build fluency across tools, then choose by workflow.</h2>
+            <h2 id="learning-tools-heading">Tool fluency follows the workflow.</h2>
             <p>
-              Labs can cover everyday AI assistants, research tools, creative workflows, and automation basics. The aim is not to memorise a tool list; it is to build judgement and repeatable personal systems.
+              Labs can use assistants, research tools, creative systems, or automation basics, but the point is the decision habit: which tool, what context, what review, what next action.
             </p>
           </div>
           <div className="tool-cluster-grid" role="list" aria-label="AI tool groups for individual learning labs">
@@ -182,7 +206,7 @@ export default function LearningPage() {
             Send a short note about your role, current AI tools, budget, and the workflows you want to improve. Verdantia can recommend the right lab or clinic format.
           </p>
           <ButtonLink href="/contact?enquiryType=Individual%20AI%20skills%20lab" variant="light">
-            Register interest
+            Request lab availability
           </ButtonLink>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { contactEmail, individualLearningTracks, offers, siteUrl } from "./site";
+import { contactEmail, individualLearningTracks, offerPages, siteUrl, type TeamOffer } from "./site";
 
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
@@ -99,7 +99,7 @@ export const offerCatalogSchema = {
   name: "Verdantia AI training and adoption offers",
   url: `${siteUrl}/offers`,
   provider: { "@id": organizationId },
-  itemListElement: offers.map((offer) => ({
+  itemListElement: offerPages.map((offer) => ({
     "@type": "Offer",
     name: offer.title,
     description: offer.summary,
@@ -179,5 +179,29 @@ export function faqPageSchema(items: FaqItem[]) {
         text: item.answer,
       },
     })),
+  };
+}
+
+export function serviceOfferSchema(offer: TeamOffer) {
+  return {
+    "@type": "Offer",
+    name: offer.title,
+    url: `${siteUrl}${offer.path}`,
+    description: offer.summary,
+    priceCurrency: "EUR",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      priceCurrency: "EUR",
+      description: offer.price,
+    },
+    itemOffered: {
+      "@type": "Service",
+      name: offer.title,
+      serviceType: offer.level === "Creative studio" ? "Creative concept and social ad support" : "AI training and adoption support",
+      description: offer.summary,
+      provider: { "@id": organizationId },
+      areaServed: organizationSchema.areaServed,
+    },
+    provider: { "@id": organizationId },
   };
 }

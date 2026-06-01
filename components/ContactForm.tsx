@@ -65,6 +65,7 @@ export function ContactForm() {
             : current.enquiryType,
         message: message ? message.slice(0, 2200) : current.message,
       }));
+      setNotice(message ? "Pathfinder brief imported. Review the draft, add your details, then prepare the email." : null);
     }, 0);
 
     return () => window.clearTimeout(timeout);
@@ -134,12 +135,12 @@ export function ContactForm() {
       <div className="contact-form-header">
         <span>Enquiry builder</span>
         <strong>Prepare a useful brief</strong>
-        <p>This form checks the essentials and prepares a direct email you can send.</p>
+        <p>This form checks the essentials and prepares an email draft. Nothing is sent automatically.</p>
       </div>
 
       <div className="field-grid">
         <div className="field">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Name <span aria-hidden="true">*</span></label>
           <input
             id="name"
             name="name"
@@ -153,7 +154,7 @@ export function ContactForm() {
         </div>
 
         <div className="field">
-          <label htmlFor="organisation">Organisation or context</label>
+          <label htmlFor="organisation">Organisation or context <span aria-hidden="true">*</span></label>
           <input
             id="organisation"
             name="organisation"
@@ -172,7 +173,7 @@ export function ContactForm() {
 
       <div className="field-grid">
         <div className="field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email <span aria-hidden="true">*</span></label>
           <input
             id="email"
             name="email"
@@ -187,7 +188,7 @@ export function ContactForm() {
         </div>
 
         <div className="field">
-          <label htmlFor="enquiryType">Enquiry type</label>
+          <label htmlFor="enquiryType">Enquiry type <span aria-hidden="true">*</span></label>
           <select
             id="enquiryType"
             name="enquiryType"
@@ -208,19 +209,19 @@ export function ContactForm() {
       </div>
 
       <div className="field">
-        <label htmlFor="message">What would you like support with?</label>
+        <label htmlFor="message">What would you like support with? <span aria-hidden="true">*</span></label>
         <textarea
           id="message"
           name="message"
           rows={6}
           value={values.message}
-          placeholder="Example: We are a 25-person team using ChatGPT and Copilot informally, and need safer prompting habits. Or: I want a practical AI workflow for research, writing, and presentations."
+          placeholder="Example: We are a 25-person team using ChatGPT and Copilot informally, and need safer prompting habits. Or: I need short social video ad concepts/scripts from existing product material, not media buying."
           onChange={(event) => updateField("message", event.target.value)}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-error" : "message-help"}
         />
         <span id="message-help" className="field-help">
-          Include current tools, team size or role context, risk concerns, and the work you want to improve first.
+          Include current tools, team size or role context, risk concerns, and the work you want to improve first. For video ads, include platform, audience, offer, existing assets, and whether you need concepts, scripts, prompts, captions, or a review.
         </span>
         {errors.message ? <p id="message-error">{errors.message}</p> : null}
       </div>
@@ -258,9 +259,11 @@ export function ContactForm() {
         </div>
       ) : null}
 
+      <p className="form-privacy-note">Verdantia uses your details only to respond to your enquiry.</p>
+
       <div className="form-actions">
         <button type="submit" className="button button-primary">
-          <span>{draftReady ? "Update enquiry" : "Prepare enquiry"}</span>
+          <span>{draftReady ? "Update email draft" : "Review email draft"}</span>
           <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
             <path d="M6.2 3.2 12 9l-5.8 5.8" />
           </svg>

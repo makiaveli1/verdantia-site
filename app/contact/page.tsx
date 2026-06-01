@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { breadcrumbSchema, contactPageSchema, graphSchema, webPageSchema } from "@/lib/schema";
 
 const contactDescription =
-  "Contact Verdantia about AI team briefings, practical AI workshops, adoption days, adoption sprints, learning labs, and training provider partnerships.";
+  "Contact Verdantia about AI team briefings, practical workshops, adoption support, AI video social ad concepts, learning labs, and training provider partnerships.";
 
 export const metadata = pageMetadata({
   title: "Contact Verdantia | AI Training & Adoption Enquiries",
@@ -17,6 +17,7 @@ export const metadata = pageMetadata({
 const enquiryGuidance = [
   "Where your team, organisation, or workflow is with AI today",
   "The tools you are already using or considering",
+  "Video goal, audience, platform, source assets, and offer mix (if this is for social video ads)",
   "The workflows, roles, skills, or risks that need attention",
   "Whether you want a team offer, learning lab, workflow clinic, or partnership conversation",
 ] as const;
@@ -57,7 +58,7 @@ export default function ContactPage() {
         kicker="Contact"
         title="Start with the right first step."
         visual="contact"
-        meta={["Briefings", "Workshops", "Adoption days", "Sprints"]}
+        meta={["Briefings", "Workshops", "AI video ads", "Adoption days", "Sprints"]}
       >
         <p>
           Tell us what you are trying to improve, where AI is already showing up, and what kind of support you are considering. If you used AI Pathfinder, your brief can be carried into the form automatically.

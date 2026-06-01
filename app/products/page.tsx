@@ -38,23 +38,24 @@ const productStages = [
 
 export default function ProductsPage() {
   return (
-    <main id="main" className="inner-page">
+    <main id="main" className="inner-page products-page">
       <PageHero
-        kicker="Tools and resources"
-        title="Tools support the training work."
+        kicker="Resource shelf"
+        title="A quiet shelf for future Verdantia tools."
         visual="products"
+        asset="products"
         meta={["Training first", "Workflow clarity", "Useful resources"]}
         actions={
           <>
-            <ButtonLink href="/offers">Explore the current offers</ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
-              Discuss a practical tool need
+            <ButtonLink href="/resources">View current resources</ButtonLink>
+            <ButtonLink href="/offers" variant="secondary">
+              Explore the current offers
             </ButtonLink>
           </>
         }
       >
         <p>
-          Verdantia’s main offer is practical AI training and adoption support. Any future tools or resources should make that work clearer, safer, and easier to repeat.
+          Verdantia is not pretending to have a product suite before the training work earns it. This page keeps future tools clearly subordinate to current resources and offers.
         </p>
       </PageHero>
 
@@ -132,8 +133,8 @@ export default function ProductsPage() {
           <p>
             If you need practical AI support now, begin with the offer ladder or a focused enquiry. Tools and resources are useful when they support that work.
           </p>
-          <ButtonLink href="/offers" variant="light">
-            Explore current offers
+          <ButtonLink href="/resources" variant="light">
+            View resources
           </ButtonLink>
         </div>
       </section>

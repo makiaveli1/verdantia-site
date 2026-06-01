@@ -62,11 +62,7 @@ export function OfferLadder({ context = "home" }: OfferLadderProps) {
               </ul>
             </div>
 
-            <Link
-              className="ladder-link"
-              href={`/contact?enquiryType=${encodeURIComponent(offer.title)}`}
-              aria-label={`Start an enquiry about ${offer.title}`}
-            >
+            <Link className="ladder-link" href={offer.href} aria-label={`View details for ${offer.title}`}>
               {offer.ctaLabel}
               <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
                 <path d="M6.2 3.2 12 9l-5.8 5.8" />

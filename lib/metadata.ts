@@ -5,6 +5,13 @@ type PageMetadataInput = {
   title: string;
   description: string;
   path?: string;
+  image?: {
+    url: string;
+    width?: number;
+    height?: number;
+    type?: string;
+    alt?: string;
+  };
   robots?: Metadata["robots"];
 };
 
@@ -14,9 +21,18 @@ export function pageMetadata({
   title,
   description,
   path = "/",
+  image,
   robots,
 }: PageMetadataInput): Metadata {
   const url = new URL(path, siteUrl).toString();
+  const ogImage = image ?? {
+    url: defaultOgImage,
+    width: 1200,
+    height: 630,
+    type: "image/jpeg",
+    alt: "Verdantia - Practical AI training and adoption support.",
+  };
+  const ogImageUrl = new URL(ogImage.url, siteUrl).toString();
 
   return {
     title,
@@ -34,11 +50,11 @@ export function pageMetadata({
       type: "website",
       images: [
         {
-          url: defaultOgImage,
-          width: 1200,
-          height: 630,
-          type: "image/jpeg",
-          alt: "Verdantia - Practical AI training and adoption support.",
+          url: ogImageUrl,
+          width: ogImage.width ?? 1200,
+          height: ogImage.height ?? 630,
+          type: ogImage.type,
+          alt: ogImage.alt ?? "Verdantia - Practical AI training and adoption support.",
         },
       ],
     },
@@ -46,7 +62,7 @@ export function pageMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [defaultOgImage],
+      images: [ogImageUrl],
     },
   };
 }

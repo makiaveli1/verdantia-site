@@ -79,9 +79,9 @@ export function AIPathfinder() {
         <div className="pathfinder-intro premium-pathfinder-intro">
           <div>
             <p className="section-kicker">AI Pathfinder</p>
-            <h2 id="pathfinder-heading">Answer seven questions; leave with a practical brief.</h2>
+            <h2 id="pathfinder-heading">Answer seven questions; carry the brief into contact.</h2>
             <p>
-              Work through the audience, tools, workflow clarity, risks, and realistic format. The live recommendation stays short while the fuller brief builds underneath the questions.
+              Work through audience, tools, workflow clarity, risk, and format. The live recommendation updates as you answer.
             </p>
           </div>
           <div className="pathfinder-note-card" aria-label="How the Pathfinder works">
@@ -119,7 +119,7 @@ export function AIPathfinder() {
             <div className="pathfinder-question-panel">
               <fieldset className="pathfinder-step is-current" key={activeStep.id}>
                 <legend id={`pathfinder-${activeStep.id}-legend`}>
-                  <span>{activeStep.eyebrow}</span>
+                  <span>Question {activeStepIndex + 1} of {pathfinderSteps.length} · {activeStep.eyebrow}</span>
                   {activeStep.title}
                 </legend>
 
@@ -206,7 +206,7 @@ export function AIPathfinder() {
               </p>
 
               <div className="pathfinder-result-topline">
-                <span className="status-badge">Recommended starting point</span>
+                <span className="status-badge">Live recommendation</span>
                 <span>{recommendation.confidence}</span>
               </div>
 
@@ -244,7 +244,7 @@ export function AIPathfinder() {
 
               <div className="pathfinder-actions">
                 <Link className="button button-light" href={contactHref}>
-                  <span>Use this as my enquiry brief</span>
+                  <span>Open contact form with brief</span>
                   <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
                     <path d="M6.2 3.2 12 9l-5.8 5.8" />
                   </svg>

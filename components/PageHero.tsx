@@ -1,10 +1,16 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
+import { EditorialImage } from "@/components/EditorialImage";
+import { routeHeroAssetKeys } from "@/lib/assets";
 
 type PageHeroProps = {
   title: string;
   kicker?: string;
   meta?: readonly string[];
   visual?: "capabilities" | "products" | "company" | "contact";
+  asset?: keyof typeof routeHeroAssetKeys;
+  assetSrc?: string;
+  assetAlt?: string;
   actions?: ReactNode;
   children: ReactNode;
 };
@@ -14,9 +20,14 @@ export function PageHero({
   kicker,
   meta,
   visual = "capabilities",
+  asset,
+  assetSrc,
+  assetAlt = "",
   actions,
   children,
 }: PageHeroProps) {
+  const heroAssetKey = asset ? routeHeroAssetKeys[asset] : null;
+
   return (
     <section className={`page-hero page-hero-${visual}`}>
       <div className="shell page-hero-inner">
@@ -35,11 +46,29 @@ export function PageHero({
           ) : null}
           {actions ? <div className="page-hero-actions">{actions}</div> : null}
         </div>
-        <div className="page-hero-visual" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <svg viewBox="0 0 420 240" focusable="false">
+        <div className="page-hero-visual">
+          {assetSrc ? (
+            <Image
+              className="page-hero-visual-image"
+              src={assetSrc}
+              alt={assetAlt}
+              fill
+              priority
+              sizes="(max-width: 760px) 100vw, (max-width: 1120px) 92vw, 60vw"
+            />
+          ) : heroAssetKey ? (
+            <EditorialImage
+              assetKey={heroAssetKey}
+              imageClassName="page-hero-visual-image"
+              fill
+              priority
+              sizes="(max-width: 760px) 100vw, (max-width: 1120px) 92vw, 60vw"
+            />
+          ) : null}
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <svg viewBox="0 0 420 240" aria-hidden="true" focusable="false">
             <path d="M36 172c72-80 144-112 216-96 58 13 82 62 136 28" />
             <path d="M82 180c72-62 192-62 264 0" />
           </svg>
